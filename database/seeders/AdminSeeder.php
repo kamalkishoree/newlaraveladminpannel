@@ -22,6 +22,7 @@ class AdminSeeder extends Seeder
                 'name'      => 'Soumik Ahammed',
                 'email'     => 'admin@example.com',
                 'mobile'    => '01689201370',
+                'dial_code' => '+91',
                 'password'  => bcrypt('abc123'),
                 'status'    => 1
             ]);

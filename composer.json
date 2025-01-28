@@ -8,7 +8,7 @@
     ],
     "license": "MIT",
     "require": {
-        "php": "^7.3|^8.0",
+        "php": "^7.3|^8.2",
         "alexusmai/laravel-file-manager": "^2.5",
         "brian2694/laravel-toastr": "^5.56",
         "davejamesmiller/laravel-breadcrumbs": "5.x",
@@ -20,8 +20,7 @@
         "intervention/image": "^2.5",
         "intervention/imagecache": "^2.5",
         "laravel/framework": "^8.75",
-        "laravel/passport": "^10.0",
-        "laravel/sanctum": "^2.11",
+        "laravel/passport": "^10.4",
         "laravel/tinker": "^2.5",
         "laravel/ui": "^3.0",
         "laravelcollective/html": "^6.4",

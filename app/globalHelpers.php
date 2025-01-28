@@ -17,4 +17,14 @@ if (!function_exists('isModuleEnabled')) {
         }
         return false;
     }
+
+
+        if (!function_exists('pr')) {
+            function pr($var) {
+                echo '<pre>';
+                print_r($var);
+                echo '</pre>';
+                exit();
+            }
+        }
 }

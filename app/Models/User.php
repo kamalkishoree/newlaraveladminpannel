@@ -12,7 +12,6 @@ use Spatie\Permission\Models\Role;
 use Illuminate\Support\Facades\Auth;
 use Haruncpi\LaravelUserActivity\Traits\Loggable;
 
-
 class User extends Authenticatable
 {
     use HasFactory, Notifiable, HasApiTokens, HasRoles, Loggable;

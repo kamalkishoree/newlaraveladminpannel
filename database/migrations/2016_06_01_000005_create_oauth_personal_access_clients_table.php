@@ -33,7 +33,7 @@ class CreateOauthPersonalAccessClientsTable extends Migration
         if (!Schema::hasTable('oauth_personal_access_clients')) {
             $this->schema->create('oauth_personal_access_clients', function (Blueprint $table) {
                 $table->bigIncrements('id');
-                $table->unsignedBigInteger('client_id');
+                $table->uuid('client_id');
                 $table->timestamps();
             });
         }
