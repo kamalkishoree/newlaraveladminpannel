@@ -1,17 +1,27 @@
 <!-- Sidebar -->
 <div class="sidebar" id="sidebar">
+    <div class="p_15">
+    <div class="user_prof">
+        <div class="img_prof">
+        <img class="img-fluid" src="/assets/admin/img/default-user.png" alt="Logo">
+        </div>
+        <div class="content_prof">
+            <h6>Kenonn Rawat</h6>
+            <p>welcome</p>
+        </div>
+        </div>
+       
+
+
+    </div>
     <div class="sidebar-inner slimscroll">
         <div id="sidebar-menu" class="sidebar-menu">
             <ul>
-
-                <li class="menu-title">
-                    <span>Main</span>
-                </li>
-
                 <!-- Dashboard -->
                 <li class="{{ (request()->is('admin/dashboard*')) ? 'active' : '' }}">
                     <a class="sidebar-link" href="{{ route('dashboard') }}" aria-expanded="false">
-                        <i data-feather="book-open"></i>
+                        <i data-feather="home"></i>
+                        <!-- <i class="fa-solid fa-house"></i> -->
                         <span>
                             {{__('sidebar.dashboard')}}
                         </span>
@@ -19,11 +29,138 @@
                 </li>
                 <!-- /Dashboard -->
 
-                <!-- CMS -->
+
+            <!-- Users -->
+            @if(auth()->user()->can('user-list') || auth()->user()->can('role-list') || auth()->user()->can('permission-list') || auth()->user()->can('user-activity'))
+                <li class="submenu">
+                    <a class="" href="javascript:void(0)" aria-expanded="false">
+                        <i data-feather="users"></i>
+                        <span class="hide-menu">{{__('User Management')}} </span>
+                        <span class="menu-arrow"></span>
+                    </a>
+
+                    <ul style="display: none;">
+                        @can('user-list')
+                        <li>
+                            <a href="{{ route('users.index') }}" title="{{__('sidebar.user')}}" class="sidebar-link {{ (request()->is('admin/user*')) ? 'active' : '' }}">
+                                <span class="hide-menu">{{__('Review Purchase Details')}}</span>
+                            </a>
+                        </li>
+                        @endcan
+
+                       
+                    </ul>
+                </li>
+                @endif
+                <!-- /Users -->
+
+
+
+                <!-- Manage Commission -->
+                <li class="{{ (request()->is('admin/dashboard*')) ? '' : '' }}">
+                <a class="sidebar-link" href="{{ route('dashboard') }}" aria-expanded="false">
+                    <i data-feather="book-open"></i>
+                    
+                    <span>
+                        {{__('Manage Commission ')}}
+                    </span>
+                </a>
+                </li>
+                <!-- /Manage Commission -->
+
+                   <!-- Banner -->
+                   <li class="{{ (request()->is('admin/dashboard*')) ? '' : '' }}">
+                <a class="sidebar-link" href="{{ route('dashboard') }}" aria-expanded="false">
+                <i class="fa-regular fa-images"></i>
+                    <span>
+                        {{__('Banners ')}}
+                    </span>
+                </a>
+                </li>
+                <!-- /banner -->
+
+
+                 <!-- Wallet  -->
+                 <li class="{{ (request()->is('admin/dashboard*')) ? '' : '' }}">
+                <a class="sidebar-link" href="{{ route('dashboard') }}" aria-expanded="false">
+                <i class="fa-regular fa-credit-card"></i>
+                  <!-- <i data-feather="book-open"></i> -->
+                    <span>
+                        {{__('Wallet  ')}}
+                    </span>
+                </a>
+                </li>
+                <!-- /Wallet  -->
+
+               
+                <!-- Withdrawal management -->
                 @if(auth()->user()->can('cmspage-list') || auth()->user()->can('cmscategory-list'))
                 <li class="submenu">
                     <a class="" href="javascript:void(0)" aria-expanded="false">
                         <i data-feather="file-text"></i>
+                        <span class="hide-menu">{{__('Withdrawal Mgmt')}} </span>
+                        <span class="menu-arrow"></span>
+                    </a>
+
+                    <ul style="display: none;">
+                        @can('cmscategory-list')
+                        <li>
+                            <a href="{{ route('cmscategories.index') }}" title="{{__('sidebar.category')}}" class="sidebar-link {{ (request()->is('admin/cmscategories*')) ? 'active' : '' }}">
+                                <span class="hide-menu">{{__('Withdrawal Type Mgmt')}}</span>
+                            </a>
+                        </li>
+                        @endcan
+
+                        @can('cmspage-list')
+                        <li>
+                            <a href="{{ route('cmspages.index') }}" title="{{__('sidebar.cms-pages')}}" class="sidebar-link {{ (request()->is('admin/cmspage*')) ? 'active' : '' }}">
+                                <span class="hide-menu">{{__('Withdrawal Request')}}</span>
+                            </a>
+                        </li>
+                        @endcan
+                        @can('cmspage-list')
+                        <li>
+                            <a href="{{ route('cmspages.index') }}" title="{{__('sidebar.cms-pages')}}" class="sidebar-link {{ (request()->is('admin/cmspage*')) ? 'active' : '' }}">
+                                <span class="hide-menu">{{__('Offer Mgmt')}}</span>
+                            </a>
+                        </li>
+                        @endcan
+                    </ul>
+                </li>
+                @endif
+                <!-- /Withdrawal management -->
+
+                <!-- Financial Redirection Management   -->
+                <li class="{{ (request()->is('admin/dashboard*')) ? '' : '' }}">
+                                <a class="sidebar-link" href="{{ route('dashboard') }}" aria-expanded="false">
+                                <i class="fa-solid fa-indian-rupee-sign"></i>
+                    <span>
+                        {{__('Financial Redirection Mgmt   ')}}
+                    </span>
+                </a>
+                </li>
+                <!-- /Financial Redirection Management   -->
+
+                 <!--Reports   -->
+                 <li class="{{ (request()->is('admin/dashboard*')) ? '' : '' }}">
+                                <a class="sidebar-link" href="{{ route('dashboard') }}" aria-expanded="false">
+                                <i data-feather="file-text"></i>
+                                <!-- <i class="fa-regular fa-file-lines"></i> -->
+                    <span>
+                        {{__('Reports ')}}
+                    </span>
+                </a>
+                </li>
+                <!-- /Reports    -->
+
+
+
+                <!-- CMS -->
+                @if(auth()->user()->can('cmspage-list') || auth()->user()->can('cmscategory-list'))
+                <li class="submenu">
+                    <a class="" href="javascript:void(0)" aria-expanded="false">
+                        <!-- <i data-feather="file-text"></i> -->
+                        <i class="fa-solid fa-list"></i>
                         <span class="hide-menu">{{__('sidebar.cms')}} </span>
                         <span class="menu-arrow"></span>
                     </a>
@@ -49,51 +186,7 @@
                 @endif
                 <!-- /CMS -->
 
-                <!-- Users -->
-                @if(auth()->user()->can('user-list') || auth()->user()->can('role-list') || auth()->user()->can('permission-list') || auth()->user()->can('user-activity'))
-                <li class="submenu">
-                    <a class="" href="javascript:void(0)" aria-expanded="false">
-                        <i data-feather="users"></i>
-                        <span class="hide-menu">{{__('sidebar.user')}} </span>
-                        <span class="menu-arrow"></span>
-                    </a>
-
-                    <ul style="display: none;">
-                        @can('user-list')
-                        <li>
-                            <a href="{{ route('users.index') }}" title="{{__('sidebar.user')}}" class="sidebar-link {{ (request()->is('admin/user*')) ? 'active' : '' }}">
-                                <span class="hide-menu">{{__('sidebar.user')}}</span>
-                            </a>
-                        </li>
-                        @endcan
-
-                        @can('role-list')
-                        <li>
-                            <a href="{{ route('roles.index') }}" title="{{__('sidebar.roles')}}" class="sidebar-link {{ (request()->is('admin/roles*')) ? 'active' : '' }}">
-                                <span class="hide-menu">{{__('sidebar.roles')}}</span>
-                            </a>
-                        </li>
-                        @endcan
-
-                        @can('permission-list')
-                        <li>
-                            <a href="{{ route('permissions.index') }}" title="{{__('sidebar.permissions')}}" class="sidebar-link {{ (request()->is('admin/permissions*')) ? 'active' : '' }}">
-                                <span class="hide-menu">{{__('sidebar.permission')}}</span>
-                            </a>
-                        </li>
-                        @endcan
-
-                        @can('user-activity')
-                        <li>
-                            <a href="/admin/user-activity" title="{{__('sidebar.user-activity')}}" class="sidebar-link {{ (request()->is('admin/setting/useractivity*')) ? 'active' : '' }}">
-                                <span class="hide-menu">{{__('sidebar.user-activity')}}</span>
-                            </a>
-                        </li>
-                        @endcan
-                    </ul>
-                </li>
-                @endif
-                <!-- /Users -->
+    
 
                 <!-- Settings -->
                 @if(auth()->user()->can('file-manager') || auth()->user()->can('currency-list') || auth()->user()->can('websetting-edit') || auth()->user()->can('log-view'))
@@ -145,7 +238,9 @@
 
                 <li class="submenu">
                     <a class="" href="javascript:void(0)" aria-expanded="false">
-                        <i class="fas fa-comments"></i>
+                   
+ 
+<i class="fa-brands fa-rocketchat"></i>
                         <span class="hide-menu">{{__('Chat')}} </span>
                         <span class="menu-arrow"></span>
                     </a>
@@ -165,6 +260,18 @@
                 @endif
                 @endif
                 <!-- /Settings -->
+
+
+                <!--Logout   -->
+                <li class="{{ (request()->is('admin/dashboard*')) ? '' : '' }}">
+                                <a class="sidebar-link" href="{{ route('dashboard') }}" aria-expanded="false">
+                                <i class="fa-solid fa-arrow-right-from-bracket"></i>
+                    <span>
+                        {{__('Logout  ')}}
+                    </span>
+                </a>
+                </li>
+                <!-- /logout    -->
 
             </ul>
         </div> <!-- /Sidebar-Menu -->

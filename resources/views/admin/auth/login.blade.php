@@ -37,7 +37,7 @@
                             @if($setting->website_logo_light != null || !empty($setting->website_logo_light))
                                 <img class="img-fluid" src="{{$setting->website_logo_light}}" alt="{{$setting->website_title}}">
                             @else
-                                <img class="img-fluid" src="/assets/admin/img/logo-def.png" alt="Logo">
+                                <img class="img-fluid" src="/assets/admin/img/logo-def-black.svg" alt="Logo">
                             @endif
                         </div>
 

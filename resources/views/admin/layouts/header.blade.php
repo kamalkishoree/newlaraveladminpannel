@@ -9,7 +9,7 @@
             </a>
         @else
             <a href="{{ route('dashboard') }}" class="logo">
-                <img src="/assets/admin/img/logo-def.png" alt="Logo">
+                <img src="/assets/admin/img/logo-def.svg" alt="Logo">
             </a>
         @endif
 
@@ -19,7 +19,7 @@
             </a>
         @else
             <a href="{{ route('dashboard') }}" class="logo logo-small">
-                <img src="/assets/admin/img/favicon-def.png" alt="Logo" width="30" height="30">
+                <img src="/assets/admin/img/fev_def.svg" alt="Logo" width="30" height="30">
             </a>
         @endif
     </div>
@@ -45,18 +45,28 @@
     <!-- Header Right Menu -->
     <ul class="nav user-menu">
 
+<!-- search -->
+        <div class="type_search">
+            <input type="search" class="form-control" placeholder="Types of search">
+            <i class="fa-solid fa-magnifying-glass"></i>
+        </div>
+
+<!-- search -->
         <!-- Frontend -->
-        <!-- <li class="nav-item">
-            <a href="{{route('home')}}" target="_blank" class="dropdown-toggle nav-link" title="Front End">
+        <li class="nav-item dropdown noti-dropdown">
+            <!-- <a href="{{route('home')}}" target="_blank" class="dropdown-toggle nav-link" title="Front End">
                 <i data-feather="cast"></i>
+            </a> -->
+            <a href="#" class="dropdown-toggle nav-link" data-toggle="dropdown">
+            <i class="fa-regular fa-message"></i> <span class="badge badge-pill">3</span>
             </a>
-        </li> -->
+        </li>
         <!-- /Frontend -->
 
         <!-- Notifications -->
-        {{-- <li class="nav-item dropdown noti-dropdown">
+       <li class="nav-item dropdown noti-dropdown">
             <a href="#" class="dropdown-toggle nav-link" data-toggle="dropdown">
-                <i class="fe fe-bell"></i> <span class="badge badge-pill">3</span>
+            <i class="fa-regular fa-bell"></i> <span class="badge badge-pill">3</span>
             </a>
             <div class="dropdown-menu notifications">
                 <div class="topnav-dropdown-header">
@@ -84,7 +94,7 @@
                     <a href="#">View all Notifications</a>
                 </div>
             </div>
-        </li> --}}
+        </li>
         <!-- /Notifications -->
         
         <!-- User Menu -->

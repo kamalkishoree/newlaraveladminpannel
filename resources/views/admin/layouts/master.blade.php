@@ -34,7 +34,8 @@
     <!-- Feathericon CSS -->
     <link rel="stylesheet" href="/assets/admin/css/feathericon.min.css">
     <link rel="stylesheet" href="/assets/admin/plugins/morris/morris.css">
-
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    
     <link  href="https://cdn.datatables.net/1.10.16/css/jquery.dataTables.min.css" rel="stylesheet">
     <link rel="https://cdn.datatables.net/rowgroup/1.1.1/css/rowGroup.bootstrap4.min.css" />
 
