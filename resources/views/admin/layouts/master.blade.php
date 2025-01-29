@@ -35,8 +35,9 @@
     <link rel="stylesheet" href="/assets/admin/css/feathericon.min.css">
     <link rel="stylesheet" href="/assets/admin/plugins/morris/morris.css">
 
-    <link  href="https://cdn.datatables.net/1.10.16/css/jquery.dataTables.min.css" rel="stylesheet">
-    <link rel="https://cdn.datatables.net/rowgroup/1.1.1/css/rowGroup.bootstrap4.min.css" />
+    <link href="{{ asset('css/dataTables.css') }}" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.datatables.net/buttons/1.7.1/css/buttons.dataTables.min.css">
+
 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/1.1.3/sweetalert.min.css" />
     <script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/1.1.3/sweetalert.min.js"></script>
@@ -94,6 +95,13 @@
     <script  src="/assets/admin/js/script.js"></script>
     <script src="{{ asset('assets/admin/js/feather.min.js') }}"></script>
     <script src="{{ asset('vendor/file-manager/js/file-manager.js') }}"></script>
+
+
+    <!--DataTables -->
+    <script src="https://cdn.datatables.net/1.13.4/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/buttons/2.3.6/js/dataTables.buttons.min.js"></script>
+    <script src="https://cdn.datatables.net/responsive/2.2.9/js/dataTables.responsive.min.js"></script>
+    <script src="/vendor/datatables/buttons.server-side.js"></script>
 
     <script>
         window.setTimeout(function() {
