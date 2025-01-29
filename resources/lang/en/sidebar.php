@@ -34,5 +34,8 @@ return [
     
     'currency'              => 'Currency',
     'currencies'            => 'Currencies',
+    'configuration'         => 'Configuration',
+
+    'msg-gateways'          =>"SMS Manager"
 
 ];

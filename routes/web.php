@@ -132,6 +132,15 @@ Route::group(['middleware' => 'language'], function () {
 				Route::get('/status_update', 	[App\Http\Controllers\TestimonialController::class, 'status_update'])->name('testimonials.status_update');
 			});
 
+				Route::prefix('sms')->group(function () {
+					Route::get('/index', [App\Http\Controllers\Admin\ConfigurationController::class, 'smsManager'])->name('sms.index');
+					Route::get('/create',[App\Http\Controllers\Admin\ConfigurationController::class, 'smsCreate'])->name('sms.create');
+					Route::post('/store',[App\Http\Controllers\Admin\ConfigurationController::class, 'smsStore'])->name('sms.store');
+
+
+					
+				});
+
 		});
 	});
 

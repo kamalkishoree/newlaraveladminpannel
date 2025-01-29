@@ -1453,8 +1453,8 @@ button.bg-danger:hover {
 .header .has-arrow .dropdown-toggle:after {
 	border-top: 0;
 	border-left: 0;
-	border-bottom: 2px solid #333;
-	border-right: 2px solid #333;
+	border-bottom: 2px solid #fff;
+	border-right: 2px solid #fff;
 	content: '';
 	height: 8px;
 	display: inline-block;

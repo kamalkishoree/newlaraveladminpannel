@@ -34,8 +34,10 @@ class UserAuthController extends Controller
             $user->mobile = $request->phone_number;
             $user->password = Hash::make($request->password??($request->first_name.$request->phone_number));
             $user->joining_referal = $request->joining_referal;
+
             $otp = rand(1000,9999);
             $user->phone_otp = $otp;
+            
             if($user->save())
             {
                 return response()->json($user, 201);
@@ -55,6 +57,9 @@ class UserAuthController extends Controller
                if($user->phone_otp == $request->otp)
                {
                 $token = $user->createToken('access_token')->accessToken;
+                $user->update([
+                    'access_token' => $token,
+                ]);
                 return response()->json([
                     'message' => 'Login Successfuly',
                     'user' =>$user,
@@ -94,7 +99,7 @@ class UserAuthController extends Controller
                     'statusCode' => 200,
                     'message' => 'User has been logged successfully.',
                     'data' => $user,
-                    'token' =>$token
+                        'token' =>$token
                 ], 200);
             } else {
                 return response()->json([
