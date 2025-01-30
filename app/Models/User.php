@@ -28,8 +28,10 @@ class User extends Authenticatable
         'email',
         'password',
         'mobile',
-        'image',
         'status',
+        'dial_code',
+        'image',
+        'otp_request_id'
     ];
 
     /**

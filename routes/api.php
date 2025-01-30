@@ -29,13 +29,15 @@ Route::group([
     Route::post('login', [UserAuthController::class, 'login'])->name('user.login');
 
 // Auth Check
-    Route::post('/logout', [UserAuthController::class, 'logout'])->middleware('auth:api')->name('logout');
     Route::post('/refresh', [UserAuthController::class, 'refresh'])->middleware('auth:api')->name('refresh');
-    Route::post('/me', [UserAuthController::class, 'me'])->middleware('auth:api')->name('me');
 
 
 });
 
+Route::group(['prefix' => 'user', 'middleware' => ['auth:api']], function () {
+        Route::get('/profile', [UserAuthController::class, 'userProfile'])->name('profile');
+        Route::post('/editProfile', [UserAuthController::class, 'editProfile'])->name('editProfile');
+        Route::post('/me', [UserAuthController::class, 'me'])->name('me');
+        Route::post('/logout', [UserAuthController::class, 'logout'])->name('logout');
 
-Route::group(['prefix' => 'admin'], function () {
 });
