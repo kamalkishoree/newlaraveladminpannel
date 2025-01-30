@@ -1,6 +1,6 @@
 <!-- Sidebar -->
 <div class="sidebar" id="sidebar">
-    <div class="p_15">
+    <!-- <div class="p_15">
     <div class="user_prof">
         <div class="img_prof">
         <img class="img-fluid" src="/assets/admin/img/default-user.png" alt="Logo">
@@ -9,11 +9,10 @@
             <h6>Kenonn Rawat</h6>
             <p>welcome</p>
         </div>
-        </div>
-       
-
-
     </div>
+    </div> -->
+
+
     <div class="sidebar-inner slimscroll">
         <div id="sidebar-menu" class="sidebar-menu">
             <ul>
@@ -280,7 +279,8 @@
               
                 <li class="submenu">
                     <a class="" href="javascript:void(0)" aria-expanded="false">
-                        <i data-feather="configuration"></i>
+                        <!-- <i data-feather="configuration"></i> -->
+                        <i class="fa-solid fa-wrench"></i>
                         <span class="hide-menu">{{__('sidebar.configuration')}} </span>
                         <span class="menu-arrow"></span>
                     </a>

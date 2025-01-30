@@ -106,6 +106,12 @@
     <script src="https://cdn.datatables.net/responsive/2.2.9/js/dataTables.responsive.min.js"></script>
     <script src="/vendor/datatables/buttons.server-side.js"></script>
 
+
+
+
+</script>
+<!-- end -->
+
     <script>
         window.setTimeout(function() {
             $(".alert").fadeTo(500, 0).slideUp(500, function(){

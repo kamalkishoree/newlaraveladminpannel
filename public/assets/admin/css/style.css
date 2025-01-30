@@ -910,11 +910,13 @@ button.bg-danger:hover {
 	font-size: 14px;
 }
 .card {
-    border: 1px solid #f0f0f0;
-    margin-bottom: 1.875rem;
+    margin-bottom: 15px;
+    border-radius: 5px;
+    box-shadow: 0 1px 20px 0 rgba(69, 90, 100, 0.08);
+    border: 1px solid #fdc1002e;
 }
 .card-body {
-	padding: 1.5rem;
+	padding: 20px 20px;
 	overflow-x: auto;
 }
 .card-header {
@@ -1852,7 +1854,7 @@ html.menu-opened body {
 	font-family: 'FontAwesome';
 	text-rendering: auto;
 	line-height: 40px;
-	font-size: 16px;
+	font-size: 14px;
 	-webkit-font-smoothing: antialiased;
 	-moz-osx-font-smoothing: grayscale;
 	-webkit-transform: translate(0, 0);
@@ -2332,18 +2334,26 @@ html.menu-opened body {
 	14. Dashboard
 -----------------------*/
 
+.dash-widget-info h6{
+	color: #000 !important;
+	font-size: 14px;
+	margin-bottom: 6px !important;
+}
+.dash-count h3{
+	font-size: 20px;
+}
 .dash-widget-icon {
     align-items: center;
     display: inline-flex;
-    font-size: 1.875rem;
-    height: 50px;
+    font-size: 22px;
+    height: 40px;
     justify-content: center;
     line-height: 48px;
     text-align: center;
-    width: 50px;
-	border: 3px solid;
+    width: 40px;
+    border: 2px solid;
     border-radius: 50px;
-    padding: 28px;
+    padding: 20px;
 }
 .dash-count {
     font-size: 18px;
@@ -4398,4 +4408,71 @@ border-color: #fff;
 .user-menu li a svg{
 	color: #fff;
 }
+
+.card_channel h5 {
+    color: #000;
+    font-size: 17px;
+    font-weight: 600;
+    margin-bottom: 3px;
+}
+
+.card_channel h6{
+	color: #b5b1b1;
+	font-size: 14px;
+	margin-bottom: 15px;
+	font-weight: 400;
+}
+
+.list_channeels li {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    font-size: 14px;
+    color: #fdc100;
+    margin-bottom: 3px;
+}
+.list_channeels li span {
+    font-weight: 600;
+    color: #353535;
+}
+.list_channeels{
+max-height: 185px;
+overflow: auto;
+}
+.card_channel h3{
+	font-size: 22px;
+    font-weight: 600;
+    margin-bottom: 0px;
+}
+.last_month{
+	font-size: 14px;
+	color: #a9a9a9;
+	margin: 3px 0px;
+}
+.btn_days {
+    font-size: 14px;
+    height: 35px;
+    display: flex;
+    align-items: center;
+	background-color: #000;
+	color: #fff !important;
+	border-color: #000 !important;
+}
+.btn_days:hover{
+	background-color: #FDC100;
+	color: #000 !important;
+	border-color: #FDC100 !important;
+}
+table.dataTable thead th {
+    background-color: #1a2634;
+    color: #fff;
+}
+
+
+
+
+
+
+
+
 
