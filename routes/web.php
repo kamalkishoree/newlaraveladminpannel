@@ -136,9 +136,6 @@ Route::group(['middleware' => 'language'], function () {
 					Route::get('/index', [App\Http\Controllers\Admin\ConfigurationController::class, 'smsManager'])->name('sms.index');
 					Route::get('/create',[App\Http\Controllers\Admin\ConfigurationController::class, 'smsCreate'])->name('sms.create');
 					Route::post('/store',[App\Http\Controllers\Admin\ConfigurationController::class, 'smsStore'])->name('sms.store');
-
-
-					
 				});
 
 		});

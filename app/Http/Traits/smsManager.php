@@ -58,7 +58,8 @@ trait smsManager{
         ]);
 
         if ($response->failed()) {
-            return $response->status();
+           
+            return false;
         }
         if( $response->status() == 200)
         {
