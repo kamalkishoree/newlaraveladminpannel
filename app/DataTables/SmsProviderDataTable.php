@@ -1,71 +1,32 @@
-<?php
-
+<?php 
 namespace App\DataTables;
 
-use App\Models\User;
-use Illuminate\Database\Eloquent\Builder as QueryBuilder;
-use Yajra\DataTables\EloquentDataTable;
-use Yajra\DataTables\Html\Builder as HtmlBuilder;
-use Yajra\DataTables\Html\Button;
-use Yajra\DataTables\Html\Column;
-use Yajra\DataTables\Html\Editor\Editor;
-use Yajra\DataTables\Html\Editor\Fields;
-use Yajra\DataTables\Services\DataTable;
-use Illuminate\Http\Request;
-use Auth;
-use App\Helpers\Helper;
 use App\Models\SmsProvider;
+use Yajra\DataTables\Services\DataTable;
+use Yajra\DataTables\Facades\DataTables;
 
 class SmsProviderDataTable extends DataTable
 {
     /**
-     * Build DataTable class.
+     * Display ajax response.
      *
-     * @param QueryBuilder $query Results from query() method.
-     * @return \Yajra\DataTables\EloquentDataTable
+     * @return \Illuminate\Http\JsonResponse
      */
-    public function dataTable(QueryBuilder $query): EloquentDataTable
+    public function ajax()
     {
-        return (new EloquentDataTable($query))
-            ->setRowId('id')
-            ->addIndexColumn()
-            ->addColumn('provider_name', function ($data) {
-
-                return $data->provider_name;
-                
-            })
-            ->addColumn('sms_from', function ($data) {
-                return $data->sms_from;
-
-            })   
-              ->addColumn('api_key', function ($data) {
-                return $data->api_key;
-
-              })
-              ->addColumn('api_secret', function ($data) {
-                return $data->api_secret;
-
-              })->addColumn('app_id', function ($data) {
-                return $data->app_id;
-
-              })->addColumn('status', function ($data) {
-                return $data->provider_name;
-
-              })
-            ->rawColumns(['action']);
+        return DataTables::eloquent($this->query())
+            ->make(true);
     }
 
     /**
-     * Get query source of dataTable.
+     * Get the query object to be processed by datatables.
      *
-     * @param \App\Models\ApiKeyDataTable $model
-     * @return \Illuminate\Database\Eloquent\Builder
+     * @return \Illuminate\Database\Query\Builder|\Illuminate\Database\Eloquent\Builder
      */
-    public function query(SmsProvider $model , Request $request): QueryBuilder
+    public function query()
     {
-        $model = SmsProvider::orderBy('id','DESC');
-        return $this->applyScopes($model);
-   
+        $smsProvider = SmsProvider::query();
+        return $this->applyScopes($smsProvider);
     }
 
     /**
@@ -73,120 +34,38 @@ class SmsProviderDataTable extends DataTable
      *
      * @return \Yajra\DataTables\Html\Builder
      */
-    public function html(): HtmlBuilder
+    public function html()
     {
         return $this->builder()
-            ->setTableId('smsprovider-datatable-table')
             ->columns($this->getColumns())
-            ->minifiedAjax()
-            ->dom('frtip')
-            ->orderBy(1)
-            ->searching(true)
-            ->responsive(true)
-            ->serverSide(true)
-            ->processing(true)
-            ->scrollY(false)
-            ->scrollX(false)
             ->parameters([
-               
+                'dom' => 'Bfrtip',
+                'buttons' => ['export', 'print', 'reset', 'reload'],
+                'initComplete' => "function () {
+                    this.api().columns().every(function () {
+                        var column = this;
+                        var input = document.createElement(\"input\");
+                        $(input).appendTo($(column.footer()).empty())
+                        .on('change', function () {
+                            column.search($(this).val(), false, false, true).draw();
+                        });
+                    });
+                }",
             ]);
     }
 
     /**
-     * Get columns.
-     *
      * @return array
      */
-    protected function getColumns(): array
+    protected function getColumns()
     {
         return [
-            [   
-                "data" => "id",
-                "name" => "id",
-                "title" => "ID",
-                "orderable" => true,
-                "searchable" => true,
-                'exportable' => true,
-                'printable' => true,
-            ],
-            [   
-                "data" => "provider_name",
-                "name" => "provider_name",
-                "title" => "Provider Name",
-                "orderable" => true,
-                "searchable" => true,
-                'exportable' => true,
-                'printable' => true,
-            ],
-
-            [   
-                "data" => "sms_from",
-                "name" => "sms_from",
-                "title" => "SMS From",
-                "orderable" => true,
-                "searchable" => true,
-                'exportable' => true,
-                'printable' => true,
-            ],
-            [   
-                "data" => "api_key",
-                "name" => "api_key",
-                "title" => "Api key",
-                "orderable" => true,
-                "searchable" => true,
-                'exportable' => true,
-                'printable' => true,
-            ],
-
-            [   
-                "data" => "api_secret",
-                "name" => "api_secret",
-                "title" => "API Secret",
-                "orderable" => true,
-                "searchable" => true,
-                'exportable' => true,
-                'printable' => true,
-            ],
-
-            [   
-                "data" => "app_id",
-                "name" => "app_id",
-                "title" => "App ID",
-                "orderable" => true,
-                "searchable" => true,
-                'exportable' => true,
-                'printable' => true,
-            ],
-
-            [   
-                "data" => "status",
-                "name" => "status",
-                "title" => "Status",
-                "orderable" => true,
-                "searchable" => true,
-                'exportable' => true,
-                'printable' => true,
-            ],
-
-            [   
-                "data" => "action",
-                "name" => "action",
-                "title" => "Actions",
-                "orderable" => true,
-                "searchable" => true,
-                'exportable' => true,
-                'printable' => true,
-            ],
+            'provider_name',
+            'sms_from',
+            'api_key',
+            'api_secret',
+            'app_id',
+            'status',
         ];
-    }
-
-    /**
-     * Get filename for export.
-     *
-     * @return string
-     */
-    protected function filename(): string
-    {
-        return 'smsprovider_' . date('YmdHis');
     }
 }

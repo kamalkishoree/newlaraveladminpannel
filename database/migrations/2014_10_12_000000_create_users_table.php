@@ -30,6 +30,7 @@ class CreateUsersTable extends Migration
                 $table->string('user_type')->nullable();
                 $table->text('image')->nullable();
                 $table->boolean('status')->default(0);
+                $table->string('otp_request_id')->nullable();
                 $table->rememberToken();
                 $table->timestamps();
 

@@ -18,8 +18,6 @@ class ConfigurationController extends Controller
 
   public function smsManager(SmsProviderDataTable $dataTable, Request $request)
   {
-    // $model = SmsProvider::orderBy('id','DESC');
-    // pr($model->get());
     return $dataTable->render('admin.config.sms.index');
   }
 
@@ -38,7 +36,7 @@ class ConfigurationController extends Controller
         $input = $request->all();
         $smsProvider = SmsProvider::create($input);
         Toastr::success(__('Provider added Successfully.'));
-        return redirect()->route('sms               .index');
+        return redirect()->route('sms.index');
     } catch (Exception $e) {
         Toastr::error(__('There is an error! Please try later!.'));
         return redirect()->route('users.index');

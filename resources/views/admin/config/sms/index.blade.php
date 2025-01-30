@@ -44,36 +44,14 @@
 				<div class="card-body">
 
                   {!! $dataTable->table() !!}
-					{{--<table class="table table-hover table-center mb-0" id="table">
-						<thead>
-							<tr>
-								<th class="">{{__('Providers Name')}}</th>
-								<th class="">{{__('SMS From')}}</th>
-								<th class="">{{__('API KEY / EMAIL')}}</th>
-								<th class="">{{__('API Secret / Password')}}</th>
-								<th class="">{{__('APP ID / Client ID')}}</th>
-								<th class="">{{__('Status')}}</th>
 
-							</tr>
-						</thead>
-
-						<tbody>
-							
-						</tbody>
-					</table>--}}
 				</div>
 			</div>
 		</div>
 	</div>
 
 
-
-
-
-
 @endsection
-{!! $dataTable->scripts() !!}
 @push('scripts')
-
-
+{!! $dataTable->scripts() !!}
 @endpush

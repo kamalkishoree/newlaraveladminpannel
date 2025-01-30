@@ -17,9 +17,14 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Validator;
 use Tymon\JWTAuth\Facades\JWTAuth;
+use App\Http\Traits\smsManager;
+use App\Models\Otp;
+use Illuminate\Support\Facades\Storage;
 
 class UserAuthController extends Controller
 {
+
+    use smsManager;
 
     public function register(StoreUserRequest $request) {
 // Get validated data
@@ -34,12 +39,14 @@ class UserAuthController extends Controller
             $user->mobile = $request->phone_number;
             $user->password = Hash::make($request->password??($request->first_name.$request->phone_number));
             $user->joining_referal = $request->joining_referal;
-
-            $otp = rand(1000,9999);
-            $user->phone_otp = $otp;
-            
             if($user->save())
             {
+                $sendotp = $this->sendOtp($user);
+                if(!$sendotp)
+                {
+                    return response()->json(['error'=>'unabe to send otp', 401]);
+
+                }
                 return response()->json($user, 201);
             }
         }
@@ -53,9 +60,11 @@ class UserAuthController extends Controller
             if($request->has('phone_number') && $request->has('dial_code') )
             {
               $user = User::where('mobile',$request->phone_number)->where('dial_code',$request->dial_code)->first();
+            //   pr($user);
               $token = '';
-               if($user->phone_otp == $request->otp)
-               {
+              $is_otp_varified = $this->varifyOtp($user,$request->otp);
+              if($is_otp_varified)
+              {
                 $token = $user->createToken('access_token')->accessToken;
                 $user->update([
                     'access_token' => $token,
@@ -76,7 +85,6 @@ class UserAuthController extends Controller
 
         else{
             return response()->json(['error' => 'Invalid Request'], 400);
-
         }
     }
 
@@ -90,7 +98,9 @@ class UserAuthController extends Controller
      $validated = $request->validated();
      if($validated)
      {
-        $user = User::where('mobile',$request->phone_number)->where('dial_code',$request->dial_code)->first();
+          $user = User::where('mobile',$request->phone_number)->where('dial_code',$request->dial_code)->first();
+          $this->validate($user,$otp);
+        
            if($user->phone_otp == $request->otp)
            {
                 $token =  $user->createToken('access_token')->accessToken;
@@ -125,13 +135,18 @@ class UserAuthController extends Controller
                $user = User::where('mobile',$request->phone_number)->where('dial_code',$request->dial_code)->first();
                if($user)
                {
-                return response()->json(['error' => 'This number is already registred with an account.','is_new' => false], 200);
-               }
+                 $sendOtp = $this->sendOtp($user);
+
+                 return response()->json([
+                    'success' => 'OTP sent on registered mobile number',
+                    'is_new' => false],
+                     200);
+                }
                else{
                  return response()->json([
                     'success' => 'No user registered with this number.',
-                    'is_new' => true
-
+                    'is_new' => true,
+                    
                  ], 200);
 
                }
@@ -191,4 +206,102 @@ class UserAuthController extends Controller
     }
 
 
-}
+      public function userProfile(Request $request)
+      {
+        return response()->json(auth()->user());
+      }
+
+      public function editProfile(Request $request)
+      {
+         
+             // Validate incoming request
+            $validator = Validator::make($request->all(), [
+                'first_name' => 'required|string',
+                'last_name' => 'required|string',
+                'email'  => 'required|string|email',
+            ]);
+
+            if ($validator->fails()) {
+                foreach ($validator->errors()->toArray() as $error_key => $error_value) {
+                    $errors['error'] = __($error_value[0]);
+                    return response()->json($errors, 422);
+                }
+            }
+
+            $file = $request->file('image');
+            $url = '';
+            $user = Auth::user();
+            if($user)
+            {
+             if(!is_null($file))
+               {
+                
+                   // Generate a unique filename
+                   $fileName = time() . '_' . $file->getClientOriginalName();
+                   // Store the file in AWS S3
+                   $path = $file->storeAs('uploads', $fileName, 's3');
+                   // Make the file publicly accessible
+                   $url = Storage::disk('s3')->url($path);
+                
+              }
+                  $user->update([
+                        'email' =>$request->email,
+                        'name' =>$request->first_name,
+                        'last_name' =>$request->last_name,
+                        'image' => $url
+                   ]);
+
+                    return response()->json([
+                        'success' => true,
+                        'message' => 'File uploaded successfully',
+                        'user' => $user,
+                    ], 200);
+
+              }
+              else
+              {
+                return response()->json([
+                    'error' => true,
+                    'message' => 'Invalid user',
+                ], 200);
+              }
+        }
+    
+        public function sendOtp($user)
+        {
+            $otp_response =  $this->otpLessPhone($user);
+            
+            if($otp_response->status() == 200)
+            {
+                $response =  $otp_response->json();
+                $updateUser =  $user->update([
+                    'otp_request_id' =>$response['requestId']
+                ]);
+              
+                if($updateUser)
+                {
+                    return  1 ;
+
+                }
+                else{
+                    return 0;
+                }
+            }
+            else{
+                return $otp_response->body();
+            }
+        }
+
+        public function varifyOtp($user,$otp)
+        {
+
+            if($otp != NULL)
+            {
+                $request = new Request(['otp'=>$otp,'unique_request_id'=>$user->otp_request_id]);
+                $verify_otp =  $this->otpLessVerify($request);
+                return $verify_otp;
+            }
+
+        }
+ }
+

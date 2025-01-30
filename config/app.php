@@ -189,6 +189,8 @@ return [
         Intervention\Image\ImageServiceProvider::class,
         Alexusmai\LaravelFileManager\FileManagerServiceProvider::class,
         Brian2694\Toastr\ToastrServiceProvider::class,
+        Yajra\DataTables\DataTablesServiceProvider::class,
+        Yajra\DataTables\HtmlServiceProvider::class,
 
 
     ],
