@@ -277,7 +277,7 @@
                 </li>
                 @endif
               
-                <li class="submenu">
+              {{--  <li class="submenu">
                     <a class="" href="javascript:void(0)" aria-expanded="false">
                         <!-- <i data-feather="configuration"></i> -->
                         <i class="fa-solid fa-wrench"></i>
@@ -293,20 +293,16 @@
                         </li>
                     </ul>
                 </li>
-
+                --}}
             {{--
                 @if(isModuleEnabled('WebRTCAudioVideoChat'))
                 @if(auth()->user()->can('user-chat'))
-
                 <li class="submenu">
                     <a class="" href="javascript:void(0)" aria-expanded="false">
-                   
- 
-<i class="fa-brands fa-rocketchat"></i>
+                <i class="fa-brands fa-rocketchat"></i>
                         <span class="hide-menu">{{__('Chat')}} </span>
                         <span class="menu-arrow"></span>
                     </a>
-
                     <ul style="display: none;">
                         <li>
                             <a href="{{ url('/admin/webrtcaudiovideochat/ChatRoom') }}" title="{{__('chat')}}" class="sidebar-link {{ (request()->is('admin/webrtcaudiovideochat/ChatRoom*')) ? 'active' : '' }}">
@@ -318,17 +314,13 @@
 
                     </ul>
                 </li>
-
                 @endif
                 @endif
-
                 --}}  
                 <!-- /Settings -->
-
-
                 <!--Logout   -->
                 <li class="{{ (request()->is('admin/dashboard*')) ? '' : '' }}">
-                                <a class="sidebar-link" href="{{ route('dashboard') }}" aria-expanded="false">
+                                <a class="sidebar-link" href="{{ route('logout') }}" aria-expanded="false">
                                 <i class="fa-solid fa-arrow-right-from-bracket"></i>
                     <span>
                         {{__('Logout  ')}}

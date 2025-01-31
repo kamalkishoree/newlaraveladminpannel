@@ -63,6 +63,7 @@ class UserAuthController extends Controller
             //   pr($user);
               $token = '';
               $is_otp_varified = $this->varifyOtp($user,$request->otp);
+
               if($is_otp_varified)
               {
                 $token = $user->createToken('access_token')->accessToken;
@@ -77,7 +78,7 @@ class UserAuthController extends Controller
                }
                else{
                  return response()->json([
-                    'message' => 'OTP miss-matched.',
+                    'message' => 'Invalid OTP .',
                  ], 401);
                }
               }
@@ -173,10 +174,11 @@ class UserAuthController extends Controller
      *
      * @return \Illuminate\Http\JsonResponse
      */
-    public function logout()
+    public function logout(Request $request)
     {
-        auth()->logout();
-  
+
+        //auth()->logout();
+        $request->user()->token()->revoke(); //pasport
         return response()->json(['message' => 'Successfully logged out']);
     }
   
