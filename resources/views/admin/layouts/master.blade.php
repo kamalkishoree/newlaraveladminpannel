@@ -46,6 +46,7 @@
 
     <link rel="stylesheet" href="{{ asset('vendor/file-manager/css/file-manager.css') }}/">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.0/css/all.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 
     <!-- Main CSS -->
     <link rel="stylesheet" href="/assets/admin/css/style.css">
