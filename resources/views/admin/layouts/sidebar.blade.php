@@ -31,7 +31,9 @@
             <!-- Users -->
             @if(auth()->user()->can('user-list') || auth()->user()->can('role-list') || auth()->user()->can('permission-list') || auth()->user()->can('user-activity'))
                 <!-- CMS -->
-            @if(auth()->user()->can('cmspage-list') || auth()->user()->can('cmscategory-list'))
+          
+          
+                @if(auth()->user()->can('cmspage-list') || auth()->user()->can('cmscategory-list'))
                 <li class="submenu">
                     <a class="" href="javascript:void(0)" aria-expanded="false">
                         <i data-feather="users"></i>
@@ -92,7 +94,26 @@
                 </li>
                 @endif
                 <!-- /Users -->
+  
 
+                <!-- API Inigration -->
+
+                <li class="submenu">
+                    <a class="" href="javascript:void(0)" aria-expanded="false">
+                        <i data-feather="users"></i>
+                        <span class="hide-menu">{{__('Affiliate Integration')}} </span>
+                        <span class="menu-arrow"></span>
+                    </a>
+
+                    <ul style="display: none;">
+                        <li>
+                            <a href="{{ route('affiliate.index') }}" title="{{__('sidebar.user')}}" class="sidebar-link {{ (request()->is('admin/affiliate*')) ? 'active' : '' }}">
+                                <span class="hide-menu">{{__('Integration Api keys')}}</span>
+                            </a>
+                        </li>
+                    </ul> 
+                </li>
+                
 
 
                 <!-- Manage Commission -->
@@ -108,8 +129,8 @@
                 <!-- /Manage Commission -->
 
                    <!-- Banner -->
-                   <li class="{{ (request()->is('admin/dashboard*')) ? '' : '' }}">
-                <a class="sidebar-link" href="{{ route('dashboard') }}" aria-expanded="false">
+                   <li class="{{ (request()->is('admin/banner*')) ? '' : '' }}">
+                <a class="sidebar-link" href="{{ route('banner.index') }}" aria-expanded="false">
                 <i class="fa-regular fa-images"></i>
                     <span>
                         {{__('Banners ')}}

@@ -138,6 +138,37 @@ Route::group(['middleware' => 'language'], function () {
 					Route::post('/store',[App\Http\Controllers\Admin\ConfigurationController::class, 'smsStore'])->name('sms.store');
 				});
 
+				Route::prefix('affiliate')->group(function () {
+					Route::get('/index', [App\Http\Controllers\Admin\AffilateIntegrationController::class, 'index'])->name('affiliate.index');
+					Route::get('/create',[App\Http\Controllers\Admin\AffilateIntegrationController::class, 'create'])->name('affiliate.create');
+					Route::post('/store',[App\Http\Controllers\Admin\AffilateIntegrationController::class, 'store'])->name('affiliate.store');
+					Route::get('/edit/{id}',[App\Http\Controllers\Admin\AffilateIntegrationController::class, 'edit'])->name('affiliate.edit');
+					Route::post('/update/{id}',[App\Http\Controllers\Admin\AffilateIntegrationController::class, 'update'])->name('affiliate.update');
+					Route::post('/destroy', [App\Http\Controllers\Admin\AffilateIntegrationController::class, 'destroy'])->name('affiliate.destroy');
+				});
+
+
+				Route::prefix('banners')->group(function () {
+					Route::get('/index', [App\Http\Controllers\Admin\AffilateIntegrationController::class, 'index'])->name('affiliate.index');
+					Route::get('/create',[App\Http\Controllers\Admin\AffilateIntegrationController::class, 'create'])->name('affiliate.create');
+					Route::post('/store',[App\Http\Controllers\Admin\AffilateIntegrationController::class, 'store'])->name('affiliate.store');
+					Route::get('/edit/{id}',[App\Http\Controllers\Admin\AffilateIntegrationController::class, 'edit'])->name('affiliate.edit');
+					Route::post('/update/{id}',[App\Http\Controllers\Admin\AffilateIntegrationController::class, 'update'])->name('affiliate.update');
+					Route::post('/destroy', [App\Http\Controllers\Admin\AffilateIntegrationController::class, 'destroy'])->name('affiliate.destroy');
+				});
+
+
+					// User
+			Route::prefix('banner')->group(function () {
+				Route::get('/index', 			[App\Http\Controllers\Admin\BannersController::class, 'index'])->name('banner.index');
+				Route::get('/create', 			[App\Http\Controllers\Admin\BannersController::class, 'create'])->name('banner.create');
+				Route::post('/store', 			[App\Http\Controllers\Admin\BannersController::class, 'store'])->name('banner.store');
+				Route::get('/edit/{id}', 		[App\Http\Controllers\Admin\BannersController::class, 'edit'])->name('banner.edit');
+				Route::post('/update/{id}', 	[App\Http\Controllers\Admin\BannersController::class, 'update'])->name('banner.update');
+				Route::post('/destroy', 		[App\Http\Controllers\Admin\BannersController::class, 'destroy'])->name('banner.destroy');
+				Route::get('/status_update', 	[App\Http\Controllers\Admin\BannersController::class, 'status_update'])->name('banner.status_update');
+			});
+
 		});
 	});
 

@@ -27,7 +27,7 @@ class UserAuthController extends Controller
     use smsManager;
 
     public function register(StoreUserRequest $request) {
-// Get validated data
+         // Get validated data
         $validated = $request->validated();       
         if($validated)
         {
