@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Api\UserAuthController;
+use App\Http\Controllers\Api\UserHomeController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -41,3 +42,6 @@ Route::group(['prefix' => 'user', 'middleware' => ['auth:api']], function () {
         Route::post('/logout', [UserAuthController::class, 'logout'])->name('logout');
 
 });
+//homepage
+Route::get('/homepage', [UserHomeController::class, 'homepage'])->name('homepage');
+

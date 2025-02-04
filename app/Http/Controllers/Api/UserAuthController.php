@@ -241,7 +241,10 @@ class UserAuthController extends Controller
                    // Generate a unique filename
                    $fileName = time() . '_' . $file->getClientOriginalName();
                    // Store the file in AWS S3
-                   $path = $file->storeAs('uploads', $fileName, 's3');
+                   $path = $file->storeAs('website/user/images', $fileName, [
+                    'disk' => 's3',
+                    'visibility' => 'public'
+                ]);    
                    // Make the file publicly accessible
                    $url = Storage::disk('s3')->url($path);
                 

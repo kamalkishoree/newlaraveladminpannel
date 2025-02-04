@@ -116,7 +116,10 @@ class BannersController extends Controller
          if(!is_null($file))
            {
                $fileName = time() . '_' . $file->getClientOriginalName();
-               $path = $file->storeAs('uploads', $fileName, 's3');
+			   $path = $file->storeAs('website/assets/images', $fileName, [
+				'disk' => 's3',
+				'visibility' => 'public'
+			]);      
                $url = Storage::disk('s3')->url($path);
           }
           $input = request()->all();
@@ -160,11 +163,22 @@ class BannersController extends Controller
         ];
         
         $this->validate($request, $rules, $messages);
-		$input = $request->all();
-		$Banner = Banner::find($id);
-
-		if (empty($input['image'])) {
-			$input['image'] = $Banner->image;
+		$file = $request->file('image_url');
+        $url = '';
+         if(!is_null($file))
+           {
+               $fileName = time() . '_' . $file->getClientOriginalName();
+			   $path = $file->storeAs('website/assets/images', $fileName, [
+				'disk' => 's3',
+				'visibility' => 'public'
+			]);        
+		      $url = Storage::disk('s3')->url($path);
+          }
+          $input = request()->all();
+          $input['image_url'] = $url;
+	    	$Banner = Banner::find($id);
+		if (empty($input['image_url'])) {
+			$input['image_url'] = $Banner->image;
 		}
 
 		try {
@@ -180,14 +194,13 @@ class BannersController extends Controller
 
 	public function destroy()
 	{
-		$id = request()->input('id');
-		$all_Banner = Banner::all();
+
+		     $id = request()->input('id');
 			$getBanner = Banner::find($id);
-			if(!empty($getBanner->image)){
-				$image_path = 'storage/'.$getBanner->image;
-				if(File::exists($image_path)) {
-				    File::delete($image_path);
-				}
+			if (Storage::disk('s3')->exists($getBanner->image_url)) {
+				die('sss');
+				Storage::disk('s3')->delete($getBanner->image_url);
+			} 
 			try {
 				Banner::find($id)->delete();
 				return back()->with(Toastr::error(__('Banner deleted')));
@@ -195,7 +208,6 @@ class BannersController extends Controller
 				$error_msg = Toastr::error(__('Failed to delete banner'));
 				return redirect()->route('banner.index')->with($error_msg);
 			}
-		}
 	}
 	
 	public function status_update(Request $request)

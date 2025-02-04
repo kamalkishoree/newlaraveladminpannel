@@ -96,7 +96,7 @@
     </script>
 
     <script type="text/javascript">
-        $("body").on("click", ".remove-user", function() {
+        $("body").on("click", ".remove-Banner", function() {
             var current_object = $(this);
             swal({
                 title: "Are you sure?",

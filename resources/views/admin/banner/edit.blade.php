@@ -41,18 +41,15 @@
             </div><!-- /card finish -->	
         </div><!-- /Page Header -->
             <div class="row">
-                  <div class="col-md-6">
+                            <div class="col-md-6">
                             <div class="input-group mb-5">
-                             <img src="" alt="..." id="output" class="img-thumbnail rounded mx-auto d-block mb-3" onerror="this.src='{{ $banner->image_url  }}';">
-                                <input type="text" hidden id="image1" class="form-control" name="image">
-                                <div class="input-group-append" style="width: 100%;">
-                                    <button class="btn btn-secondary btn-lg btn-block" type="button" id="button-image">
-                                    <i data-feather="image" class="feather-icon"></i>
-                                    Select Banner Image
-                                    </button>
-                                </div>
+                                <img src="{{$banner->image_url}} width=400 height=400"/>
                             </div>
-                    </div>  <!-- /row end -->
+                            <div class="input-group mb-5">
+                                <input type="file" id="image1" class="form-control" name="image_url">
+                            </div>
+                           </div>  <!-- /row end -->
+                         
 
 
              <div class="col-md-6">
