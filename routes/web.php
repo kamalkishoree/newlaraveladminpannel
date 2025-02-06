@@ -180,6 +180,30 @@ Route::group(['middleware' => 'language'], function () {
 
 			});
 
+			Route::prefix('brand')->group(function () {
+				Route::get('/index', 			[App\Http\Controllers\Admin\BrandController::class, 'index'])->name('brand.index');
+				Route::get('/create', 			[App\Http\Controllers\Admin\BrandController::class, 'create'])->name('brand.create');
+				Route::post('/store', 			[App\Http\Controllers\Admin\BrandController::class, 'store'])->name('brand.store');
+				Route::get('/edit/{id}', 		[App\Http\Controllers\Admin\BrandController::class, 'edit'])->name('brand.edit');
+				Route::post('/update/{id}', 	[App\Http\Controllers\Admin\BrandController::class, 'update'])->name('brand.update');
+				Route::post('/destroy', 		[App\Http\Controllers\Admin\BrandController::class, 'destroy'])->name('brand.destroy');
+				Route::get('/status_update', 	[App\Http\Controllers\Admin\BrandController::class, 'status_update'])->name('brand.status_update');
+				Route::get('/status_update_custom',[App\Http\Controllers\Admin\BrandController::class, 'status_update_custom'])->name('brand.status_update_custom');
+
+			});
+
+			Route::prefix('product')->group(function () {
+				Route::get('/index', 			[App\Http\Controllers\Admin\ProductController::class, 'index'])->name('product.index');
+				Route::get('/create', 			[App\Http\Controllers\Admin\ProductController::class, 'create'])->name('product.create');
+				Route::post('/store', 			[App\Http\Controllers\Admin\ProductController::class, 'store'])->name('product.store');
+				Route::get('/edit/{id}', 		[App\Http\Controllers\Admin\ProductController::class, 'edit'])->name('product.edit');
+				Route::post('/update/{id}', 	[App\Http\Controllers\Admin\ProductController::class, 'update'])->name('product.update');
+				Route::post('/destroy', 		[App\Http\Controllers\Admin\ProductController::class, 'destroy'])->name('product.destroy');
+				Route::get('/status_update', 	[App\Http\Controllers\Admin\ProductController::class, 'status_update'])->name('product.status_update');
+				Route::get('/status_update_custom',[App\Http\Controllers\Admin\ProductController::class, 'status_update_custom'])->name('product.status_update_custom');
+
+			});
+
 		});
 	});
 

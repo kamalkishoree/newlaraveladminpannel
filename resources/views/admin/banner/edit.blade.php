@@ -15,7 +15,7 @@
 @endpush
 
 @section('content')
-    <form action="{{ route('banner.store') }}" method="POST" enctype="multipart/form-data">
+    <form action="{{ route('banner.update',$banner->id) }}" method="POST" enctype="multipart/form-data">
         @csrf
 
         <div class="page-header">
@@ -28,7 +28,7 @@
                             <li class="breadcrumb-item"><a
                                     href="{{ route('banner.index') }}">{{ __('Banners') }}</a></li>
                             <li class="breadcrumb-item active-breadcrumb"><a
-                                    href="{{ route('banner.create') }}">{{ __('Add new Banner') }}</a></li>
+                                    href="{{ route('banner.update',$banner->id) }}">{{ __('Update Banner') }}</a></li>
                         </ul>
                     </div>
                     <div class="col-md-3">

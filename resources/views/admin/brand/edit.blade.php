@@ -1,7 +1,7 @@
 @extends('admin.layouts.master')
 
 @section('page_title')
-    {{ __('Update Category') }}
+    {{ __('Update Brand') }}
 @endsection
 
 @push('css')
@@ -14,19 +14,19 @@
 @endpush
 
 @section('content')
-    <form action="{{ route('category.update',$category->id) }}" method="POST" enctype="multipart/form-data">
+    <form action="{{ route('brand.update',$brand->id) }}" method="POST" enctype="multipart/form-data">
         @csrf
         <div class="page-header">
             <div class="card breadcrumb-card">
                 <div class="row justify-content-between align-content-between" style="height: 100%;">
                     <div class="col-md-6">
-                        <h3 class="page-title">{{__('Update Categories')}}</h3>
+                        <h3 class="page-title">{{__('Update Brnads')}}</h3>
                         <ul class="breadcrumb">
                             <li class="breadcrumb-item"><a href="{{ route('dashboard') }}">Dashboard</a></li>
                             <li class="breadcrumb-item"><a
-                                    href="{{ route('category.index') }}">{{ __('Categories') }}</a></li>
+                                    href="{{ route('category.index') }}">{{ __('Brand') }}</a></li>
                             <li class="breadcrumb-item active-breadcrumb"><a
-                                    href="{{ route('category.update',$category->id) }}">{{ __('Update Categories') }}</a></li>
+                                    href="{{ route('category.update',$brand->id) }}">{{ __('Update Brand') }}</a></li>
                         </ul>
                     </div>
                     <div class="col-md-3">
@@ -42,7 +42,7 @@
                   <div class="col-md-6">
                                 
                            <div class="input-group mb-5">
-                            <img src="{{$category->image_url}}" alt="{{$category->slug}}" width="100" height="100">                            
+                            <img src="{{$brand->image_url}}" alt="{{$brand->slug}}" width="100" height="100">                            
                           </div>
                             <div class="input-group mb-5">
                                 <input type="file" id="image1" class="form-control" name="image_url" value="">
@@ -61,7 +61,7 @@
                         <div class="card-body">
                             <div class="form-group">
                                 <label for="name" class="required">{{ __('Category Name') }}:</label>
-                                <input type="text" name="name" id="name" class="form-control  @error('name') form-control-error @enderror" required="required" value="{{ $category->name }}">
+                                <input type="text" name="name" id="name" class="form-control  @error('name') form-control-error @enderror" required="required" value="{{ $brand->name }}">
 
                                 @error('name')
                                     <span class="text-danger">{{ $message }}</span>
@@ -70,7 +70,7 @@
 
                             <div class="form-group">
                                 <label for="slug" class="required">{{ __('Slug') }}:</label>
-                                <input type="text" name="slug" id="slug" class="form-control @error('slug') form-control-error @enderror"  required="required" value="{{ $category->name  }}">
+                                <input type="text" name="slug" id="slug" class="form-control @error('slug') form-control-error @enderror"  required="required" value="{{ $brand->name  }}">
 
                                 @error('slug')
                                     <span class="text-danger">{{ $message }}</span>
@@ -79,29 +79,41 @@
 
                             <div class="form-group">
                                 <label for="description" class="required">{{ __('Description') }}:</label>
-                                      <textarea type="text" name="description" id="description" class="form-control @error('description') form-control-error @enderror"  required="required" value="{{ $category->description  }}">{{ $category->description  }}</textarea>
+                              <textarea type="text" name="description" id="description" class="form-control @error('description') form-control-error @enderror"  required="required" value="{{ $brand->description  }}">{{$brand->description}}</textarea>
                                 @error('description')
                                     <span class="text-danger">{{ $message }}</span>
                                 @enderror
                             </div>
 
-                    
-
-
-                        <div class="form-group">
-                                <label for="is_feature">{{ __('Feature') }}:</label>
-                                <div class="custom-control custom-switch">
-                                    <input type="checkbox" name="is_feature" id="is_feature" data-id="{{$category->id}}" class=" update_category custom-control-input" {{ $category->is_feature ? 'checked' : '' }}>
-                                    <label class="custom-control-label" for="is_feature">
-                                    </label>
-                                </div>
+                            <div class="form-group">
+                                <label for="category_id" class="required">{{ __('Categroy') }}:</label>
+                                <select  name="category_id" id="category_id" class="form-control @error('category_id') form-control-error @enderror"  required="required" value="{{ old('category_id') }}">
+                                <option value="">select category ...</option>
+                                @foreach($categories as $category)   
+                                <option value="{{$category->id}}">{{$category->name}}</option>
+                                @endforeach
+                                </select>
+                                @error('category_id')
+                                    <span class="text-danger">{{ $message }}</span>
+                                @enderror
                             </div>
+
+
+
+                    <div class="form-group">
+                            <label for="is_feature">{{ __('Feature') }}:</label>
+                            <div class="custom-control custom-switch">
+                                <input type="checkbox" name="is_feature" id="is_feature" data-id="{{$brand->id}}" class=" update_category custom-control-input" {{ $brand->is_feature ? 'checked' : '' }}>
+                                <label class="custom-control-label" for="is_feature">
+                                </label>
+                            </div>
+                        </div>
 
                     <!-- Toggle for 'is_new' -->
                     <div class="form-group">
                         <label for="is_new">{{ __('New') }}:</label>
                         <div class="custom-control custom-switch">
-                            <input type="checkbox" name="is_new" id="is_new" data-id="{{$category->id}}" class="update_category custom-control-input" {{ $category->is_new ? 'checked' : '' }}>
+                            <input type="checkbox" name="is_new" id="is_new" data-id="{{$brand->id}}" class="update_category custom-control-input" {{ $brand->is_new ? 'checked' : '' }}>
                             <label class="custom-control-label" for="is_new">
                             </label>
                         </div>
@@ -111,7 +123,7 @@
                     <div class="form-group">
                         <label for="is_top">{{ __('Top') }}:</label>
                         <div class="custom-control custom-switch">
-                            <input type="checkbox" name="is_top" id="is_top" data-id="{{$category->id}}" class="update_category custom-control-input" {{ $category->is_top ? 'checked' : '' }}>
+                            <input type="checkbox" name="is_top" id="is_top" data-id="{{$brand->id}}" class="update_category custom-control-input" {{ $brand->is_top ? 'checked' : '' }}>
                             <label class="custom-control-label" for="is_top">
                             </label>
                         </div>
@@ -184,7 +196,7 @@ $(document).ready(function() {
             let _token = $('meta[name="csrf-token"]').attr('content');
 
             $.ajax({
-                url: `{{ route('category.status_update_custom') }}`,
+                url: `{{ route('brand.status_update_custom') }}`,
                 type: 'GET',
                 data: {
                     _token: _token,

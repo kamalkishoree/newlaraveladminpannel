@@ -132,25 +132,19 @@
                                 <span class="hide-menu">{{__('Category')}}</span>
                             </a>
                         </li>
-                    </ul> 
 
-
-                    <ul style="display: none;">
                         <li>
-                            <a href="{{ route('category.index') }}" title="{{__('Brands')}}" class="sidebar-link {{ (request()->is('admin/category*')) ? 'active' : '' }}">
+                            <a href="{{ route('brand.index') }}" title="{{__('Brands')}}" class="sidebar-link {{ (request()->is('admin/brand*')) ? 'active' : '' }}">
                                 <span class="hide-menu">{{__('Brands')}}</span>
                             </a>
                         </li>
-                    </ul> 
 
-
-
-                    <ul style="display: none;">
-                        <li>
-                            <a href="{{ route('category.index') }}" title="{{__('Products')}}" class="sidebar-link {{ (request()->is('admin/category*')) ? 'active' : '' }}">
+                      {{--  <li>
+                            <a href="{{ route('product.index') }}" title="{{__('Products')}}" class="sidebar-link {{ (request()->is('admin/product*')) ? 'active' : '' }}">
                                 <span class="hide-menu">{{__('Products')}}</span>
                             </a>
                         </li>
+                        --}}
                     </ul> 
 
                 </li>

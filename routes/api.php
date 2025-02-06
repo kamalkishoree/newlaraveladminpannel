@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Api\BrandController;
 use App\Http\Controllers\Api\UserAuthController;
 use App\Http\Controllers\Api\UserHomeController;
 use Illuminate\Http\Request;
@@ -31,7 +32,7 @@ Route::group([
 
 // Auth Check
     Route::post('/refresh', [UserAuthController::class, 'refresh'])->middleware('auth:api')->name('refresh');
-
+//homepage
 
 });
 
@@ -42,6 +43,7 @@ Route::group(['prefix' => 'user', 'middleware' => ['auth:api']], function () {
         Route::post('/logout', [UserAuthController::class, 'logout'])->name('logout');
 
 });
-//homepage
-Route::get('/homepage', [UserHomeController::class, 'homepage'])->name('homepage');
 
+
+Route::get('/homepage', [UserHomeController::class, 'homepage'])->name('homepage');
+Route::get('/brand-list/{category?}', [BrandController::class, 'brandList'])->name('brandList');

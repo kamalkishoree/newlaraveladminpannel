@@ -4,11 +4,12 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\Banner;
+use Brian2694\Toastr\Facades\Toastr;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
-use Brian2694\Toastr\Facades\Toastr;
 use Illuminate\Support\Facades\File;
-use DataTables;
+use Yajra\DataTables\Facades\DataTables;
+
 class BannersController extends Controller
 {
     function __construct()
@@ -20,7 +21,7 @@ class BannersController extends Controller
 	{
 		if ($request->ajax()) {
             $data = Banner::get();
-            return Datatables::of($data)
+            return DataTables::of($data)
                 ->addIndexColumn()
                 ->addColumn('action', function($row){
 					
@@ -155,7 +156,7 @@ class BannersController extends Controller
         $messages = [
             'title.required'    	=> __('Title Field is required.'),
             'description.required'  => __('Description Field is required.'),
-            'image_url.email'    	=> __('Image Field is required.'),
+            'image_url'    	=> __('Image Field is required.'),
             'redirect_url.unique'   => __('Redirect URL Field is required.'),
             'platform.required'    	=> __('Platform Field is required.'),
             //'staus.required'    	=> __('Staus Field is required.'),
@@ -163,6 +164,8 @@ class BannersController extends Controller
         ];
         
         $this->validate($request, $rules, $messages);
+
+	
 		$file = $request->file('image_url');
         $url = '';
          if(!is_null($file))
@@ -178,7 +181,7 @@ class BannersController extends Controller
           $input['image_url'] = $url;
 	    	$Banner = Banner::find($id);
 		if (empty($input['image_url'])) {
-			$input['image_url'] = $Banner->image;
+			$input['image_url'] = $Banner->image_url;
 		}
 
 		try {
