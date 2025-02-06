@@ -8,14 +8,17 @@ use Illuminate\Http\Request;
 
 class BrandController extends Controller
 {
-    public function brandList(Request $request,$category_id=NULL)
+    public function brandList(Request $request)
     {
-        $data = [];
-        if($category_id)
+
+      
+        if($request->has('category_id') && !is_null($request->category_id))
         {
-            $brand = Brand::where('category_id',$category_id)->paginate(10);
+            $data['info'] = "brand listed by category id : " . $request->category_id;
+            $brand = Brand::where('category_id',$request->category_id)->paginate(10);
         }
         else{
+            $data['info'] = "All Brands";
             $brand = Brand::whereNotNull('id')->paginate(10);
         }
         $data['brands'] = $brand;

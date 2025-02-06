@@ -142,6 +142,7 @@ class BrandController extends Controller
 	public function update(Request $request, $id)
 	{
 
+
         $brand = Brand::find($id);
         $rules = [
             'name' => 'required|string|max:255',
@@ -153,7 +154,6 @@ class BrandController extends Controller
             ],
             'description' => 'nullable|string',
             'image_url' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',  // Logo should be an image file
-            'status' => 'required|boolean',
             'category_id' => 'required|exists:categories,id', // Ensure category exists in the categories 
         ];
         $messages = [
