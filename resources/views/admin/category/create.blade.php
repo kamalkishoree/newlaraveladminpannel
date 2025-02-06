@@ -14,19 +14,19 @@
 @endpush
 
 @section('content')
-    <form action="{{ route('banner.store') }}" method="POST" enctype="multipart/form-data">
+    <form action="{{ route('category.store') }}" method="POST" enctype="multipart/form-data">
         @csrf
         <div class="page-header">
             <div class="card breadcrumb-card">
                 <div class="row justify-content-between align-content-between" style="height: 100%;">
                     <div class="col-md-6">
-                        <h3 class="page-title">{{__('create banner')}}</h3>
+                        <h3 class="page-title">{{__('Create Categories')}}</h3>
                         <ul class="breadcrumb">
                             <li class="breadcrumb-item"><a href="{{ route('dashboard') }}">Dashboard</a></li>
                             <li class="breadcrumb-item"><a
-                                    href="{{ route('banner.index') }}">{{ __('Banners') }}</a></li>
+                                    href="{{ route('category.index') }}">{{ __('Categories') }}</a></li>
                             <li class="breadcrumb-item active-breadcrumb"><a
-                                    href="{{ route('banner.create') }}">{{ __('Add new Banner') }}</a></li>
+                                    href="{{ route('category.create') }}">{{ __('Add new Categories') }}</a></li>
                         </ul>
                     </div>
                     <div class="col-md-3">
@@ -50,49 +50,36 @@
                     <div class="card">
                         <div class="card-header">
                             <h5 class="card-title">
-                                Banner's Details
+                               category's Details
                             </h5>
                         </div>
 
                         <div class="card-body">
                             <div class="form-group">
-                                <label for="title" class="required">{{ __('Title') }}:</label>
-                                <input type="text" name="title" id="title" class="form-control @error('title') form-control-error @enderror" required="required" value="{{ old('title') }}">
+                                <label for="name" class="required">{{ __('Category Name') }}:</label>
+                                <input type="text" name="name" id="name" class="form-control @error('name') form-control-error @enderror" required="required" value="{{ old('name') }}">
 
-                                @error('title')
+                                @error('name')
                                     <span class="text-danger">{{ $message }}</span>
                                 @enderror
                             </div>
 
+                            <div class="form-group">
+                                <label for="slug" class="required">{{ __('Slug') }}:</label>
+                                <input type="text" name="slug" id="slug" class="form-control @error('slug') form-control-error @enderror"  required="required" value="{{ old('slug') }}">
+
+                                @error('slug')
+                                    <span class="text-danger">{{ $message }}</span>
+                                @enderror
+                            </div>
 
                             <div class="form-group">
                                 <label for="description" class="required">{{ __('Description') }}:</label>
-                                <input type="text" name="description" id="description" class="form-control @error('description') form-control-error @enderror"  required="required" value="{{ old('description') }}">
-
+                                <textarea type="text" name="description" id="description" class="form-control @error('description') form-control-error @enderror"  required="required" value="{{ old('description') }}">
+                                </textarea>
                                 @error('description')
                                     <span class="text-danger">{{ $message }}</span>
                                 @enderror
-                            </div>
-                       
-                            <div class="form-group">
-                                <label for="redirect_url" class="required">{{ __('Redirect URL') }}:</label>
-                                <input type="text" name="redirect_url" id="redirect_url" class="form-control @error('redirect_url') form-control-error @enderror"  required="required" value="{{ old('redirect_url') }}">
-                            @error('redirect_url')
-                                <span class="text-danger">{{ $message }}</span>
-                            @enderror
-                            </div>
-
-                            <div class="form-group">
-                                <label for="platform" class="required">{{ __('Platform') }}:</label>
-                                <select  name="platform" id="platform" class="form-control @error('platform') form-control-error @enderror"  required="required" value="{{ old('platform') }}">
-                                <option value="1">WEB</option>
-                                <option value="2">Mobile</option>
-                                <option value="3">Both</option>
-                            </select>
-                           
-                                @error('redirect_url')
-                                <span class="text-danger">{{ $message }}</span>
-                            @enderror
                             </div>
                         </div> <!-- card-body-end -->
                     </div> <!-- card-end -->

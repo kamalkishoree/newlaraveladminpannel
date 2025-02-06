@@ -114,6 +114,46 @@
                     </ul> 
                 </li>
                 
+                <!---->
+
+
+
+
+                <li class="submenu">
+                    <a class="" href="javascript:void(0)" aria-expanded="false">
+                        <i data-feather="users"></i>
+                        <span class="hide-menu">{{__('Affiliate Market')}} </span>
+                        <span class="menu-arrow"></span>
+                    </a>
+
+                    <ul style="display: none;">
+                        <li>
+                            <a href="{{ route('category.index') }}" title="{{__('category')}}" class="sidebar-link {{ (request()->is('admin/category*')) ? 'active' : '' }}">
+                                <span class="hide-menu">{{__('Category')}}</span>
+                            </a>
+                        </li>
+                    </ul> 
+
+
+                    <ul style="display: none;">
+                        <li>
+                            <a href="{{ route('category.index') }}" title="{{__('Brands')}}" class="sidebar-link {{ (request()->is('admin/category*')) ? 'active' : '' }}">
+                                <span class="hide-menu">{{__('Brands')}}</span>
+                            </a>
+                        </li>
+                    </ul> 
+
+
+
+                    <ul style="display: none;">
+                        <li>
+                            <a href="{{ route('category.index') }}" title="{{__('Products')}}" class="sidebar-link {{ (request()->is('admin/category*')) ? 'active' : '' }}">
+                                <span class="hide-menu">{{__('Products')}}</span>
+                            </a>
+                        </li>
+                    </ul> 
+
+                </li>
 
 
                 <!-- Manage Commission -->
@@ -129,7 +169,7 @@
                 <!-- /Manage Commission -->
 
                    <!-- Banner -->
-                   <li class="{{ (request()->is('admin/banner*')) ? '' : '' }}">
+                <li class="{{ (request()->is('admin/banner*')) ? '' : '' }}">
                 <a class="sidebar-link" href="{{ route('banner.index') }}" aria-expanded="false">
                 <i class="fa-regular fa-images"></i>
                     <span>

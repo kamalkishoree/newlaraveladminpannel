@@ -168,6 +168,17 @@ Route::group(['middleware' => 'language'], function () {
 				Route::post('/destroy', 		[App\Http\Controllers\Admin\BannersController::class, 'destroy'])->name('banner.destroy');
 				Route::get('/status_update', 	[App\Http\Controllers\Admin\BannersController::class, 'status_update'])->name('banner.status_update');
 			});
+			Route::prefix('category')->group(function () {
+				Route::get('/index', 			[App\Http\Controllers\Admin\CategoryController::class, 'index'])->name('category.index');
+				Route::get('/create', 			[App\Http\Controllers\Admin\CategoryController::class, 'create'])->name('category.create');
+				Route::post('/store', 			[App\Http\Controllers\Admin\CategoryController::class, 'store'])->name('category.store');
+				Route::get('/edit/{id}', 		[App\Http\Controllers\Admin\CategoryController::class, 'edit'])->name('category.edit');
+				Route::post('/update/{id}', 	[App\Http\Controllers\Admin\CategoryController::class, 'update'])->name('category.update');
+				Route::post('/destroy', 		[App\Http\Controllers\Admin\CategoryController::class, 'destroy'])->name('category.destroy');
+				Route::get('/status_update', 	[App\Http\Controllers\Admin\CategoryController::class, 'status_update'])->name('category.status_update');
+				Route::get('/status_update_custom', 	[App\Http\Controllers\Admin\CategoryController::class, 'status_update_custom'])->name('category.status_update_custom');
+
+			});
 
 		});
 	});
