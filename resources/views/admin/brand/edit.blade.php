@@ -94,7 +94,7 @@
                             </div>
 
                             <div class="form-group">
-                                <label for="category_id" class="required">{{ __('Categroy') }}:</label>
+                                <label for="category_id" class="required">{{ __('Category') }}:</label>
                                 <select  name="category_id" id="category_id" class="form-control @error('category_id') form-control-error @enderror"  required="required" >
                                 <option value="">select category ...</option>
                                 @foreach($categories as $category)   
