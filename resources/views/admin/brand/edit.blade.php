@@ -78,6 +78,14 @@
                             </div>
 
                             <div class="form-group">
+                                <label for="target_url" class="required">{{ __('Target URL') }}:</label>
+                                <input type="text" name="target_url" id="target_url" class="form-control @error('target_url') form-control-error @enderror"  required="required" value="{{ $brand->target_url }}">
+                                @error('target_url')
+                                    <span class="text-danger">{{ $message }}</span>
+                                @enderror
+                            </div>
+
+                            <div class="form-group">
                                 <label for="description" class="required">{{ __('Description') }}:</label>
                               <textarea type="text" name="description" id="description" class="form-control @error('description') form-control-error @enderror"  required="required" value="{{ $brand->description  }}">{{$brand->description}}</textarea>
                                 @error('description')
@@ -87,10 +95,10 @@
 
                             <div class="form-group">
                                 <label for="category_id" class="required">{{ __('Categroy') }}:</label>
-                                <select  name="category_id" id="category_id" class="form-control @error('category_id') form-control-error @enderror"  required="required" value="{{ old('category_id') }}">
+                                <select  name="category_id" id="category_id" class="form-control @error('category_id') form-control-error @enderror"  required="required" >
                                 <option value="">select category ...</option>
                                 @foreach($categories as $category)   
-                                <option value="{{$category->id}}">{{$category->name}}</option>
+                                <option value="{{$category->id}}" {{( $category->id == $brand->category_id)?'selected':''}} @endphp>{{$category->name}}</option>
                                 @endforeach
                                 </select>
                                 @error('category_id')

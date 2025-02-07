@@ -20,6 +20,7 @@ class CreateBrandsTable extends Migration
             $table->string('slug')->unique();  // URL slug (unique)
             $table->text('image_url')->nullable();  // Logo URL (optional)
             $table->text('description')->nullable();  // Description (optional)
+            $table->text('target_url')->nullable();  // Description (optional)
             $table->enum('is_new', ['1', '0'])->default('0');
             $table->enum('is_top', ['1', '0'])->default('0');
             $table->enum('is_feature', ['1', '0'])->default('0');

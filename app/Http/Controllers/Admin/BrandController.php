@@ -88,6 +88,7 @@ class BrandController extends Controller
 
 	public function store(Request $request)
 	{
+
 		$rules = [
             'name' => 'required|string|max:255',
             'slug' => 'required|string|unique:brands,slug|max:255',
@@ -106,7 +107,10 @@ class BrandController extends Controller
             'category_id.required' => 'The category is required.',
             'category_id.exists' => 'The selected category does not exist.',
         ];
+
+        
         $this->validate($request, $rules, $messages);
+
         $file = $request->file('image_url');
         $url = '';
          if(!is_null($file))
@@ -142,7 +146,6 @@ class BrandController extends Controller
 	public function update(Request $request, $id)
 	{
 
-
         $brand = Brand::find($id);
         $rules = [
             'name' => 'required|string|max:255',
@@ -167,7 +170,8 @@ class BrandController extends Controller
             'category_id.required' => 'The category is required.',
             'category_id.exists' => 'The selected category does not exist.',
         ];
-
+    
+      
 
         $this->validate($request, $rules, $messages);
 		$file = $request->file('image_url');
@@ -191,8 +195,27 @@ class BrandController extends Controller
 			$input['image_url'] = $brand->image_url;
 		}
 
+        if($request->has('is_new'))
+        {
+       
+            $input['is_new'] =  $request->is_new  == 'on' ? 1:0;
+
+        }
+
+        if($request->has('is_top'))
+        {
+            $input['is_top'] =  $request->is_top  == 'on' ? 1:0;
+
+        }
+
+        if($request->has('is_feature'))
+        {
+            $input['is_feature'] =  $request->is_feature  == 'on'  ? 1:0;
+
+        }
 
 		try {
+
 			$brand->update($input);
             Toastr::success(__('brand updated Successfully'));
 		    return redirect()->route('brand.index');

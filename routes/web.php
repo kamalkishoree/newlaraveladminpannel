@@ -14,14 +14,13 @@ use Illuminate\Support\Facades\Route;
 */
 
 
-Route::get('setlocale/{locale}', function ($lang) {
-	\Session::put('locale', $lang);
-	return redirect()->back();
+Route::get('/', function () {
+    return redirect('/admin/login');
 })->name('setlocale');
 
 
-// Frontend Routes
-Route::get('/', 					[App\Http\Controllers\Frontend\HomeController::class, 'index'])->name('home');
+// Frontend Routes commented to open admin directely
+// Route::get('/', [App\Http\Controllers\Frontend\HomeController::class, 'index'])->name('home');
 
 
 
@@ -148,7 +147,7 @@ Route::group(['middleware' => 'language'], function () {
 				});
 
 
-				Route::prefix('banners')->group(function () {
+				Route::prefix('affiliate')->group(function () {
 					Route::get('/index', [App\Http\Controllers\Admin\AffilateIntegrationController::class, 'index'])->name('affiliate.index');
 					Route::get('/create',[App\Http\Controllers\Admin\AffilateIntegrationController::class, 'create'])->name('affiliate.create');
 					Route::post('/store',[App\Http\Controllers\Admin\AffilateIntegrationController::class, 'store'])->name('affiliate.store');

@@ -27,4 +27,21 @@ class BrandController extends Controller
             'data' =>$data,
         ],200);
     }
+
+
+    public function brandDetails(Request $request)
+    {
+        $data = [];
+        $data['brands']=[];
+        $brand = Brand::find($request->id);
+        if($brand)
+        {
+            $data['brands'] = $brand;
+
+        }
+        return response()->json([
+            'message' =>'success',
+            'data' =>$data,
+        ],200);
+    }
 }

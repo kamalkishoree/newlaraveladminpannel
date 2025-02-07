@@ -47,3 +47,5 @@ Route::group(['prefix' => 'user', 'middleware' => ['auth:api']], function () {
 
 Route::get('/homepage', [UserHomeController::class, 'homepage'])->name('homepage');
 Route::get('/brand-list/{category?}', [BrandController::class, 'brandList'])->name('brandList');
+Route::get('/brand-details/{id}', [BrandController::class, 'brandDetails'])->name('brand-details');
+
