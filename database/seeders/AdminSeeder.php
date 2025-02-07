@@ -19,11 +19,11 @@ class AdminSeeder extends Seeder
         if(is_null($user))
         {
             $user = User::create([
-                'name'      => 'Soumik Ahammed',
-                'email'     => 'admin@example.com',
+                'name'      => 'Super Admin',
+                'email'     => 'admin@quick.com',
                 'mobile'    => '01689201370',
                 'dial_code' => '+91',
-                'password'  => bcrypt('abc123'),
+                'password'  => bcrypt('12345678'),
                 'status'    => 1
             ]);
 
