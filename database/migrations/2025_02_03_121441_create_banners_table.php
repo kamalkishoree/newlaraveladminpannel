@@ -17,8 +17,8 @@ class CreateBannersTable extends Migration
             $table->id();
             $table->string('title')->nullable(false); // Banner title
             $table->text('description')->nullable(); // Optional description
-            $table->string('image_url')->nullable(false); // Image URL for the banner
-            $table->string('redirect_url')->nullable(); // URL to navigate on banner click
+            $table->text('image_url')->nullable(false); // Image URL for the banner
+            $table->text('redirect_url')->nullable(); // URL to navigate on banner click
             $table->enum('platform', ['mobile', 'website', 'both'])->default('both'); // Platform type
             $table->enum('status', ['active', 'inactive'])->default('active'); // Status of the banner
             $table->timestamp('start_date')->nullable(true); // Required start date
