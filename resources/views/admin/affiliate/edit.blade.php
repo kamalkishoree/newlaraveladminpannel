@@ -74,6 +74,14 @@
                             @enderror
                         </div>
 
+						<div class="form-group">
+										<label for="base_url" class="required">{{__("Base Url")}}:</label>
+                                        <input type="text" name="base_url" id="base_url" class="form-control @error('base_url') form-control-error @enderror"  value="{{$affilateIntegration->base_url}}">
+										@error('base_url')
+											<span class="text-danger">{{ $message }}</span>
+										@enderror
+						</div>
+
                         <div class="form-group">
                             <label for="api_key" class="required">{{__("Api Key")}}:</label>
                             <input type="text" name="api_key" id="api_key" class="form-control @error('api_key') form-control-error @enderror" required="required" value="{{$affilateIntegration->api_key}}">

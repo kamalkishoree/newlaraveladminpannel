@@ -45,6 +45,10 @@ class AffilateIntegrationController extends Controller
                      return $row->provider_name??"N/A";
                 })
 
+                ->addColumn('base_url', function($row){
+                  return $row->base_url??"N/A";
+                })
+
                 ->addColumn('api_key', function($row){
                   return $row->api_key??"N/A";
                 })
@@ -79,13 +83,14 @@ class AffilateIntegrationController extends Controller
 
 		$rules = [
          'provider_name' 			=> 'required',
-			'api_key' 		=> 'required',
+			    'api_key' 		=> 'required',
+          'base_url' =>'required'
         ];
 
         $messages = [
             'provider_name.required'    		=> __('Provider name is a required field'),
             'api_key.required'    	=> __('API key name is a required field'),
-          
+            'base_url' =>__('Base Url is a required field.')
         ];
          $this->validate($request, $rules, $messages);
 	   	$input = request()->all();

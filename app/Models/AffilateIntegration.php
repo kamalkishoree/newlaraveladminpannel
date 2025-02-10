@@ -14,6 +14,7 @@ class AffilateIntegration extends Model
         'api_key',
         'client_id',
         'client_secret',
-        'headers'
+        'headers',
+        'base_url'
     ];
 }

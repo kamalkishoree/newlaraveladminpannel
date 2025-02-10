@@ -54,7 +54,7 @@ class UserAuthController extends Controller
 
     public function verifyOtp(VerifyOtpRequest $request) {
         $validated = $request->validated();       
-
+     
         if($validated)
         {
             if($request->has('phone_number') && $request->has('dial_code') )
@@ -67,9 +67,9 @@ class UserAuthController extends Controller
               if($is_otp_varified)
               {
                 $token = $user->createToken('access_token')->accessToken;
-                $user->update([
-                    'access_token' => $token,
-                ]);
+                $user->access_token = $token;
+                $user->save();
+               
                 return response()->json([
                     'message' => 'Login Successfuly',
                     'user' =>$user,

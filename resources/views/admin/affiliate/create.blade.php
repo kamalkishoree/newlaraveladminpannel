@@ -65,6 +65,15 @@
 										@enderror
 									</div>
 
+
+									<div class="form-group">
+										<label for="base_url" class="required">{{__("Base Url")}}:</label>
+                                        <input type="text" name="base_url" id="base_url" class="form-control @error('base_url') form-control-error @enderror"  value="{{old('base_url')}}">
+										@error('base_url')
+											<span class="text-danger">{{ $message }}</span>
+										@enderror
+									</div>
+
 									<div class="form-group">
 										<label for="api_key" class="required">{{__("Api Key")}}:</label>
 										<input type="text" name="api_key" id="api_key" class="form-control @error('api_key') form-control-error @enderror" required="required" value="{{old('api_key')}}">
@@ -91,8 +100,10 @@
 									</div>
 
 
+
+
                                     <div class="form-group">
-										<label for="headers" class="required">{{__("Client Secret")}}:</label>
+										<label for="headers" class="required">{{__("Header")}}:</label>
                                         <input type="json" name="headers" id="headers" class="form-control @error('headers') form-control-error @enderror"  value="{{old('headers')}}">
 										@error('headers')
 											<span class="text-danger">{{ $message }}</span>

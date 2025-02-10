@@ -18,7 +18,7 @@ Route::get('/', function () {
     return redirect('/admin/login');
 })->name('setlocale');
 
-
+Route::get('logs', [\Rap2hpoutre\LaravelLogViewer\LogViewerController::class, 'index']);
 // Frontend Routes commented to open admin directely
 // Route::get('/', [App\Http\Controllers\Frontend\HomeController::class, 'index'])->name('home');
 
@@ -26,25 +26,18 @@ Route::get('/', function () {
 
 
 Route::group(['middleware' => 'language'], function () {
-
 	// Admin Routes
 	Route::prefix('admin')->group(function () {
-
 		Route::get('/login', 					[App\Http\Controllers\Auth\LoginController::class, 'login'])->name('login');
 		Route::post('/login', 					[App\Http\Controllers\Auth\LoginController::class, 'login_go'])->name('login_go');
 		Route::get('/logout', 					[App\Http\Controllers\Auth\LoginController::class, 'logout'])->name('logout');
-
 		Route::get('forget-password', 			[App\Http\Controllers\Auth\ForgotPasswordController::class, 'showForgetPasswordForm'])->name('forget.password.get');
 		Route::post('forget-password', 			[App\Http\Controllers\Auth\ForgotPasswordController::class, 'submitForgetPasswordForm'])->name('forget.password.post');
-
 		Route::get('reset-password/{token}', 	[App\Http\Controllers\Auth\ForgotPasswordController::class, 'showResetPasswordForm'])->name('reset.password.get');
 		Route::post('reset-password', 			[App\Http\Controllers\Auth\ForgotPasswordController::class, 'submitResetPasswordForm'])->name('reset.password.post');
-
 		// Admin Authenticated Routes
 		Route::group(['middleware' => ['auth']], function () {
-
 			Route::get('/dashboard', 			[App\Http\Controllers\Admin\DashboardController::class, 'dashboard'])->name('dashboard');
-
 			// Profile
 			Route::get('/profile', 				[App\Http\Controllers\Admin\UserController::class, 'profile'])->name('profile');
 			Route::post('/profile/update/{id}', [App\Http\Controllers\Admin\UserController::class, 'profile_update'])->name('profile.update');

@@ -29,11 +29,9 @@ Route::group([
     Route::post('/register', [UserAuthController::class, 'register'])->name('register');
     Route::post('/verify_otp', [UserAuthController::class, 'verifyOtp'])->name('verifyOtp');
     Route::post('login', [UserAuthController::class, 'login'])->name('user.login');
-
 // Auth Check
     Route::post('/refresh', [UserAuthController::class, 'refresh'])->middleware('auth:api')->name('refresh');
 //homepage
-
 });
 
 Route::group(['prefix' => 'user', 'middleware' => ['auth:api']], function () {
@@ -41,6 +39,7 @@ Route::group(['prefix' => 'user', 'middleware' => ['auth:api']], function () {
         Route::post('/editProfile', [UserAuthController::class, 'editProfile'])->name('editProfile');
         Route::post('/me', [UserAuthController::class, 'me'])->name('me');
         Route::post('/logout', [UserAuthController::class, 'logout'])->name('logout');
+        Route::post('/create-campaign', [UserAuthController::class, 'logout'])->name('logout');
 
 });
 

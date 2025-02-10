@@ -16,6 +16,7 @@ class CreateAffilateIntegrationsTable extends Migration
         Schema::create('affilate_integrations', function (Blueprint $table) {
             $table->id();
             $table->string('provider_name')->unique();  // Unique name for the provider
+            $table->string('base_url',1024)->nullable(false);  // API Key (required)
             $table->text('api_key')->nullable(false);  // API Key (required)
             $table->string('client_id')->nullable(true); // Client ID (required)
             $table->string('client_secret')->nullable(true); // Client Secret (required)
