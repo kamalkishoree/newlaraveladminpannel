@@ -49,6 +49,8 @@
                                 <th class="">{{ __('P1 ID') }}</th>
                                 <th class="">{{ __('Campaign ID') }}</th>
                                 <th class="">{{ __('Brand ID') }}</th>
+                                <th class="">{{ __('Target URL') }}</th>
+
                             </tr>
                         </thead>
 
@@ -82,6 +84,8 @@
                     {  data: 'unique_p1_id', name: 'unique_p1_id' },
                     {  data: 'campaign_id', name: 'campaign_id' },
                     {  data: 'brand_id', name: 'brand_id' },
+                    {  data: 'target_url', name: 'target_url' },
+
                 ],
             });
         });

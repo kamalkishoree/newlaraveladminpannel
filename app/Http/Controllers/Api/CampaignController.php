@@ -51,7 +51,7 @@ class CampaignController extends Controller
     public function userCampaignAll(Request $request)
     {
         $data = [];
-           $campaign = Campaign::where('user_id',Auth::user()->id)->paginate(10);
+           $campaign = Campaign::where('user_id',Auth::user()->id)->paginate(50);
            $data['campaign'] = $campaign;
                 return response()->json([
                     'message' =>'success',

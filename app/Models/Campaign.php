@@ -12,5 +12,10 @@ class Campaign extends Model
      protected $fillable = [
           'campaign_id','unique_p1_id','brand_id','campaign_id','campaign_provider_id','user_id','pub_id'
      ];
+
+     public function brand()
+     {
+          return   $this->hasOne(Brand::class,'id','brand_id');
+     }
    
 }
