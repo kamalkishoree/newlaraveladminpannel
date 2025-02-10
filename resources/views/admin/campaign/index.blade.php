@@ -18,19 +18,19 @@
 		<div class="card breadcrumb-card">
 			<div class="row justify-content-between align-content-between" style="height: 100%;">
 				<div class="col-md-6">
-					<h3 class="page-title">{{__('Categories Details')}}</h3>
+					<h3 class="page-title">{{__('Campaign Details')}}</h3>
 					<ul class="breadcrumb">
 						<li class="breadcrumb-item">
 							<a href="{{ route('dashboard') }}">Dashboard</a>
 						</li>
 						<li class="breadcrumb-item active-breadcrumb">
-							<a href="{{ route('category.index') }}">{{ __('Categories') }}</a>
+							<a href="{{ route('campaign.index') }}">{{ __('Campaign') }}</a>
 						</li>
 					</ul>
 				</div>
                     <div class="col-md-3">
                         <div class="create-btn pull-right">
-                            <a href="{{ route('category.create') }}" class="btn custom-create-btn">{{ __('Add New Categories') }}</a>
+                            <a href="{{ route('campaign.create') }}" class="btn custom-create-btn">{{ __('Add New Campaign') }}</a>
                         </div>                 
                     </div>
 			</div>
@@ -46,12 +46,9 @@
                         <thead>
                             <tr>
                                 <th class="">{{ __('default.table.sl') }}</th>
-                                <th class="">{{ __('default.table.image') }}</th>
-                                <th class="">{{ __('Category Name') }}</th>
-                                <th class="">{{ __('Slug') }}</th>
-                                <th class="">{{ __('Description') }}</th>
-                                <th class="">{{ __('status') }}</th>
-                                <th class="">{{ __('default.table.action') }}</th>
+                                <th class="">{{ __('P1 ID') }}</th>
+                                <th class="">{{ __('Campaign ID') }}</th>
+                                <th class="">{{ __('Brand ID') }}</th>
                             </tr>
                         </thead>
 
@@ -79,22 +76,19 @@
                 order: [
                     [0, 'desc']
                 ],
-                ajax: "{{ route('category.index') }}",
+                ajax: "{{ route('campaign.index') }}",
                 columns: [
 					{  data: 'DT_RowIndex', name: 'DT_RowIndex' },
-                    {  data: 'image_url', name: 'image_url' },
-                    {  data: 'name', name: 'name' },
-                    {  data: 'slug', name: 'slug' },
-                    {  data: 'description', name: 'description' },
-                    {  data: 'status', name: 'status' },
-                    {  data: 'action', name: 'action', orderable: false, searchable: false}
+                    {  data: 'unique_p1_id', name: 'unique_p1_id' },
+                    {  data: 'campaign_id', name: 'campaign_id' },
+                    {  data: 'brand_id', name: 'brand_id' },
                 ],
             });
         });
     </script>
 
     <script type="text/javascript">
-        $("body").on("click", ".remove-category", function() {
+        $("body").on("click", ".remove-campaign", function() {
             var current_object = $(this);
             swal({
                 title: "Are you sure?",
@@ -128,7 +122,7 @@
             let _token = $('meta[name="csrf-token"]').attr('content');
 
             $.ajax({
-                url: `{{ route('category.status_update') }}`,
+                url: `{{ route('campaign.status_update') }}`,
                 type: 'GET',
                 data: {
                     _token: _token,
