@@ -47,7 +47,7 @@ Route::group(['prefix' => 'user', 'middleware' => ['auth:api']], function () {
 //CampaignController
 Route::group(['prefix' => 'campaign', 'middleware' => ['auth:api']], function () {
     Route::post('/create', [CampaignController::class, 'createUserCampaign'])->name('create.campaign');
-    Route::post('/user/{id?}', [CampaignController::class, 'userCampaignAll'])->name('campaign.user.all');
+    Route::get('/user/{id?}', [CampaignController::class, 'userCampaignAll'])->name('campaign.user.all');
 });
 
 

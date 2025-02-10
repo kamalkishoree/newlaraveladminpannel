@@ -26,6 +26,17 @@
                         </span>
                     </a>
                 </li>
+
+
+            <li class="{{ (request()->is('admin/campaign*')) ? '' : '' }}">
+                       <a class="sidebar-link" href="{{ route('campaign.index') }}" aria-expanded="false">
+                       <i class="fa-solid fa-arrow-right-from-bracket"></i>
+             <span>
+                         {{__('All Clicks')}}
+             </span>
+                  </a>
+            </li>
+
                 <!-- /Dashboard -->
 
             <!-- Users -->

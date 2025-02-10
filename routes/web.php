@@ -196,6 +196,19 @@ Route::group(['middleware' => 'language'], function () {
 
 			});
 
+			Route::prefix('campaign')->group(function () {
+				Route::get('/index', 			[App\Http\Controllers\Admin\CategoryController::class, 'index'])->name('campaign.index');
+				Route::get('/create', 			[App\Http\Controllers\Admin\CategoryController::class, 'create'])->name('campaign.create');
+				Route::post('/store', 			[App\Http\Controllers\Admin\CategoryController::class, 'store'])->name('campaign.store');
+				Route::get('/edit/{id}', 		[App\Http\Controllers\Admin\CategoryController::class, 'edit'])->name('campaign.edit');
+				Route::post('/update/{id}', 	[App\Http\Controllers\Admin\CategoryController::class, 'update'])->name('campaign.update');
+				Route::post('/destroy', 		[App\Http\Controllers\Admin\CategoryController::class, 'destroy'])->name('campaign.destroy');
+				Route::get('/status_update', 	[App\Http\Controllers\Admin\CategoryController::class, 'status_update'])->name('campaign.status_update');
+				Route::get('/status_update_custom', 	[App\Http\Controllers\Admin\CategoryController::class, 'status_update_custom'])->name('campaign.status_update_custom');
+
+			});
+
+
 		});
 	});
 
