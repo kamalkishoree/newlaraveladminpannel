@@ -47,6 +47,13 @@ class CampaignController extends Controller
                 ->addColumn('campaign_id', function($row){
                     return $row->campaign_id;
                 })
+
+                ->addColumn('view', function($row){
+                    return '<button class="custom-delete-btn view-campaign-data" data-id="'.$row->id.'" data-action="'.route('campaign.view').'">
+							<i class="fe fe-eye"></i>
+		                          '.__('view').'
+							</button>';
+                })
                 ->editColumn('created_at', '{{date("jS M Y", strtotime($created_at))}}')
 	            ->editColumn('updated_at', '{{date("jS M Y", strtotime($updated_at))}}')
 	            ->escapeColumns([])

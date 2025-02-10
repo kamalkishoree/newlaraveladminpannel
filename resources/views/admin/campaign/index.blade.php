@@ -50,6 +50,7 @@
                                 <th class="">{{ __('Campaign ID') }}</th>
                                 <th class="">{{ __('Brand ID') }}</th>
                                 <th class="">{{ __('Target URL') }}</th>
+                                <th class="">{{ __('Action') }}</th>
 
                             </tr>
                         </thead>
@@ -63,9 +64,27 @@
             </div>
         </div>
     </div>
+
+    <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="myModalLabel">My Modal Title</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+             X  <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+         
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
 @endsection
-
-
 
 
 @push('scripts')
@@ -85,6 +104,8 @@
                     {  data: 'campaign_id', name: 'campaign_id' },
                     {  data: 'brand_id', name: 'brand_id' },
                     {  data: 'target_url', name: 'target_url' },
+                    {  data: 'view', name: 'view' },
+
 
                 ],
             });
@@ -143,4 +164,38 @@
             });
         }
     </script>
+
+
+
+
+
+<script type="text/javascript">
+        $("body").on("click", ".view-campaign-data", function() {
+            var current_object = $(this);
+            var id = $(this).attr('data-id');
+            $.ajax({
+                url: `{{ route('campaign.view') }}`,
+                type: 'GET',
+                data: {
+                    _token: _token,
+                    id: id,
+                    status: status
+                },
+                success: function(result) {
+					if(status == 1){
+                        $("#myModal").body('kamal');
+                        $("#myModal").modal('show');
+                    	toastr.success(result.message);
+                	}else{
+                    	toastr.error(result.message);
+                	} 
+                }
+            });
+
+
+        });
+</script>
+
+
+
 @endpush
