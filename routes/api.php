@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Api\BrandController;
+use App\Http\Controllers\Api\CampaignController;
 use App\Http\Controllers\Api\UserAuthController;
 use App\Http\Controllers\Api\UserHomeController;
 use Illuminate\Http\Request;
@@ -39,8 +40,14 @@ Route::group(['prefix' => 'user', 'middleware' => ['auth:api']], function () {
         Route::post('/editProfile', [UserAuthController::class, 'editProfile'])->name('editProfile');
         Route::post('/me', [UserAuthController::class, 'me'])->name('me');
         Route::post('/logout', [UserAuthController::class, 'logout'])->name('logout');
-        Route::post('/create-campaign', [UserAuthController::class, 'logout'])->name('logout');
+        Route::post('/create-campaign', [CampaignController::class, 'createUserCampaign'])->name('create.campaign');
 
+});
+
+//CampaignController
+Route::group(['prefix' => 'campaign', 'middleware' => ['auth:api']], function () {
+    Route::post('/create', [CampaignController::class, 'createUserCampaign'])->name('create.campaign');
+    Route::post('/user/{id?}', [CampaignController::class, 'userCampaignAll'])->name('campaign.user.all');
 });
 
 

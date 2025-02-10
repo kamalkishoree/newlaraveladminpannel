@@ -7,8 +7,10 @@ use Illuminate\Database\Eloquent\Model;
 
 class Campaign extends Model
 {
-    use HasFactory,HasUuids;
+    use HasFactory;
 
-
+     protected $fillable = [
+          'campaign_id','unique_p1_id','brand_id','campaign_id','campaign_provider_id','user_id','pub_id'
+     ];
    
 }

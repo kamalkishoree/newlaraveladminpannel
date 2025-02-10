@@ -27,4 +27,14 @@ if (!function_exists('isModuleEnabled')) {
                 exit();
             }
         }
+      
+    // Parse the query string into an associative array
+    function getUrlParams($url)
+    {
+        // Extract the query string from the URL
+        $query = parse_url($url, PHP_URL_QUERY);
+        // Parse the query string into an associative array
+        parse_str($query, $params);
+        return $params;
+    }
 }

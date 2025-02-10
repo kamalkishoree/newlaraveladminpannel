@@ -3,16 +3,98 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
+use App\Models\Campaign;
+use GuzzleHttp\Promise\Create;
 use Illuminate\Http\Request;
-
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Str;
 class CampaignController extends Controller
 {
     
     public function createUserCampaign(Request $request)
     {
-        pr($request->all());
+
+        $data = [];
+        if($request->url)
+        {
+
+            $params = getUrlParams($request->url);
+            $unique_id = (string) Str::uuid();
+            
+           $campaign =  Campaign::create([
+                'campaign_id' => $params['campaign_id'],
+                'pub_id' =>$params['pub_id'],
+                'unique_p1_id' => $params['p1']?$params['p1']:$unique_id,
+                'brand_id' => $request->brand_id,                  
+                'user_id' =>  Auth::user()->id,
+                'campaign_provider_id' => 1
+            ]);
+
+            if($campaign)
+            {
+                $data['campaign'] = $campaign;
+                return response()->json([
+                    'message' =>'success',
+                    'data' =>$data,
+                ],200);
+            }
+            else{
+                return response()->json([
+                    'message' =>'failed',
+                    'error' =>''
+                ],400);
+            }
+          
+        }
     }
 
-       
+    public function userCampaignAll(Request $request)
+    {
+        $data = [];
+           $campaign = Campaign::where('user_id',Auth::user()->id)->paginate(10);
+           $data['campaign'] = $campaign;
+                return response()->json([
+                    'message' =>'success',
+                    'data' =>$data,
+             ],200);
+    }
+
+
+    public function campaignAll(Request $request)
+    {
+
+        $data = [];
+        if($request->url)
+        {
+
+            $params = getUrlParams($request->url);
+            $unique_id = (string) Str::uuid();
+            
+           $campaign =  Campaign::create([
+                'campaign_id' => $params['campaign_id'],
+                'pub_id' =>$params['pub_id'],
+                'unique_p1_id' => $unique_id,
+                'brand_id' => $request->brand_id,                  
+                'user_id' =>  Auth::user()->id,
+                'campaign_provider_id' => 1
+            ]);
+
+            if($campaign)
+            {
+                $data['campaign'] = $campaign;
+                return response()->json([
+                    'message' =>'success',
+                    'data' =>$data,
+                ],200);
+            }
+            else{
+                return response()->json([
+                    'message' =>'failed',
+                    'error' =>''
+                ],400);
+            }
+          
+        }
+    }
 
 }
