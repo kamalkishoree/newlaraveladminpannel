@@ -199,13 +199,20 @@ Route::group(['middleware' => 'language'], function () {
 			Route::prefix('campaign')->group(function () {
 				Route::get('/index', 			[App\Http\Controllers\Admin\CampaignController::class, 'index'])->name('campaign.index');
 				Route::get('/create', 			[App\Http\Controllers\Admin\CampaignController::class, 'create'])->name('campaign.create');
-				Route::get('/view', 			[App\Http\Controllers\Admin\CampaignController::class, 'view'])->name('campaign.view');
+			
 				Route::post('/store', 			[App\Http\Controllers\Admin\CampaignController::class, 'store'])->name('campaign.store');
 				Route::get('/edit/{id}', 		[App\Http\Controllers\Admin\CampaignController::class, 'edit'])->name('campaign.edit');
 				Route::post('/update/{id}', 	[App\Http\Controllers\Admin\CampaignController::class, 'update'])->name('campaign.update');
 				Route::post('/destroy', 		[App\Http\Controllers\Admin\CampaignController::class, 'destroy'])->name('campaign.destroy');
 				Route::get('/status_update', 	[App\Http\Controllers\Admin\CampaignController::class, 'status_update'])->name('campaign.status_update');
 				Route::get('/status_update_custom', 	[App\Http\Controllers\Admin\CampaignController::class, 'status_update_custom'])->name('campaign.status_update_custom');
+
+			});
+
+
+
+			Route::prefix('campaign')->group(function () {
+				Route::get('/view', 			[App\Http\Controllers\Admin\CampaignController::class, 'view'])->name('campaign.view');
 
 			});
 

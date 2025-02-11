@@ -173,17 +173,17 @@
         $("body").on("click", ".view-campaign-data", function() {
             var current_object = $(this);
             var id = $(this).attr('data-id');
+         
             $.ajax({
                 url: `{{ route('campaign.view') }}`,
                 type: 'GET',
                 data: {
-                    _token: _token,
                     id: id,
                     status: status
                 },
                 success: function(result) {
 					if(status == 1){
-                        $("#myModal").body('kamal');
+                        $("#myModal").body();
                         $("#myModal").modal('show');
                     	toastr.success(result.message);
                 	}else{
