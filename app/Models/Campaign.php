@@ -17,5 +17,9 @@ class Campaign extends Model
      {
           return   $this->hasOne(Brand::class,'id','brand_id');
      }
+     public function user()
+     {
+          return   $this->hasOne(User::class,'id','user_id');
+     }
    
 }

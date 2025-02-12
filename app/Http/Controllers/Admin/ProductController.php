@@ -283,4 +283,13 @@ class ProductController extends Controller
         }  
 	}
 
+    public function customtest()
+    {
+
+       $str ="daabcbaabcbc";
+       $array = explode('abc',$str);
+       return implode('',$array);
+
+    }
+
 }
