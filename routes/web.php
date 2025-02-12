@@ -209,14 +209,9 @@ Route::group(['middleware' => 'language'], function () {
 
 			});
 
-
-
 			Route::prefix('campaign')->group(function () {
-				Route::get('/view', 			[App\Http\Controllers\Admin\CampaignController::class, 'view'])->name('campaign.view');
-
+				Route::get('/view', [App\Http\Controllers\Admin\CampaignController::class, 'view'])->name('campaign.view');
 			});
-
-
 		});
 	});
 
