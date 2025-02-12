@@ -210,14 +210,25 @@ Route::group(['middleware' => 'language'], function () {
 			});
 
 
-
-			Route::prefix('campaign')->group(function () {
-				Route::get('/view', 			[App\Http\Controllers\Admin\CampaignController::class, 'view'])->name('campaign.view');
+			Route::prefix('push-notification')->group(function () {
+				Route::get('/index', 			[App\Http\Controllers\Admin\PushNotificationController::class, 'index'])->name('pushNotification.index');
+				Route::get('/create', 			[App\Http\Controllers\Admin\PushNotificationController::class, 'create'])->name('pushNotification.create');
+				Route::post('/store', 			[App\Http\Controllers\Admin\PushNotificationController::class, 'store'])->name('pushNotification.store');
+				Route::get('/edit/{id}', 		[App\Http\Controllers\Admin\PushNotificationController::class, 'edit'])->name('pushNotification.edit');
+				Route::post('/update/{id}', 	[App\Http\Controllers\Admin\PushNotificationController::class, 'update'])->name('pushNotification.update');
+				Route::post('/destroy', 		[App\Http\Controllers\Admin\PushNotificationController::class, 'destroy'])->name('pushNotification.destroy');
+				Route::get('/status_update', 	[App\Http\Controllers\Admin\PushNotificationController::class, 'status_update'])->name('pushNotification.status_update');
+				Route::get('/status_update_custom', 	[App\Http\Controllers\Admin\PushNotificationController::class, 'status_update_custom'])->name('pushNotification.status_update_custom');
 
 			});
 
 
+
+			Route::prefix('conversion')->group(function () {
+				Route::get('/view',[App\Http\Controllers\Admin\ConversionController::class, 'view'])->name('conversion.view');
+			});
 		});
 	});
 
 });
+Route::get('/test',[App\Http\Controllers\Admin\ProductController::class, 'customtest'])->name('test');

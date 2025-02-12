@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\Campaign;
+use Exception;
 use Illuminate\Http\Request;
 use Yajra\DataTables\Facades\DataTables;
 
@@ -31,25 +32,25 @@ class CampaignController extends Controller
                     return $action;
                 })
 
-              
+                
+                ->addColumn('user', function($row){
+                    return $row->user->name;
+                })
                 ->addColumn('unique_p1_id', function($row){
                     return $row->unique_p1_id;
                 })
 
                 ->addColumn('brand_id', function($row){
-                    return $row->brand_id;
+                    return $row->brand->name;
                 })
                 ->addColumn('target_url', function($row){
                     return $row->brand->target_url.'&p1='.$row->unique_p1_id;
                 })
-
-                
                 ->addColumn('campaign_id', function($row){
                     return $row->campaign_id;
                 })
-
                 ->addColumn('view', function($row){
-                    return '<button class="custom-delete-btn view-campaign-data" data-id="'.$row->id.'" data-action="'.route('campaign.view').'">
+                    return '<button class="custom-delete-btn view-campaign-data" data-id="'.$row->id.'" data-action="'.route('conversion.view').'">
 							<i class="fe fe-eye"></i>
 		                          '.__('view').'
 							</button>';

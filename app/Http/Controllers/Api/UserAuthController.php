@@ -19,6 +19,7 @@ use Illuminate\Support\Facades\Validator;
 use Tymon\JWTAuth\Facades\JWTAuth;
 use App\Http\Traits\smsManager;
 use App\Models\Otp;
+use App\Models\UserDevice;
 use Illuminate\Support\Facades\Storage;
 
 class UserAuthController extends Controller
@@ -68,6 +69,13 @@ class UserAuthController extends Controller
               {
                 $token = $user->createToken('access_token')->accessToken;
                 $user->access_token = $token;
+                if($request->has('device_token') && !empty($request->device_token))
+                {
+                    UserDevice::Create([
+                    'user_id' => $user->id,
+                    'device_token' => $user->device_token
+                    ]);
+                }
                 $user->save();
                
                 return response()->json([

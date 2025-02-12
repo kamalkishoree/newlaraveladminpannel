@@ -18,19 +18,19 @@
 		<div class="card breadcrumb-card">
 			<div class="row justify-content-between align-content-between" style="height: 100%;">
 				<div class="col-md-6">
-					<h3 class="page-title">{{__('Campaign Details')}}</h3>
+					<h3 class="page-title">{{__("Push Notifactions's Details")}}</h3>
 					<ul class="breadcrumb">
 						<li class="breadcrumb-item">
 							<a href="{{ route('dashboard') }}">Dashboard</a>
 						</li>
 						<li class="breadcrumb-item active-breadcrumb">
-							<a href="{{ route('campaign.index') }}">{{ __('Campaign') }}</a>
+							<a href="{{ route('pushNotification.index') }}">{{ __('Push Notifactions') }}</a>
 						</li>
 					</ul>
 				</div>
-                    <div class="col-md-3">
+                    <div class="col-md-3 ">
                         <div class="create-btn pull-right">
-                            <a href="{{ route('campaign.create') }}" class="btn custom-create-btn">{{ __('Add New Campaign') }}</a>
+                            <a href="{{ route('pushNotification.create') }}" class="btn custom-create-btn">{{ __('Add New Push Notifactions') }}</a>
                         </div>                 
                     </div>
 			</div>
@@ -46,14 +46,13 @@
                         <thead>
                             <tr>
                                 <th class="">{{ __('default.table.sl') }}</th>
-                                <th class="">{{ __('User Name') }}</th>
-                                <th class="">{{ __('P1 ID') }}</th>
-                                <th class="">{{ __('Campaign ID') }}</th>
-                                <th class="">{{ __('Brand Title') }}</th>
-                                <th class="">{{ __('Target URL') }}</th>
-                                <th class="">{{ __('Action') }}</th>
-
-                            </tr>user
+                                <th class="">{{ __('Title') }}</th>
+                                <th class="">{{ __('Type') }}</th>
+                                <th class="">{{ __('Users') }}</th>
+                                <th class="">{{ __('Schedule Datetime') }}</th>
+                                <th class="">{{ __('status') }}</th>
+                                <th class="">{{ __('default.table.action') }}</th>
+                            </tr>
                         </thead>
 
                         <tbody>
@@ -65,27 +64,9 @@
             </div>
         </div>
     </div>
-
-    <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-    <div class="modal-dialog" role="document">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title" id="myModalLabel">My Modal Title</h5>
-          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-             X  <span aria-hidden="true">&times;</span>
-          </button>
-        </div>
-        <div class="modal-body">
-         
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-        </div>
-      </div>
-    </div>
-  </div>
-
 @endsection
+
+
 
 
 @push('scripts')
@@ -98,24 +79,23 @@
                 order: [
                     [0, 'desc']
                 ],
-                ajax: "{{ route('campaign.index') }}",
+                ajax: "{{ route('pushNotification.index') }}",
                 columns: [
 					{  data: 'DT_RowIndex', name: 'DT_RowIndex' },
-                    {  data: 'user', name: 'user' },
-                    {  data: 'unique_p1_id', name: 'unique_p1_id' },
-                    {  data: 'campaign_id', name: 'campaign_id' },
-                    {  data: 'brand_id', name: 'brand_id' },
-                    {  data: 'target_url', name: 'target_url' },
-                    {  data: 'view', name: 'view' },
-
-
+                    {  data: 'title', name: 'title' },
+                    {  data: 'type', name: 'type' },
+                    {  data: 'users', name: 'users' },
+                    // {  data: 'description', name: 'description' },
+                    {  data: 'schedule_datetime', name: 'schedule_datetime' },
+                    {  data: 'status', name: 'status' },
+                    {  data: 'action', name: 'action', orderable: false, searchable: false}
                 ],
             });
         });
     </script>
 
     <script type="text/javascript">
-        $("body").on("click", ".remove-campaign", function() {
+        $("body").on("click", ".remove-pushNotification", function() {
             var current_object = $(this);
             swal({
                 title: "Are you sure?",
@@ -145,14 +125,16 @@
 
     <script type="text/javascript">
         function changeUserStatus(_this, id) {
+            var status = $(_this).prop('checked') == true ? 1 : 0;
             let _token = $('meta[name="csrf-token"]').attr('content');
 
             $.ajax({
-                url: `{{ route('campaign.status_update') }}`,
+                url: `{{ route('pushNotification.status_update') }}`,
                 type: 'GET',
                 data: {
                     _token: _token,
                     id: id,
+                    status: status
                 },
                 success: function(result) {
 					if(status == 1){
@@ -164,37 +146,4 @@
             });
         }
     </script>
-
-
-
-
-
-<script type="text/javascript">
-        $("body").on("click", ".view-campaign-data", function() {
-            var current_object = $(this);
-            var id = $(this).attr('data-id');
-         
-            $.ajax({
-                url: `{{ route('conversion.view') }}`,
-                type: 'GET',
-                data: {
-                    id: id,
-                    status: status
-                },
-                success: function(result) {
-					// if(status == 1){
-                        $("#myModal").modal('show');
-                    	toastr.success(result.message);
-                	// }else{
-                    // 	toastr.error(result.message);
-                	// } 
-                }
-            });
-
-
-        });
-</script>
-
-
-
 @endpush
