@@ -28,11 +28,11 @@
 						</li>
 					</ul>
 				</div>
-                    <div class="col-md-3">
+                   {{-- <div class="col-md-3">
                         <div class="create-btn pull-right">
                             <a href="{{ route('campaign.create') }}" class="btn custom-create-btn">{{ __('Add New Campaign') }}</a>
                         </div>                 
-                    </div>
+                    </div>--}}
 			</div>
 		</div><!-- /card finish -->	
 	</div><!-- /Page Header -->
