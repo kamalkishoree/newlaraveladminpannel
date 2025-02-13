@@ -18,7 +18,7 @@
     <div class="card breadcrumb-card">
         <div class="row justify-content-between align-content-between" style="height: 100%;">
             <div class="col-md-6">
-                <h3 class="page-title">Kenonn Rawat</h3>
+                <h3 class="page-title">{{Auth::user()->name}}</h3>
                 <ul class="breadcrumb">
                     <li class="breadcrumb-item active-breadcrumb">
                         <a href="{{ route('dashboard') }}">Dashboard</a>
@@ -49,39 +49,7 @@
 
 
 <div class="row">
-    <div class="col-xl-3 d-flex">
-        <div class="card w-100">
-            <div class="card-body card_channel">
-                <h5>Session By Channel</h5>
-                <h6>Empoly Name This Month</h6>
-                <ul class="nav d-block list_channeels">
-                    <li>
-                        Cannor Chandlar <span>₹2000</span>
-                    </li>
-                    <li>
-                        Russel Floyd <span>₹854</span>
-                    </li>
-                    <li>
-                        Cannor Chandlar <span>₹2000</span>
-                    </li>
-                    <li>
-                        Russel Floyd <span>₹854</span>
-                    </li>
-                    <li>
-                        Cannor Chandlar <span>₹2000</span>
-                    </li>
-                    <li>
-                        Russel Floyd <span>₹854</span>
-                    </li>
-                    <li>
-                        Cannor Chandlar <span>₹2000</span>
-                    </li>
-
-                </ul>
-            </div>
-        </div>
-    </div>
-    <div class="col-xl-6">
+    <div class="col-xl-12">
         <div class="row">
             <div class="col-xl-6 col-12">
                 <div class="card">
@@ -91,7 +59,7 @@
                                 <i class="fe fe-users"></i>
                             </span>
                             <div class="dash-count">
-                                <h3>15</h3>
+                                <h3>{{$user->count()}}</h3>
                             </div>
                         </div>
                         <div class="dash-widget-info">
@@ -111,12 +79,12 @@
                                 <i class="fe fe-credit-card"></i>
                             </span>
                             <div class="dash-count">
-                                <h3>10</h3>
+                                <h3>{{$campaign_all->count()}}</h3>
                             </div>
                         </div>
                         <div class="dash-widget-info">
 
-                            <h6 class="text-muted">Admin</h6>
+                            <h6 class="text-muted">Clicks   </h6>
                             <div class="progress progress-sm">
                                 <div class="progress-bar bg-success w-50"></div>
                             </div>
@@ -137,7 +105,7 @@
                         </div>
                         <div class="dash-widget-info">
 
-                            <h6 class="text-muted">Appointment</h6>
+                            <h6 class="text-muted">Conversions</h6>
                             <div class="progress progress-sm">
                                 <div class="progress-bar bg-danger w-50"></div>
                             </div>
@@ -168,39 +136,40 @@
             </div>
         </div>
     </div>
-    <div class="col-xl-3 d-flex">
-        <div class="card w-100">
-            <div class="card-body card_channel">
-                <h5>Card Title</h5>
-                <h6 class="mb-2">Total Earning</h6>
-                <h3>₹283497</h3>
-                <h4 class="last_month">1.4% Since Last Month</h4>
-                <hr class="my-2">
-                <h6 class="mb-2">Total Earning</h6>
-                <h3>₹87492</h3>
-                <h4 class="last_month">5.4% Since Last Month</h4>
-            </div>
-
-        </div>
-    </div>
-
 </div>
+
 
 
 <div class="row mt-2">
     <div class="col-lg-6">
         <div class="card">
             <div class="card-body">
-                <div id="morrisArea"></div>
+            
+                <x-highchart 
+                    chart-id="chart1"
+                    chart-type="pie"
+                    title="User Data" 
+                    subtitle=""
+                    :categories="['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']"
+                    :series="$series"
+                />
 
             </div>
         </div>
     </div>
+
     <div class="col-lg-6">
         <div class="card">
             <div class="card-body">
-                <div id="morrisLine"></div>
-
+               <x-high-chart
+                    chart-id="chawwrt1"
+                    chart-type="bar"
+                    title="Clicks Data" 
+                    subtitle=""
+                    :categories="['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']"
+                    :series="array_values($campaign)"
+                />
+                </div>
             </div>
         </div>
     </div>
@@ -230,3 +199,6 @@
 @push('scripts')
 
 @endpush
+
+
+
