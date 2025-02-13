@@ -1,7 +1,7 @@
 @extends('admin.layouts.master')
 
 @section('page_title')
-    {{ __('Update Category') }}
+    {{ __('Update Campaign') }}
 @endsection
 
 @push('css')

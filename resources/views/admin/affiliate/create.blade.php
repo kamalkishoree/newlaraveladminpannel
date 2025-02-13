@@ -1,7 +1,7 @@
 @extends('admin.layouts.master')
 
 @section('page_title')
-    {{ __('user.create.title') }}
+    {{ __('Affiliate create') }}
 @endsection
 
 @push('css')

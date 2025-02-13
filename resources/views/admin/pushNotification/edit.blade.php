@@ -1,7 +1,7 @@
 @extends('admin.layouts.master')
 
 @section('page_title')
-    {{ __('Push Notification') }}
+    {{ __('Edit Push Notification') }}
 @endsection
 
 @push('css')

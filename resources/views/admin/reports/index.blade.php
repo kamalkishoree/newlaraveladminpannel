@@ -1,7 +1,7 @@
 @extends('admin.layouts.master')
 
 @section('page_title')
-{{__('dashboard.title')}}
+{{__('Reports')}}
 @endsection
 
 @push('css')
@@ -18,7 +18,7 @@
     <div class="card breadcrumb-card">
         <div class="row justify-content-between align-content-between" style="height: 100%;">
             <div class="col-md-6">
-                <h3 class="page-title">{{Auth::user()->name}}</h3>
+                <h3 class="page-title">{{'Reports'}}</h3>
                 <ul class="breadcrumb">
                     <li class="breadcrumb-item">
                         <a href="{{ route('dashboard') }}">Dashboard</a>
@@ -40,8 +40,8 @@
             <div class="card">
                 <div class="card-body">
                     <!-- route(report.user)-->
-                <a class="btn btn-success mx-5" href="{{route('report.user')}}">Export User </a>
-                <a class="btn btn-success mx-5" href="{{route('report.click')}}">Export Clicks </a>
+                <a class="btn btn-success mx-5" href="{{route('report.user')}}"><span  class="pr-2">Export User </span><i class="fa-sharp fa-solid fa-file-excel"></i> </a>
+                <a class="btn btn-success mx-5" href="{{route('report.click')}}"><span class="pr-2">Export Clicks </span><i class="fa-sharp fa-solid fa-file-excel"></i></a>
                 </div>
 
             </div>
