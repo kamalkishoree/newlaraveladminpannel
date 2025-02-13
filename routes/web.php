@@ -222,8 +222,6 @@ Route::group(['middleware' => 'language'], function () {
 
 			});
 
-
-
 			Route::prefix('conversion')->group(function () {
 				Route::get('/view',[App\Http\Controllers\Admin\ConversionController::class, 'view'])->name('conversion.view');
 			});
