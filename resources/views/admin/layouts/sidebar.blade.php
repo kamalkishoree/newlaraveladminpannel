@@ -260,8 +260,8 @@
                 <!-- /Financial Redirection Management   -->
 
                  <!--Reports   -->
-                 <li class="{{ (request()->is('admin/dashboard*')) ? '' : '' }}">
-                                <a class="sidebar-link" href="{{ route('dashboard') }}" aria-expanded="false">
+                 <li class="{{ (request()->is('admin/report*')) ? '' : '' }}">
+                                <a class="sidebar-link" href="{{ route('report.index') }}" aria-expanded="false">
                                 <i data-feather="file-text"></i>
                                 <!-- <i class="fa-regular fa-file-lines"></i> -->
                     <span>

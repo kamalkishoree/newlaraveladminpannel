@@ -25,23 +25,26 @@
                     </li>
                 </ul>
             </div>
-            <div class="col-md-6">
+            {{--   <div class="col-md-6">
                 <div class="create-btn pull-right d-flex align-items-center">
                     <!-- <a href="{{ route('users.create') }}" class="btn custom-create-btn">Export2</a> -->
-                    <div class="dropdown">
+               <div class="dropdown">
                         <button type="button" class="btn custom-create-btn btn_days dropdown-toggle"
                             data-toggle="dropdown">
                             <i class="fa-solid fa-calendar-days mr-1"></i> Last 7 Days
                         </button>
                         <div class="dropdown-menu">
-                            <a class="dropdown-item" href="#">Last 7 Days</a>
+                        <a class="dropdown-item" href="{{route('dashboard',[7])}}">Last 7 Days</a>
+                
+
+                        <a class="dropdown-item" href="#">Last 7 Days</a>
                             <a class="dropdown-item" href="#">Last 1 Week</a>
                             <a class="dropdown-item" href="#">Last 1 Month</a>
                         </div>
                     </div>
                     <a href="{{ route('users.create') }}" class="btn custom-create-btn ml-2 btn_days"> <i
                             class="fa fa-share mr-2" aria-hidden="true"></i> Export</a>
-                </div>
+                </div>--}}
             </div>
         </div>
     </div><!-- /card finish -->

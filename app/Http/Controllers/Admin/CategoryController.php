@@ -54,7 +54,7 @@ class CategoryController extends Controller
                 })
 
                 ->addColumn('status', function($row){
-                	if ($row->status == 1) {
+                	if ($row->is_active == 1) {
                 		$current_status = 'Checked';
                 	}else{
                 		$current_status = '';
