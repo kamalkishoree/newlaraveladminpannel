@@ -1,7 +1,7 @@
 @extends('admin.layouts.master')
 
 @section('page_title')
-    {{ __('user.index.title') }}
+    {{ __('Banners') }}
 @endsection
 
 @push('css')

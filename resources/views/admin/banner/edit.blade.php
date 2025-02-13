@@ -1,7 +1,7 @@
 @extends('admin.layouts.master')
 
 @section('page_title')
-    {{__('user.edit.title')}}
+    {{__('Banner Edit')}}
 @endsection
 
 @push('css')

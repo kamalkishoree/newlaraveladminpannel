@@ -1,7 +1,7 @@
 @extends('admin.layouts.master')
 
 @section('page_title')
-    {{ __('Category List') }}
+    {{ __('Push Notification List') }}
 @endsection
 
 @push('css')
