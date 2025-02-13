@@ -91,6 +91,35 @@
                     {  data: 'status',  name: 'status'  },
                     {  data: 'action', name: 'action', orderable: false, searchable: false}
                 ],
+
+                dom: '<"top"Bfr>t<"bottom"lp>', 
+                buttons: [
+                {
+                    extend: 'copy',
+                    text: 'Copy',
+                    className: 'btn btn-secondary'
+                },
+                {
+                    extend: 'csv',
+                    text: 'CSV',
+                    className: 'btn btn-primary'
+                },
+                {
+                    extend: 'excel',
+                    text: 'Excel',
+                    className: 'btn btn-success'
+                },
+                {
+                    extend: 'pdf',
+                    text: 'PDF',
+                    className: 'btn btn-danger'
+                },
+                {
+                    extend: 'print',
+                    text: 'Print',
+                    className: 'btn btn-info'
+                }
+            ]
             });
         });
     </script>

@@ -13,9 +13,9 @@ use Brian2694\Toastr\Facades\Toastr;
 use Illuminate\Support\Facades\Hash;
 use DataTables;
 use Image; 
-use Storage;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Gate;
+use Illuminate\Support\Facades\Storage;
 
 class UserController extends Controller
 {
@@ -199,7 +199,22 @@ class UserController extends Controller
 
         
         $this->validate($request, $rules, $messages);
+
+		$file = $request->file('image');
+        $url = '';
+         if(!is_null($file))
+           {
+               $fileName = time() . '_' . $file->getClientOriginalName();
+			   $path = $file->storeAs('website/Categories/images', $fileName, [
+				'disk' => 's3',
+				'visibility' => 'public'
+			]);      
+               $url = Storage::disk('s3')->url($path);
+          }
+         
+
 		$input = $request->all();
+		$input['image'] = $url;
 		$user = User::find($id);
 
 		if (empty($input['image'])) {

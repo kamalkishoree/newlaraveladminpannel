@@ -50,20 +50,10 @@
 
 					<div class="row">
 						<div class="col-md-4 col-sm-12" style="margin: auto;">
-							<div class="input-group mb-5">
-								@if(!empty($user->image))
-									<img src="{{ $user->image }}" alt="..." id="output" class="img-thumbnail rounded mx-auto d-block mb-3"  onerror="this.src='{{ asset('assets/admin/img/default-user.png') }}';">
-								@else
-									<img src="" alt="..." id="output" class="img-thumbnail rounded mx-auto d-block mb-3" onerror="this.src='{{ asset('assets/admin/img/default-user.png') }}';">
-								@endif
 
-								<input type="text" hidden id="image1" class="form-control" name="image">
-								<div class="input-group-append" style="width: 100%;">
-									<button class="btn btn-secondary btn-lg btn-block" type="button" id="button-image">
-									<i data-feather="image" class="feather-icon"></i>
-									Change User's Image
-									</button>
-								</div>
+						<img src="{{$user->image}}" alt="{{$user->name.$user->last_name}}" width=200 hight=200 class="py-5">
+							<div class="input-group mb-5">
+								<input type="file"  id="image" class="form-control" name="image">
 							</div>	
 						</div>
 					</div>

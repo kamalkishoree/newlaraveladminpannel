@@ -50,7 +50,7 @@
             </div>
         </div>
     </div><!-- /card finish -->
-</div><!-- /Page Header -->
+<!-- /Page Header -->
 
 
 <div class="row">
@@ -149,7 +149,6 @@
     <div class="col-lg-6">
         <div class="card">
             <div class="card-body">
-            
                 <x-highchart 
                     chart-id="chart1"
                     chart-type="pie"
@@ -181,7 +180,7 @@
 </div>
 
 
-
+</div>
 @endsection
 
 
