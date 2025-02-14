@@ -112,7 +112,7 @@
 
                 <li class="submenu">
                     <a class="" href="javascript:void(0)" aria-expanded="false">
-                        <i data-feather="users"></i>
+                    <i class="fa-solid fa-people-group"></i>
                         <span class="hide-menu">{{__('Affiliate Integration')}} </span>
                         <span class="menu-arrow"></span>
                     </a>
@@ -133,7 +133,7 @@
 
                 <li class="submenu">
                     <a class="" href="javascript:void(0)" aria-expanded="false">
-                        <i data-feather="users"></i>
+                    <i class="fa-solid fa-people-arrows"></i>
                         <span class="hide-menu">{{__('Affiliate Market')}} </span>
                         <span class="menu-arrow"></span>
                     </a>
@@ -165,7 +165,7 @@
 
             <li class="{{ (request()->is('admin/campaign*')) ? '' : '' }}">
                        <a class="sidebar-link" href="{{ route('campaign.index') }}" aria-expanded="false">
-                       <i class="fa-solid fa-arrow-right-from-bracket"></i>
+                       <i class="fa-regular fa-hand-pointer"></i>
              <span>
                          {{__('All Clicks')}}
              </span>
@@ -175,19 +175,80 @@
 
             <li class="{{ (request()->is('admin/push-notification*')) ? '' : '' }}">
                        <a class="sidebar-link" href="{{ route('pushNotification.index') }}" aria-expanded="false">
-                       <i class="fa-solid fa-arrow-right-from-bracket"></i>
+                       <i class="fa-regular fa-bell"></i>
              <span>
                          {{__('Push Notifications')}}
              </span>
                   </a>
             </li>
 
+             <!-- add static new Push Notifications -->
+             <li class="submenu">
+                    <a class="" href="javascript:void(0)" aria-expanded="false">
+                    <i class="fa-regular fa-bell"></i>
+                        <span class="hide-menu">Push Notifications </span>
+                        <span class="menu-arrow"></span>
+                    </a>
+
+                    <ul style="display: none;">
+                        <li>
+                            <a href="{{ route('affiliate.index') }}" title="{{__('sidebar.user')}}" class="sidebar-link {{ (request()->is('admin/affiliate*')) ? 'active' : '' }}">
+                                <span class="hide-menu">App Notifications</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="{{ route('affiliate.index') }}" title="{{__('sidebar.user')}}" class="sidebar-link {{ (request()->is('admin/affiliate*')) ? 'active' : '' }}">
+                                <span class="hide-menu">Email Alerts</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="{{ route('affiliate.index') }}" title="{{__('sidebar.user')}}" class="sidebar-link {{ (request()->is('admin/affiliate*')) ? 'active' : '' }}">
+                                <span class="hide-menu">Push Notifications</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="{{ route('affiliate.index') }}" title="{{__('sidebar.user')}}" class="sidebar-link {{ (request()->is('admin/affiliate*')) ? 'active' : '' }}">
+                                <span class="hide-menu">Offer Alerts</span>
+                            </a>
+                        </li>
+                      
+                    </ul> 
+                </li>
+
+                <!-- end -->
+
+
+                <!-- add static new Clocking -->
+                <li class="{{ (request()->is('admin/dashboard*')) ? '' : '' }}">
+                <a class="sidebar-link" href="#" aria-expanded="false">
+                <i class="fa-regular fa-clock"></i>
+                    
+                    <span>
+                        URL Clocking
+                    </span>
+                </a>
+                </li>
+                <!-- end -->
+
+                 <!-- add static new Domain Management -->
+                 <li class="{{ (request()->is('admin/dashboard*')) ? '' : '' }}">
+                <a class="sidebar-link" href="#" aria-expanded="false">
+                    <i data-feather="book-open"></i>
+                    
+                    <span>
+                    Domain Management
+                    </span>
+                </a>
+                </li>
+                <!-- end -->
+
+
 
 
                 <!-- Manage Commission -->
                 <li class="{{ (request()->is('admin/dashboard*')) ? '' : '' }}">
                 <a class="sidebar-link" href="{{ route('dashboard') }}" aria-expanded="false">
-                    <i data-feather="book-open"></i>
+                <i class="fa-solid fa-people-roof"></i>
                     
                     <span>
                         {{__('Manage Commission ')}}
@@ -206,6 +267,35 @@
                 </a>
                 </li>
                 <!-- /banner -->
+                <!-- add static new banners -->
+                <li class="submenu">
+                    <a class="" href="javascript:void(0)" aria-expanded="false">
+                    <i class="fa-regular fa-images"></i>
+                        <span class="hide-menu">{{__('Banners ')}} </span>
+                        <span class="menu-arrow"></span>
+                    </a>
+
+                    <ul style="display: none;">
+                        <li>
+                            <a href="{{ route('affiliate.index') }}" title="{{__('sidebar.user')}}" class="sidebar-link {{ (request()->is('admin/affiliate*')) ? 'active' : '' }}">
+                                <span class="hide-menu">Add Banners</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="{{ route('affiliate.index') }}" title="{{__('sidebar.user')}}" class="sidebar-link {{ (request()->is('admin/affiliate*')) ? 'active' : '' }}">
+                                <span class="hide-menu">Pop Up Banners</span>
+                            </a>
+                        </li>
+                      
+                    </ul> 
+                </li>
+
+                <!-- end -->
+
+
+
+
+
 
 
                  <!-- Wallet  -->
@@ -253,7 +343,7 @@
                  <!-- add static new Campaigns -->
                  <li class="submenu">
                     <a class="" href="javascript:void(0)" aria-expanded="false">
-                    <i class="fa-regular fa-credit-card"></i>
+                    <i class="fa-regular fa-thumbs-up"></i>
                         <span class="hide-menu">Campaigns </span>
                         <span class="menu-arrow"></span>
                     </a>
@@ -287,7 +377,7 @@
                 <!-- add static new Campaigns -->
                 <li class="submenu">
                     <a class="" href="javascript:void(0)" aria-expanded="false">
-                    <i class="fa-regular fa-credit-card"></i>
+                    <i class="fa-solid fa-bullhorn"></i>
                         <span class="hide-menu">Campaigns Reports </span>
                         <span class="menu-arrow"></span>
                     </a>
@@ -322,7 +412,7 @@
                     <!-- add static new Financial offers -->
                     <li class="submenu">
                     <a class="" href="javascript:void(0)" aria-expanded="false">
-                    <i class="fa-regular fa-credit-card"></i>
+                    <i class="fa-regular fa-money-bill-1"></i>
                         <span class="hide-menu">Finencial Offers </span>
                         <span class="menu-arrow"></span>
                     </a>
@@ -350,9 +440,138 @@
                 <!-- end -->
 
 
+                   
+                <!-- add static new Missing Reports -->
+                <li class="submenu">
+                    <a class="" href="javascript:void(0)" aria-expanded="false">
+                    <i class="fa-regular fa-file-excel"></i>
+                        <span class="hide-menu">Missing Reports </span>
+                        <span class="menu-arrow"></span>
+                    </a>
+
+                    <ul style="display: none;">
+                        <li>
+                            <a href="javascript:void(0)" title="{{__('sidebar.user')}}" class="sidebar-link {{ (request()->is('admin/affiliate*')) ? 'active' : '' }}">
+                                <span class="hide-menu">Cashback Lost </span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="javascript:void(0)" title="{{__('sidebar.user')}}" class="sidebar-link {{ (request()->is('admin/affiliate*')) ? 'active' : '' }}">
+                                <span class="hide-menu">Financial Offers Lost</span>
+                            </a>
+                        </li>
+                       
+                    </ul> 
+                </li>
+
+                <!-- end -->
+
+                <!-- add static new App Intigration -->
+                <li class="submenu">
+                    <a class="" href="javascript:void(0)" aria-expanded="false">
+                    <i class="fa-solid fa-gears"></i>
+                        <span class="hide-menu">App Integration </span>
+                        <span class="menu-arrow"></span>
+                    </a>
+
+                    <ul style="display: none;">
+                        <li>
+                            <a href="javascript:void(0)" title="{{__('sidebar.user')}}" class="sidebar-link {{ (request()->is('admin/affiliate*')) ? 'active' : '' }}">
+                                <span class="hide-menu">Api </span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="javascript:void(0)" title="{{__('sidebar.user')}}" class="sidebar-link {{ (request()->is('admin/affiliate*')) ? 'active' : '' }}">
+                                <span class="hide-menu">Postback</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="javascript:void(0)" title="{{__('sidebar.user')}}" class="sidebar-link {{ (request()->is('admin/affiliate*')) ? 'active' : '' }}">
+                                <span class="hide-menu">Add Tag/Edit Tag</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="javascript:void(0)" title="{{__('sidebar.user')}}" class="sidebar-link {{ (request()->is('admin/affiliate*')) ? 'active' : '' }}">
+                                <span class="hide-menu">Add KYC Api</span>
+                            </a>
+                        </li>
+                       
+                    </ul> 
+                </li>
+
+                <!-- end -->
 
 
+                  <!-- add static new App Intigration -->
+                  <li class="submenu">
+                    <a class="" href="javascript:void(0)" aria-expanded="false">
+                    <i class="fa-solid fa-users-gear"></i>
+                        <span class="hide-menu"> Staff Management </span>
+                        <span class="menu-arrow"></span>
+                    </a>
 
+                    <ul style="display: none;">
+                        <li>
+                            <a href="javascript:void(0)" title="{{__('sidebar.user')}}" class="sidebar-link {{ (request()->is('admin/affiliate*')) ? 'active' : '' }}">
+                                <span class="hide-menu">Add Staff </span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="javascript:void(0)" title="{{__('sidebar.user')}}" class="sidebar-link {{ (request()->is('admin/affiliate*')) ? 'active' : '' }}">
+                                <span class="hide-menu">Staff Permissions</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="javascript:void(0)" title="{{__('sidebar.user')}}" class="sidebar-link {{ (request()->is('admin/affiliate*')) ? 'active' : '' }}">
+                                <span class="hide-menu">Staff Activity</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="javascript:void(0)" title="{{__('sidebar.user')}}" class="sidebar-link {{ (request()->is('admin/affiliate*')) ? 'active' : '' }}">
+                                <span class="hide-menu">Staff Tickets</span>
+                            </a>
+                        </li>
+                       
+                    </ul> 
+                </li>
+
+                <!-- end -->
+
+                <!-- add static new Refferals -->
+                <li class="submenu">
+                    <a class="" href="javascript:void(0)" aria-expanded="false">
+                    <i class="fa-solid fa-link"></i>
+                        <span class="hide-menu">Refferal </span>
+                        <span class="menu-arrow"></span>
+                    </a>
+
+                    <ul style="display: none;">
+                    <li>
+                            <a href="javascript:void(0)" title="{{__('sidebar.user')}}" class="sidebar-link {{ (request()->is('admin/affiliate*')) ? 'active' : '' }}">
+                                <span class="hide-menu">Refferal Users </span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="javascript:void(0)" title="{{__('sidebar.user')}}" class="sidebar-link {{ (request()->is('admin/affiliate*')) ? 'active' : '' }}">
+                                <span class="hide-menu">Refferal Earnings </span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="javascript:void(0)" title="{{__('sidebar.user')}}" class="sidebar-link {{ (request()->is('admin/affiliate*')) ? 'active' : '' }}">
+                                <span class="hide-menu">Refferal States</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="javascript:void(0)" title="{{__('sidebar.user')}}" class="sidebar-link {{ (request()->is('admin/affiliate*')) ? 'active' : '' }}">
+                                <span class="hide-menu">Refferal Edits</span>
+                            </a>
+                        </li>
+                       
+                       
+                    </ul> 
+                </li>
+
+                <!-- end -->
 
 
                 <!-- Withdrawal management -->
@@ -457,17 +676,17 @@
 
                     <ul style="display: none;">
                         <li>
-                            <a href="{{ route('affiliate.index') }}" title="{{__('sidebar.user')}}" class="sidebar-link {{ (request()->is('admin/affiliate*')) ? 'active' : '' }}">
+                            <a href="javascript:void(0)" title="{{__('sidebar.user')}}" class="sidebar-link {{ (request()->is('admin/affiliate*')) ? 'active' : '' }}">
                                 <span class="hide-menu">All Clicks Report</span>
                             </a>
                         </li>
                         <li>
-                            <a href="{{ route('affiliate.index') }}" title="{{__('sidebar.user')}}" class="sidebar-link {{ (request()->is('admin/affiliate*')) ? 'active' : '' }}">
+                            <a href="javascript:void(0)" title="{{__('sidebar.user')}}" class="sidebar-link {{ (request()->is('admin/affiliate*')) ? 'active' : '' }}">
                                 <span class="hide-menu">All Leads Report</span>
                             </a>
                         </li>
                         <li>
-                            <a href="{{ route('affiliate.index') }}" title="{{__('sidebar.user')}}" class="sidebar-link {{ (request()->is('admin/affiliate*')) ? 'active' : '' }}">
+                            <a href="javascript:void(0)" title="{{__('sidebar.user')}}" class="sidebar-link {{ (request()->is('admin/affiliate*')) ? 'active' : '' }}">
                                 <span class="hide-menu">Performance Report</span>
                             </a>
                         </li>
@@ -509,7 +728,81 @@
                 @endif
                 <!-- /CMS -->
 
-    
+                <!--Support mail   -->
+                <li class="{{ (request()->is('admin/report*')) ? '' : '' }}">
+                                <a class="sidebar-link" href="{{ route('report.index') }}" aria-expanded="false">
+                                <!-- <i data-feather="file-text"></i> -->
+                                <i class="fa-solid fa-headset"></i>
+                                <!-- <i class="fa-regular fa-file-lines"></i> -->
+                    <span>
+                    Support Mail
+                    </span>
+                </a>
+                </li>
+                <!-- /support mail    -->
+
+
+
+                <!-- add static System Health -->
+                <li class="submenu">
+                    <a class="" href="javascript:void(0)" aria-expanded="false">
+                    <i data-feather="file-text"></i>
+                        <span class="hide-menu">System Health </span>
+                        <span class="menu-arrow"></span>
+                    </a>
+
+                    <ul style="display: none;">
+                        <li>
+                            <a href="javascript:void(0)" title="{{__('sidebar.user')}}" class="sidebar-link {{ (request()->is('admin/affiliate*')) ? 'active' : '' }}">
+                                <span class="hide-menu">Server Status</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="javascript:void(0)" title="{{__('sidebar.user')}}" class="sidebar-link {{ (request()->is('admin/affiliate*')) ? 'active' : '' }}">
+                                <span class="hide-menu">Eroor Logs</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="javascript:void(0)" title="{{__('sidebar.user')}}" class="sidebar-link {{ (request()->is('admin/affiliate*')) ? 'active' : '' }}">
+                                <span class="hide-menu">Auto Backups</span>
+                            </a>
+                        </li>
+                    </ul> 
+                </li>
+
+                <!-- end -->
+
+
+                <!-- add static Viseoa -->
+                <li class="submenu">
+                    <a class="" href="javascript:void(0)" aria-expanded="false">
+                    <!-- <i data-feather="file-text"></i> -->
+                    <i class="fa-regular fa-circle-play"></i>
+                        <span class="hide-menu">Videos </span>
+                        <span class="menu-arrow"></span>
+                    </a>
+
+                    <ul style="display: none;">
+                        <li>
+                            <a href="javascript:void(0)" title="{{__('sidebar.user')}}" class="sidebar-link {{ (request()->is('admin/affiliate*')) ? 'active' : '' }}">
+                                <span class="hide-menu">Upload</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="javascript:void(0)" title="{{__('sidebar.user')}}" class="sidebar-link {{ (request()->is('admin/affiliate*')) ? 'active' : '' }}">
+                                <span class="hide-menu">New</span>
+                            </a>
+                        </li>
+                        
+                    </ul> 
+                </li>
+
+                <!-- end -->
+
+
+
+
+
 
                 <!-- Settings -->
                 @if(auth()->user()->can('file-manager') || auth()->user()->can('currency-list') || auth()->user()->can('websetting-edit') || auth()->user()->can('log-view'))
@@ -525,6 +818,45 @@
                         <li>
                             <a href="{{route('website-setting.edit')}}" title="{{__('sidebar.website-setting')}}" class="sidebar-link {{ (request()->is('admin/setting/website-setting*')) ? 'active' : '' }}">
                                 <span class="hide-menu">{{__('sidebar.website-setting')}}</span>
+                            </a>
+                        </li>
+
+                        <li class="submenu">
+                            <a href="javascript:void(0)" class="sidebar-link" aria-expanded="false">
+                                <span class="hide-menu">App Settings</span>
+                                <span class="menu-arrow"></span>
+                            </a>
+                            <ul style="display: none;">
+                                <li>
+                                    <a href="javascript:void(0)" 
+                                    class="sidebar-link {{ (request()->is('admin/setting/app/general*')) ? 'active' : '' }}">
+                                        <span class="hide-menu">Intro Management</span>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="javascript:void(0)" 
+                                    class="sidebar-link {{ (request()->is('admin/setting/app/notifications*')) ? 'active' : '' }}">
+                                        <span class="hide-menu">Privacy Policy</span>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="javascript:void(0)" 
+                                    class="sidebar-link {{ (request()->is('admin/setting/app/privacy*')) ? 'active' : '' }}">
+                                        <span class="hide-menu">Terms & Condition</span>
+                                    </a>
+                                </li>
+                            </ul>
+                        </li>
+
+                        <li>
+                            <a href="{{route('website-setting.edit')}}" title="{{__('sidebar.website-setting')}}" class="sidebar-link {{ (request()->is('admin/setting/website-setting*')) ? 'active' : '' }}">
+                                <span class="hide-menu">Currency Setting</span>
+                            </a>
+                        </li>
+
+                        <li>
+                            <a href="{{route('website-setting.edit')}}" title="{{__('sidebar.website-setting')}}" class="sidebar-link {{ (request()->is('admin/setting/website-setting*')) ? 'active' : '' }}">
+                                <span class="hide-menu">Social Media</span>
                             </a>
                         </li>
                   @endcan
