@@ -4469,7 +4469,11 @@ table.dataTable thead th {
 }
 
 
-
+.w-50.rounded-circle.img-thumbnail{
+	width:50px !important;
+	height: 50px;
+	object-fit: cover;
+}
 
 
 
