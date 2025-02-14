@@ -76,6 +76,16 @@
                             </a>
                         </li>
                         @endcan
+
+                        <!-- new static add -->
+                        @can('user-activity')
+                        <li>
+                            <a href="/admin/user-activity" title="{{__('sidebar.user-activity')}}" class="sidebar-link {{ (request()->is('admin/setting/useractivity*')) ? 'active' : '' }}">
+                                <span class="hide-menu">User KYC Data</span>
+                            </a>
+                        </li>
+                        @endcan
+                        <!-- end -->
                     </ul>
 
 
@@ -210,7 +220,141 @@
                 </li>
                 <!-- /Wallet  -->
 
-               
+                <!-- add static new Wallet -->
+                <li class="submenu">
+                    <a class="" href="javascript:void(0)" aria-expanded="false">
+                    <i class="fa-regular fa-credit-card"></i>
+                        <span class="hide-menu">Wallet </span>
+                        <span class="menu-arrow"></span>
+                    </a>
+
+                    <ul style="display: none;">
+                        <li>
+                            <a href="{{ route('affiliate.index') }}" title="{{__('sidebar.user')}}" class="sidebar-link {{ (request()->is('admin/affiliate*')) ? 'active' : '' }}">
+                                <span class="hide-menu">Total Funds</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="{{ route('affiliate.index') }}" title="{{__('sidebar.user')}}" class="sidebar-link {{ (request()->is('admin/affiliate*')) ? 'active' : '' }}">
+                                <span class="hide-menu">Total Penny Drop</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="{{ route('affiliate.index') }}" title="{{__('sidebar.user')}}" class="sidebar-link {{ (request()->is('admin/affiliate*')) ? 'active' : '' }}">
+                                <span class="hide-menu">Total Profit</span>
+                            </a>
+                        </li>
+                    </ul> 
+                </li>
+
+                <!-- end -->
+
+
+                 <!-- add static new Campaigns -->
+                 <li class="submenu">
+                    <a class="" href="javascript:void(0)" aria-expanded="false">
+                    <i class="fa-regular fa-credit-card"></i>
+                        <span class="hide-menu">Campaigns </span>
+                        <span class="menu-arrow"></span>
+                    </a>
+
+                    <ul style="display: none;">
+                        <li>
+                            <a href="{{ route('affiliate.index') }}" title="{{__('sidebar.user')}}" class="sidebar-link {{ (request()->is('admin/affiliate*')) ? 'active' : '' }}">
+                                <span class="hide-menu">Create Cashback Offers</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="{{ route('affiliate.index') }}" title="{{__('sidebar.user')}}" class="sidebar-link {{ (request()->is('admin/affiliate*')) ? 'active' : '' }}">
+                                <span class="hide-menu">Create Coupons</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="{{ route('affiliate.index') }}" title="{{__('sidebar.user')}}" class="sidebar-link {{ (request()->is('admin/affiliate*')) ? 'active' : '' }}">
+                                <span class="hide-menu">Create Deals</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="{{ route('affiliate.index') }}" title="{{__('sidebar.user')}}" class="sidebar-link {{ (request()->is('admin/affiliate*')) ? 'active' : '' }}">
+                                <span class="hide-menu">Create Category</span>
+                            </a>
+                        </li>
+                    </ul> 
+                </li>
+
+                <!-- end -->
+
+                <!-- add static new Campaigns -->
+                <li class="submenu">
+                    <a class="" href="javascript:void(0)" aria-expanded="false">
+                    <i class="fa-regular fa-credit-card"></i>
+                        <span class="hide-menu">Campaigns Reports </span>
+                        <span class="menu-arrow"></span>
+                    </a>
+
+                    <ul style="display: none;">
+                        <li>
+                            <a href="{{ route('affiliate.index') }}" title="{{__('sidebar.user')}}" class="sidebar-link {{ (request()->is('admin/affiliate*')) ? 'active' : '' }}">
+                                <span class="hide-menu">Cashback</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="{{ route('affiliate.index') }}" title="{{__('sidebar.user')}}" class="sidebar-link {{ (request()->is('admin/affiliate*')) ? 'active' : '' }}">
+                                <span class="hide-menu">Coupons</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="{{ route('affiliate.index') }}" title="{{__('sidebar.user')}}" class="sidebar-link {{ (request()->is('admin/affiliate*')) ? 'active' : '' }}">
+                                <span class="hide-menu">Deals</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="{{ route('affiliate.index') }}" title="{{__('sidebar.user')}}" class="sidebar-link {{ (request()->is('admin/affiliate*')) ? 'active' : '' }}">
+                                <span class="hide-menu">Financial</span>
+                            </a>
+                        </li>
+                    </ul> 
+                </li>
+
+                <!-- end -->
+
+
+                    <!-- add static new Financial offers -->
+                    <li class="submenu">
+                    <a class="" href="javascript:void(0)" aria-expanded="false">
+                    <i class="fa-regular fa-credit-card"></i>
+                        <span class="hide-menu">Finencial Offers </span>
+                        <span class="menu-arrow"></span>
+                    </a>
+
+                    <ul style="display: none;">
+                        <li>
+                            <a href="{{ route('affiliate.index') }}" title="{{__('sidebar.user')}}" class="sidebar-link {{ (request()->is('admin/affiliate*')) ? 'active' : '' }}">
+                                <span class="hide-menu">Create Category </span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="{{ route('affiliate.index') }}" title="{{__('sidebar.user')}}" class="sidebar-link {{ (request()->is('admin/affiliate*')) ? 'active' : '' }}">
+                                <span class="hide-menu">Create Offers</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="{{ route('affiliate.index') }}" title="{{__('sidebar.user')}}" class="sidebar-link {{ (request()->is('admin/affiliate*')) ? 'active' : '' }}">
+                                <span class="hide-menu">Create Activity</span>
+                            </a>
+                        </li>
+                       
+                    </ul> 
+                </li>
+
+                <!-- end -->
+
+
+
+
+
+
+
                 <!-- Withdrawal management -->
    
                 <li class="submenu">
@@ -243,6 +387,38 @@
                             </a>
                         </li>
                         @endcan
+
+                        <!-- new added -->
+                        @can('cmspage-list')
+                        <li>
+                            <a href="{{ route('cmspages.index') }}" title="{{__('sidebar.cms-pages')}}" class="sidebar-link {{ (request()->is('admin/cmspage*')) ? 'active' : '' }}">
+                                <span class="hide-menu">Pending Withdrawals</span>
+                            </a>
+                        </li>
+                        @endcan
+
+                        @can('cmspage-list')
+                        <li>
+                            <a href="{{ route('cmspages.index') }}" title="{{__('sidebar.cms-pages')}}" class="sidebar-link {{ (request()->is('admin/cmspage*')) ? 'active' : '' }}">
+                                <span class="hide-menu">Terms</span>
+                            </a>
+                        </li>
+                        @endcan
+
+                        @can('cmspage-list')
+                        <li>
+                            <a href="{{ route('cmspages.index') }}" title="{{__('sidebar.cms-pages')}}" class="sidebar-link {{ (request()->is('admin/cmspage*')) ? 'active' : '' }}">
+                                <span class="hide-menu">Auto Withdrawals</span>
+                            </a>
+                        </li>
+                        @endcan
+                        @can('cmspage-list')
+                        <li>
+                            <a href="{{ route('cmspages.index') }}" title="{{__('sidebar.cms-pages')}}" class="sidebar-link {{ (request()->is('admin/cmspage*')) ? 'active' : '' }}">
+                                <span class="hide-menu">Withdrawal permission</span>
+                            </a>
+                        </li>
+                        @endcan
                     </ul>
                 </li>
                 @endif
@@ -270,6 +446,35 @@
                 </a>
                 </li>
                 <!-- /Reports    -->
+                 
+                <!-- add static new Reports -->
+                <li class="submenu">
+                    <a class="" href="javascript:void(0)" aria-expanded="false">
+                    <i data-feather="file-text"></i>
+                        <span class="hide-menu">Reports </span>
+                       
+                    </a>
+
+                    <ul style="display: none;">
+                        <li>
+                            <a href="{{ route('affiliate.index') }}" title="{{__('sidebar.user')}}" class="sidebar-link {{ (request()->is('admin/affiliate*')) ? 'active' : '' }}">
+                                <span class="hide-menu">All Clicks Report</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="{{ route('affiliate.index') }}" title="{{__('sidebar.user')}}" class="sidebar-link {{ (request()->is('admin/affiliate*')) ? 'active' : '' }}">
+                                <span class="hide-menu">All Leads Report</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="{{ route('affiliate.index') }}" title="{{__('sidebar.user')}}" class="sidebar-link {{ (request()->is('admin/affiliate*')) ? 'active' : '' }}">
+                                <span class="hide-menu">Performance Report</span>
+                            </a>
+                        </li>
+                    </ul> 
+                </li>
+
+                <!-- end -->
 
 
 
