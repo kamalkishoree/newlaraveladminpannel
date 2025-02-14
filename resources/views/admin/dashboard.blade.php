@@ -167,7 +167,7 @@
             <div class="card-body">
                <x-high-chart
                     chart-id="chawwrt1"
-                    chart-type="bar"
+                    chart-type="column"
                     title="Clicks Data" 
                     subtitle=""
                     :categories="['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']"
