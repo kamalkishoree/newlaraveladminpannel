@@ -40,9 +40,8 @@
             </div><!-- /card finish -->	
         </div><!-- /Page Header -->
 
-
-        <div class="card-body">
-
+        <div class="card">
+             <div class="card-body">
             <div class="row">
                 <div class="col-md-4 col-sm-12" style="margin: auto;">
                     <div class="input-group mb-5">
@@ -58,7 +57,11 @@
                     </div>
                 </div>
             </div>  <!-- /row end -->
+            </div>
+            </div>
 
+            <div class="card">
+             <div class="card-body">
             <div class="row">
 
                 <div class="col-md-4">
@@ -153,7 +156,8 @@
                 </div> <!-- col-md-4-end -->
 
             </div> <!-- row-end -->
-
+            </div>
+            </div>
         </div> <!-- card-body-end -->
 
     </form>

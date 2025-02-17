@@ -47,7 +47,7 @@
                     <ul style="display: none;">
                         @can('user-list')
                         <li>
-                            <a href="{{ route('users.index') }}" title="{{__('sidebar.user')}}" class="sidebar-link {{ (request()->is('admin/user*')) ? 'active' : '' }}">
+                            <a href="{{ route('users.index') }}" title="{{__('sidebar.user')}}" class="sidebar-link">
                                 <span class="hide-menu">{{__('sidebar.user')}}</span>
                             </a>
                         </li>
@@ -55,7 +55,7 @@
 
                         @can('role-list')
                         <li>
-                            <a href="{{ route('roles.index') }}" title="{{__('sidebar.roles')}}" class="sidebar-link {{ (request()->is('admin/roles*')) ? 'active' : '' }}">
+                            <a href="{{ route('roles.index') }}" title="{{__('sidebar.roles')}}" class="sidebar-link">
                                 <span class="hide-menu">{{__('sidebar.roles')}}</span>
                             </a>
                         </li>
@@ -63,7 +63,7 @@
 
                         @can('permission-list')
                         <li>
-                            <a href="{{ route('permissions.index') }}" title="{{__('sidebar.permissions')}}" class="sidebar-link {{ (request()->is('admin/permissions*')) ? 'active' : '' }}">
+                            <a href="{{ route('permissions.index') }}" title="{{__('sidebar.permissions')}}" class="sidebar-link">
                                 <span class="hide-menu">{{__('sidebar.permission')}}</span>
                             </a>
                         </li>
@@ -71,7 +71,7 @@
 
                         @can('user-activity')
                         <li>
-                            <a href="/admin/user-activity" title="{{__('sidebar.user-activity')}}" class="sidebar-link {{ (request()->is('admin/setting/useractivity*')) ? 'active' : '' }}">
+                            <a href="/admin/user-activity" title="{{__('sidebar.user-activity')}}" class="sidebar-link">
                                 <span class="hide-menu">{{__('sidebar.user-activity')}}</span>
                             </a>
                         </li>
@@ -119,7 +119,7 @@
 
                     <ul style="display: none;">
                         <li>
-                            <a href="{{ route('affiliate.index') }}" title="{{__('sidebar.user')}}" class="sidebar-link {{ (request()->is('admin/affiliate*')) ? 'active' : '' }}">
+                            <a href="{{ route('affiliate.index') }}" title="{{__('sidebar.user')}}" class="sidebar-link">
                                 <span class="hide-menu">{{__('Integration Api keys')}}</span>
                             </a>
                         </li>
@@ -192,22 +192,22 @@
 
                     <ul style="display: none;">
                         <li>
-                            <a href="{{ route('affiliate.index') }}" title="{{__('sidebar.user')}}" class="sidebar-link {{ (request()->is('admin/affiliate*')) ? 'active' : '' }}">
+                            <a href="{{ route('affiliate.index') }}" title="{{__('sidebar.user')}}" class="sidebar-link">
                                 <span class="hide-menu">App Notifications</span>
                             </a>
                         </li>
                         <li>
-                            <a href="{{ route('affiliate.index') }}" title="{{__('sidebar.user')}}" class="sidebar-link {{ (request()->is('admin/affiliate*')) ? 'active' : '' }}">
+                            <a href="{{ route('affiliate.index') }}" title="{{__('sidebar.user')}}" class="sidebar-link">
                                 <span class="hide-menu">Email Alerts</span>
                             </a>
                         </li>
                         <li>
-                            <a href="{{ route('affiliate.index') }}" title="{{__('sidebar.user')}}" class="sidebar-link {{ (request()->is('admin/affiliate*')) ? 'active' : '' }}">
+                            <a href="{{ route('affiliate.index') }}" title="{{__('sidebar.user')}}" class="sidebar-link">
                                 <span class="hide-menu">Push Notifications</span>
                             </a>
                         </li>
                         <li>
-                            <a href="{{ route('affiliate.index') }}" title="{{__('sidebar.user')}}" class="sidebar-link {{ (request()->is('admin/affiliate*')) ? 'active' : '' }}">
+                            <a href="{{ route('affiliate.index') }}" title="{{__('sidebar.user')}}" class="sidebar-link">
                                 <span class="hide-menu">Offer Alerts</span>
                             </a>
                         </li>
@@ -277,12 +277,12 @@
 
                     <ul style="display: none;">
                         <li>
-                            <a href="{{ route('affiliate.index') }}" title="{{__('sidebar.user')}}" class="sidebar-link {{ (request()->is('admin/affiliate*')) ? 'active' : '' }}">
+                            <a href="{{ route('affiliate.index') }}" title="{{__('sidebar.user')}}" class="sidebar-link">
                                 <span class="hide-menu">Add Banners</span>
                             </a>
                         </li>
                         <li>
-                            <a href="{{ route('affiliate.index') }}" title="{{__('sidebar.user')}}" class="sidebar-link {{ (request()->is('admin/affiliate*')) ? 'active' : '' }}">
+                            <a href="{{ route('affiliate.index') }}" title="{{__('sidebar.user')}}" class="sidebar-link">
                                 <span class="hide-menu">Pop Up Banners</span>
                             </a>
                         </li>
@@ -320,17 +320,17 @@
 
                     <ul style="display: none;">
                         <li>
-                            <a href="{{ route('affiliate.index') }}" title="{{__('sidebar.user')}}" class="sidebar-link {{ (request()->is('admin/affiliate*')) ? 'active' : '' }}">
+                            <a href="{{ route('affiliate.index') }}" title="{{__('sidebar.user')}}" class="sidebar-link">
                                 <span class="hide-menu">Total Funds</span>
                             </a>
                         </li>
                         <li>
-                            <a href="{{ route('affiliate.index') }}" title="{{__('sidebar.user')}}" class="sidebar-link {{ (request()->is('admin/affiliate*')) ? 'active' : '' }}">
+                            <a href="{{ route('affiliate.index') }}" title="{{__('sidebar.user')}}" class="sidebar-link">
                                 <span class="hide-menu">Total Penny Drop</span>
                             </a>
                         </li>
                         <li>
-                            <a href="{{ route('affiliate.index') }}" title="{{__('sidebar.user')}}" class="sidebar-link {{ (request()->is('admin/affiliate*')) ? 'active' : '' }}">
+                            <a href="{{ route('affiliate.index') }}" title="{{__('sidebar.user')}}" class="sidebar-link">
                                 <span class="hide-menu">Total Profit</span>
                             </a>
                         </li>
@@ -350,22 +350,22 @@
 
                     <ul style="display: none;">
                         <li>
-                            <a href="{{ route('affiliate.index') }}" title="{{__('sidebar.user')}}" class="sidebar-link {{ (request()->is('admin/affiliate*')) ? 'active' : '' }}">
+                            <a href="{{ route('affiliate.index') }}" title="{{__('sidebar.user')}}" class="sidebar-link">
                                 <span class="hide-menu">Create Cashback Offers</span>
                             </a>
                         </li>
                         <li>
-                            <a href="{{ route('affiliate.index') }}" title="{{__('sidebar.user')}}" class="sidebar-link {{ (request()->is('admin/affiliate*')) ? 'active' : '' }}">
+                            <a href="{{ route('affiliate.index') }}" title="{{__('sidebar.user')}}" class="sidebar-link">
                                 <span class="hide-menu">Create Coupons</span>
                             </a>
                         </li>
                         <li>
-                            <a href="{{ route('affiliate.index') }}" title="{{__('sidebar.user')}}" class="sidebar-link {{ (request()->is('admin/affiliate*')) ? 'active' : '' }}">
+                            <a href="{{ route('affiliate.index') }}" title="{{__('sidebar.user')}}" class="sidebar-link">
                                 <span class="hide-menu">Create Deals</span>
                             </a>
                         </li>
                         <li>
-                            <a href="{{ route('affiliate.index') }}" title="{{__('sidebar.user')}}" class="sidebar-link {{ (request()->is('admin/affiliate*')) ? 'active' : '' }}">
+                            <a href="{{ route('affiliate.index') }}" title="{{__('sidebar.user')}}" class="sidebar-link">
                                 <span class="hide-menu">Create Category</span>
                             </a>
                         </li>
@@ -384,22 +384,22 @@
 
                     <ul style="display: none;">
                         <li>
-                            <a href="{{ route('affiliate.index') }}" title="{{__('sidebar.user')}}" class="sidebar-link {{ (request()->is('admin/affiliate*')) ? 'active' : '' }}">
+                            <a href="{{ route('affiliate.index') }}" title="{{__('sidebar.user')}}" class="sidebar-link">
                                 <span class="hide-menu">Cashback</span>
                             </a>
                         </li>
                         <li>
-                            <a href="{{ route('affiliate.index') }}" title="{{__('sidebar.user')}}" class="sidebar-link {{ (request()->is('admin/affiliate*')) ? 'active' : '' }}">
+                            <a href="{{ route('affiliate.index') }}" title="{{__('sidebar.user')}}" class="sidebar-link">
                                 <span class="hide-menu">Coupons</span>
                             </a>
                         </li>
                         <li>
-                            <a href="{{ route('affiliate.index') }}" title="{{__('sidebar.user')}}" class="sidebar-link {{ (request()->is('admin/affiliate*')) ? 'active' : '' }}">
+                            <a href="{{ route('affiliate.index') }}" title="{{__('sidebar.user')}}" class="sidebar-link">
                                 <span class="hide-menu">Deals</span>
                             </a>
                         </li>
                         <li>
-                            <a href="{{ route('affiliate.index') }}" title="{{__('sidebar.user')}}" class="sidebar-link {{ (request()->is('admin/affiliate*')) ? 'active' : '' }}">
+                            <a href="{{ route('affiliate.index') }}" title="{{__('sidebar.user')}}" class="sidebar-link">
                                 <span class="hide-menu">Financial</span>
                             </a>
                         </li>
@@ -419,17 +419,17 @@
 
                     <ul style="display: none;">
                         <li>
-                            <a href="{{ route('affiliate.index') }}" title="{{__('sidebar.user')}}" class="sidebar-link {{ (request()->is('admin/affiliate*')) ? 'active' : '' }}">
+                            <a href="{{ route('affiliate.index') }}" title="{{__('sidebar.user')}}" class="sidebar-link">
                                 <span class="hide-menu">Create Category </span>
                             </a>
                         </li>
                         <li>
-                            <a href="{{ route('affiliate.index') }}" title="{{__('sidebar.user')}}" class="sidebar-link {{ (request()->is('admin/affiliate*')) ? 'active' : '' }}">
+                            <a href="{{ route('affiliate.index') }}" title="{{__('sidebar.user')}}" class="sidebar-link">
                                 <span class="hide-menu">Create Offers</span>
                             </a>
                         </li>
                         <li>
-                            <a href="{{ route('affiliate.index') }}" title="{{__('sidebar.user')}}" class="sidebar-link {{ (request()->is('admin/affiliate*')) ? 'active' : '' }}">
+                            <a href="{{ route('affiliate.index') }}" title="{{__('sidebar.user')}}" class="sidebar-link">
                                 <span class="hide-menu">Create Activity</span>
                             </a>
                         </li>
@@ -451,12 +451,12 @@
 
                     <ul style="display: none;">
                         <li>
-                            <a href="javascript:void(0)" title="{{__('sidebar.user')}}" class="sidebar-link {{ (request()->is('admin/affiliate*')) ? 'active' : '' }}">
+                            <a href="javascript:void(0)" title="{{__('sidebar.user')}}" class="sidebar-link">
                                 <span class="hide-menu">Cashback Lost </span>
                             </a>
                         </li>
                         <li>
-                            <a href="javascript:void(0)" title="{{__('sidebar.user')}}" class="sidebar-link {{ (request()->is('admin/affiliate*')) ? 'active' : '' }}">
+                            <a href="javascript:void(0)" title="{{__('sidebar.user')}}" class="sidebar-link">
                                 <span class="hide-menu">Financial Offers Lost</span>
                             </a>
                         </li>
@@ -481,17 +481,17 @@
                             </a>
                         </li>
                         <li>
-                            <a href="javascript:void(0)" title="{{__('sidebar.user')}}" class="sidebar-link {{ (request()->is('admin/affiliate*')) ? 'active' : '' }}">
+                            <a href="javascript:void(0)" title="{{__('sidebar.user')}}" class="sidebar-link">
                                 <span class="hide-menu">Postback</span>
                             </a>
                         </li>
                         <li>
-                            <a href="javascript:void(0)" title="{{__('sidebar.user')}}" class="sidebar-link {{ (request()->is('admin/affiliate*')) ? 'active' : '' }}">
+                            <a href="javascript:void(0)" title="{{__('sidebar.user')}}" class="sidebar-link">
                                 <span class="hide-menu">Add Tag/Edit Tag</span>
                             </a>
                         </li>
                         <li>
-                            <a href="javascript:void(0)" title="{{__('sidebar.user')}}" class="sidebar-link {{ (request()->is('admin/affiliate*')) ? 'active' : '' }}">
+                            <a href="javascript:void(0)" title="{{__('sidebar.user')}}" class="sidebar-link">
                                 <span class="hide-menu">Add KYC Api</span>
                             </a>
                         </li>
@@ -512,22 +512,22 @@
 
                     <ul style="display: none;">
                         <li>
-                            <a href="javascript:void(0)" title="{{__('sidebar.user')}}" class="sidebar-link {{ (request()->is('admin/affiliate*')) ? 'active' : '' }}">
+                            <a href="javascript:void(0)" title="{{__('sidebar.user')}}" class="sidebar-link">
                                 <span class="hide-menu">Add Staff </span>
                             </a>
                         </li>
                         <li>
-                            <a href="javascript:void(0)" title="{{__('sidebar.user')}}" class="sidebar-link {{ (request()->is('admin/affiliate*')) ? 'active' : '' }}">
+                            <a href="javascript:void(0)" title="{{__('sidebar.user')}}" class="sidebar-link">
                                 <span class="hide-menu">Staff Permissions</span>
                             </a>
                         </li>
                         <li>
-                            <a href="javascript:void(0)" title="{{__('sidebar.user')}}" class="sidebar-link {{ (request()->is('admin/affiliate*')) ? 'active' : '' }}">
+                            <a href="javascript:void(0)" title="{{__('sidebar.user')}}" class="sidebar-link">
                                 <span class="hide-menu">Staff Activity</span>
                             </a>
                         </li>
                         <li>
-                            <a href="javascript:void(0)" title="{{__('sidebar.user')}}" class="sidebar-link {{ (request()->is('admin/affiliate*')) ? 'active' : '' }}">
+                            <a href="javascript:void(0)" title="{{__('sidebar.user')}}" class="sidebar-link">
                                 <span class="hide-menu">Staff Tickets</span>
                             </a>
                         </li>
@@ -547,22 +547,22 @@
 
                     <ul style="display: none;">
                     <li>
-                            <a href="javascript:void(0)" title="{{__('sidebar.user')}}" class="sidebar-link {{ (request()->is('admin/affiliate*')) ? 'active' : '' }}">
+                            <a href="javascript:void(0)" title="{{__('sidebar.user')}}" class="sidebar-link">
                                 <span class="hide-menu">Refferal Users </span>
                             </a>
                         </li>
                         <li>
-                            <a href="javascript:void(0)" title="{{__('sidebar.user')}}" class="sidebar-link {{ (request()->is('admin/affiliate*')) ? 'active' : '' }}">
+                            <a href="javascript:void(0)" title="{{__('sidebar.user')}}" class="sidebar-link">
                                 <span class="hide-menu">Refferal Earnings </span>
                             </a>
                         </li>
                         <li>
-                            <a href="javascript:void(0)" title="{{__('sidebar.user')}}" class="sidebar-link {{ (request()->is('admin/affiliate*')) ? 'active' : '' }}">
+                            <a href="javascript:void(0)" title="{{__('sidebar.user')}}" class="sidebar-link">
                                 <span class="hide-menu">Refferal States</span>
                             </a>
                         </li>
                         <li>
-                            <a href="javascript:void(0)" title="{{__('sidebar.user')}}" class="sidebar-link {{ (request()->is('admin/affiliate*')) ? 'active' : '' }}">
+                            <a href="javascript:void(0)" title="{{__('sidebar.user')}}" class="sidebar-link">
                                 <span class="hide-menu">Refferal Edits</span>
                             </a>
                         </li>
@@ -610,7 +610,7 @@
                         <!-- new added -->
                         @can('cmspage-list')
                         <li>
-                            <a href="{{ route('cmspages.index') }}" title="{{__('sidebar.cms-pages')}}" class="sidebar-link {{ (request()->is('admin/cmspage*')) ? 'active' : '' }}">
+                            <a href="{{ route('cmspages.index') }}" title="{{__('sidebar.cms-pages')}}" class="sidebar-link">
                                 <span class="hide-menu">Pending Withdrawals</span>
                             </a>
                         </li>
@@ -618,7 +618,7 @@
 
                         @can('cmspage-list')
                         <li>
-                            <a href="{{ route('cmspages.index') }}" title="{{__('sidebar.cms-pages')}}" class="sidebar-link {{ (request()->is('admin/cmspage*')) ? 'active' : '' }}">
+                            <a href="{{ route('cmspages.index') }}" title="{{__('sidebar.cms-pages')}}" class="sidebar-link">
                                 <span class="hide-menu">Terms</span>
                             </a>
                         </li>
@@ -626,14 +626,14 @@
 
                         @can('cmspage-list')
                         <li>
-                            <a href="{{ route('cmspages.index') }}" title="{{__('sidebar.cms-pages')}}" class="sidebar-link {{ (request()->is('admin/cmspage*')) ? 'active' : '' }}">
+                            <a href="{{ route('cmspages.index') }}" title="{{__('sidebar.cms-pages')}}" class="sidebar-link">
                                 <span class="hide-menu">Auto Withdrawals</span>
                             </a>
                         </li>
                         @endcan
                         @can('cmspage-list')
                         <li>
-                            <a href="{{ route('cmspages.index') }}" title="{{__('sidebar.cms-pages')}}" class="sidebar-link {{ (request()->is('admin/cmspage*')) ? 'active' : '' }}">
+                            <a href="{{ route('cmspages.index') }}" title="{{__('sidebar.cms-pages')}}" class="sidebar-link">
                                 <span class="hide-menu">Withdrawal permission</span>
                             </a>
                         </li>
@@ -753,17 +753,17 @@
 
                     <ul style="display: none;">
                         <li>
-                            <a href="javascript:void(0)" title="{{__('sidebar.user')}}" class="sidebar-link {{ (request()->is('admin/affiliate*')) ? 'active' : '' }}">
+                            <a href="javascript:void(0)" title="{{__('sidebar.user')}}" class="sidebar-link">
                                 <span class="hide-menu">Server Status</span>
                             </a>
                         </li>
                         <li>
-                            <a href="javascript:void(0)" title="{{__('sidebar.user')}}" class="sidebar-link {{ (request()->is('admin/affiliate*')) ? 'active' : '' }}">
+                            <a href="javascript:void(0)" title="{{__('sidebar.user')}}" class="sidebar-link">
                                 <span class="hide-menu">Eroor Logs</span>
                             </a>
                         </li>
                         <li>
-                            <a href="javascript:void(0)" title="{{__('sidebar.user')}}" class="sidebar-link {{ (request()->is('admin/affiliate*')) ? 'active' : '' }}">
+                            <a href="javascript:void(0)" title="{{__('sidebar.user')}}" class="sidebar-link">
                                 <span class="hide-menu">Auto Backups</span>
                             </a>
                         </li>
@@ -784,12 +784,12 @@
 
                     <ul style="display: none;">
                         <li>
-                            <a href="javascript:void(0)" title="{{__('sidebar.user')}}" class="sidebar-link {{ (request()->is('admin/affiliate*')) ? 'active' : '' }}">
+                            <a href="javascript:void(0)" title="{{__('sidebar.user')}}" class="sidebar-link">
                                 <span class="hide-menu">Upload</span>
                             </a>
                         </li>
                         <li>
-                            <a href="javascript:void(0)" title="{{__('sidebar.user')}}" class="sidebar-link {{ (request()->is('admin/affiliate*')) ? 'active' : '' }}">
+                            <a href="javascript:void(0)" title="{{__('sidebar.user')}}" class="sidebar-link">
                                 <span class="hide-menu">New</span>
                             </a>
                         </li>
