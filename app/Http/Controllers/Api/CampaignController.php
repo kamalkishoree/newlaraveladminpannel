@@ -52,8 +52,14 @@ class CampaignController extends Controller
 
     public function userCampaignAll(Request $request)
     {
+        $start_date = $request->start_date??'';
+        $end_date   = $request->end_date??'';
         $data = [];
-           $campaign = Campaign::where('user_id',Auth::user()->id)->paginate(50);
+           $campaign = Campaign::with('brand')->where('user_id',Auth::user()->id);
+           if ($start_date && $end_date) {
+               $campaign->whereBetween('created_at', [$start_date, $end_date]);
+             }
+           $campaign = $campaign->paginate(40);
            $data['campaign'] = $campaign;
                 return response()->json([
                     'message' =>'success',
