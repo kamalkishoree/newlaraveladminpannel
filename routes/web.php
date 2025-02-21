@@ -233,6 +233,19 @@ Route::group(['middleware' => 'language'], function () {
 
 			});
 
+			Route::prefix('coupon')->group(function () {
+				Route::get('/index', 			[App\Http\Controllers\Admin\CouponController::class, 'index'])->name('coupon.index');
+				Route::get('/create', 			[App\Http\Controllers\Admin\CouponController::class, 'create'])->name('coupon.create');
+				Route::post('/store', 			[App\Http\Controllers\Admin\CouponController::class, 'store'])->name('coupon.store');
+				Route::get('/edit/{id}', 		[App\Http\Controllers\Admin\CouponController::class, 'edit'])->name('coupon.edit');
+				Route::post('/update/{id}', 	[App\Http\Controllers\Admin\CouponController::class, 'update'])->name('coupon.update');
+				Route::post('/destroy', 		[App\Http\Controllers\Admin\CouponController::class, 'destroy'])->name('coupon.destroy');
+				Route::get('/status_update', 	[App\Http\Controllers\Admin\CouponController::class, 'status_update'])->name('coupon.status_update');
+				Route::get('/status_update_custom',[App\Http\Controllers\Admin\CouponController::class, 'status_update_custom'])->name('coupon.status_update_custom');
+
+			});
+
+
 		});
 	});
 

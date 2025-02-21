@@ -1,7 +1,7 @@
 @extends('admin.layouts.master')
 
 @section('page_title')
-    {{ __('Update Brand') }}
+    {{ __('Update Coupon') }}
 @endsection
 
 @push('css')
@@ -14,19 +14,19 @@
 @endpush
 
 @section('content')
-    <form action="{{ route('brand.update',$brand->id) }}" method="POST" enctype="multipart/form-data">
-        @csrf
+    <form action="{{ route('coupon.update',$coupon->id) }}" method="POST" enctype="multipart/form-data">
+    @csrf
         <div class="page-header">
             <div class="card breadcrumb-card">
                 <div class="row justify-content-between align-content-between" style="height: 100%;">
                     <div class="col-md-6">
-                        <h3 class="page-title">{{__('Update Brand')}}</h3>
+                        <h3 class="page-title">{{__('UPDATE COUPON')}}</h3>
                         <ul class="breadcrumb">
                             <li class="breadcrumb-item"><a href="{{ route('dashboard') }}">Dashboard</a></li>
                             <li class="breadcrumb-item"><a
-                                    href="{{ route('brand.index') }}">{{ __('Brand') }}</a></li>
+                                    href="{{ route('coupon.index') }}">{{ __('Coupons') }}</a></li>
                             <li class="breadcrumb-item active-breadcrumb"><a
-                                    href="{{ route('brand.update',$brand->id) }}">{{ __('Update Brand') }}</a></li>
+                                    href="{{ route('coupon.create') }}">{{ __('Add new Coupons') }}</a></li>
                         </ul>
                     </div>
                     <div class="col-md-3">
@@ -39,79 +39,110 @@
             </div><!-- /card finish -->	
         </div><!-- /Page Header -->
             <div class="row">
-                  <div class="col-md-6">
-                                
-                           <div class="input-group mb-5">
-                            <img src="{{$brand->image_url}}" alt="{{$brand->slug}}" width="100" height="100">                            
-                          </div>
+                {{--  <div class="col-md-6">
                             <div class="input-group mb-5">
-                                <input type="file" id="image1" class="form-control" name="image_url" value="">
+                                <input type="file" id="image1" class="form-control" name="image_url">
                             </div>
-                           </div>  <!-- /row end -->
-
+                  </div>  <!-- /row end -->
+                  --}}
 
              <div class="col-md-6">
                     <div class="card">
                         <div class="card-header">
                             <h5 class="card-title">
-                               brand's Details
+                               Coupon Form
                             </h5>
                         </div>
 
-                        <div class="card-body">
+                    
+                          <div class="card-body">
                             <div class="form-group">
-                                <label for="name" class="required">{{ __('Brand Name') }}:</label>
-                                <input type="text" name="name" id="name" class="form-control  @error('name') form-control-error @enderror" required="required" value="{{ $brand->name }}">
+                                <label for="headline" class="required">{{ __('HEADLINE') }}:</label>
+                                <input type="text" name="headline" id="headline" class="form-control @error('headline') form-control-error @enderror" required="required" value="{{ $coupon->headline }}">
 
-                                @error('name')
+                                @error('headline')
                                     <span class="text-danger">{{ $message }}</span>
                                 @enderror
                             </div>
 
                             <div class="form-group">
-                                <label for="slug" class="required">{{ __('Slug') }}:</label>
-                                <input type="text" name="slug" id="slug" class="form-control @error('slug') form-control-error @enderror"  required="required" value="{{ $brand->name  }}">
+                                <label for="sub_headline" class="required">{{ __('SUB HEADLINE') }}:</label>
+                                <input type="text" name="sub_headline" id="sub_headline" class="form-control @error('sub_headline') form-control-error @enderror" required="required" value="{{ $coupon->sub_headline }}">
 
-                                @error('slug')
+                                @error('sub_headline')
                                     <span class="text-danger">{{ $message }}</span>
                                 @enderror
                             </div>
 
                             <div class="form-group">
-                                <label for="target_url" class="required">{{ __('Target URL') }}:</label>
-                                <input type="text" name="target_url" id="target_url" class="form-control @error('target_url') form-control-error @enderror"  required="required" value="{{ $brand->target_url }}">
+                                <label for="code" class="required">{{ __('CODE') }}:</label>
+                                <input type="text" name="code" id="code" class="form-control @error('code') form-control-error @enderror"  required="required" value="{{ $coupon->code }}"/>
+                                @error('code')
+                                    <span class="text-danger">{{ $message }}</span>
+                                @enderror
+                            </div>
+
+                            <div class="form-group">
+                                <label for="target_url" class="required">{{ __('TARGET URL') }}:</label>
+                                <input type="text" name="target_url" id="target_url" class="form-control @error('target_url') form-control-error @enderror"  required="required" value="{{ $coupon->target_url }}">
                                 @error('target_url')
                                     <span class="text-danger">{{ $message }}</span>
                                 @enderror
                             </div>
 
+
+
                             <div class="form-group">
-                                <label for="description" class="required">{{ __('Description') }}:</label>
-                              <textarea type="text" name="description" id="description" class="form-control @error('description') form-control-error @enderror"  required="required" value="{{ $brand->description  }}">{{$brand->description}}</textarea>
+                                <label for="clocking_url" class="required">{{ __('CLOCKING URL') }}:</label>
+                                <input type="text" name="clocking_url" id="clocking_url" class="form-control @error('clocking_url') form-control-error @enderror"  required="required" value="{{$coupon->clocking_url }}">
+                                @error('clocking_url')
+                                    <span class="text-danger">{{ $message }}</span>
+                                @enderror
+                            </div>
+
+
+                            <div class="form-group">
+                                <label for="description" class="required">{{ __('OTHER DETAILS') }}:</label>
+                                <textarea type="text" name="description" id="description" class="form-control @error('description') form-control-error @enderror"  required="required">{{$coupon->description}}</textarea>
                                 @error('description')
                                     <span class="text-danger">{{ $message }}</span>
                                 @enderror
                             </div>
-
                             <div class="form-group">
-                                <label for="category_id" class="required">{{ __('Brand') }}:</label>
-                                <select  name="category_id" id="category_id" class="form-control @error('category_id') form-control-error @enderror"  required="required" >
-                                <option value="">select brand ...</option>
-                                @foreach($categories as $brand)   
-                                <option value="{{$brand->id}}" {{( $brand->id == $brand->category_id)?'selected':''}} @endphp>{{$brand->name}}</option>
-                                @endforeach
-                                </select>
-                                @error('category_id')
+                                <label for="sharing_message" class="required">{{ __('SHARING MESSAGE') }}:</label>
+                                <input type="text" name="sharing_message" id="message" class="form-control @error('sharing_message') form-control-error @enderror"  required="required" value="{{ $coupon->sharing_message }}"/>
+                                @error('sharing_message')
                                     <span class="text-danger">{{ $message }}</span>
                                 @enderror
                             </div>
 
+                            <div class="form-group">
+                                <label for="brand_id" class="required">{{ __("COUPON's BRAND") }}:</label>
+                                <select  name="brand_id" id="brand_id" class="form-control @error('brand_id') form-control-error @enderror"  required="required">
+                                <option value="">select brands ...</option>
+                                @foreach($brands as $brand)   
+                                <option value="{{$brand->id}}" {{($coupon->brand_id == $brand->id)?'selected':''}}>{{$brand->name}}</option>
+                                @endforeach
+                                </select>
+                                @error('brand_id')
+                                    <span class="text-danger">{{ $message }}</span>
+                                @enderror
+                            </div>
+
+
+                            <div class="form-group">
+                                <label for="expires_at" class="required">{{ __('EXPIRE ON') }}:</label>
+                                <input type="datetime-local" name="expires_at" id="message" class="form-control @error('expires_at') form-control-error @enderror"  required="required" value="{{ $coupon->expires_at }}"/>
+                                @error('expires_at')
+                                    <span class="text-danger">{{ $message }}</span>
+                                @enderror
+                            </div>
 
 
                     <div class="form-group">
                             <label for="is_feature">{{ __('Feature') }}:</label>
                             <div class="custom-control custom-switch">
-                                <input type="checkbox" name="is_feature" id="is_feature" data-id="{{$brand->id}}" class=" update_category custom-control-input" {{ $brand->is_feature ? 'checked' : '' }}>
+                                <input type="checkbox" name="is_feature" id="is_feature" data-id="{{$coupon->id}}" class=" update_coupon custom-control-input" {{ $coupon->is_feature ? 'checked' : '' }}>
                                 <label class="custom-control-label" for="is_feature">
                                 </label>
                             </div>
@@ -121,7 +152,7 @@
                     <div class="form-group">
                         <label for="is_new">{{ __('New') }}:</label>
                         <div class="custom-control custom-switch">
-                            <input type="checkbox" name="is_new" id="is_new" data-id="{{$brand->id}}" class="update_category custom-control-input" {{ $brand->is_new ? 'checked' : '' }}>
+                            <input type="checkbox" name="is_new" id="is_new" data-id="{{$coupon->id}}" class="update_coupon custom-control-input" {{ $coupon->is_new ? 'checked' : '' }}>
                             <label class="custom-control-label" for="is_new">
                             </label>
                         </div>
@@ -131,7 +162,7 @@
                     <div class="form-group">
                         <label for="is_top">{{ __('Top') }}:</label>
                         <div class="custom-control custom-switch">
-                            <input type="checkbox" name="is_top" id="is_top" data-id="{{$brand->id}}" class="update_category custom-control-input" {{ $brand->is_top ? 'checked' : '' }}>
+                            <input type="checkbox" name="is_top" id="is_top" data-id="{{$coupon->id}}" class="update_coupon custom-control-input" {{ $coupon->is_top ? 'checked' : '' }}>
                             <label class="custom-control-label" for="is_top">
                             </label>
                         </div>
@@ -169,7 +200,7 @@ $(document).ready(function() {
             console.log("Is feature: " + is_feature);
             field = $(this).attr('name');
             value = is_feature;
-            changeBrandDetails(id,field,value)
+            changecouponDetails(id,field,value)
 
         });
 
@@ -179,7 +210,7 @@ $(document).ready(function() {
             console.log("Is New: " + isNew);
             field = $(this).attr('name');
             value = isNew;
-            changeBrandDetails(id,field,value)
+            changecouponDetails(id,field,value)
 
         });
         $('#is_top').change(function() {
@@ -188,7 +219,7 @@ $(document).ready(function() {
             console.log("Is Top: " + isTop);
             field = $(this).attr('name');
             value = isTop;
-            changeBrandDetails(id,field,value)
+            changecouponDetails(id,field,value)
 
         });
 
@@ -196,7 +227,7 @@ $(document).ready(function() {
        
 
 
- function changeBrandDetails(id,field,value) {
+ function changecouponDetails(id,field,value) {
 
             var id = id;
             var field = field;
@@ -204,7 +235,7 @@ $(document).ready(function() {
             let _token = $('meta[name="csrf-token"]').attr('content');
 
             $.ajax({
-                url: `{{ route('brand.status_update_custom') }}`,
+                url: `{{ route('coupon.status_update_custom') }}`,
                 type: 'GET',
                 data: {
                     _token: _token,

@@ -1,7 +1,7 @@
 @extends('admin.layouts.master')
 
 @section('page_title')
-    {{ __('Brand List') }}
+    {{ __('coupon List') }}
 @endsection
 
 @push('css')
@@ -18,19 +18,21 @@
 		<div class="card breadcrumb-card">
 			<div class="row justify-content-between align-content-between" style="height: 100%;">
 				<div class="col-md-6">
-					<h3 class="page-title">{{__('Brands Details')}}</h3>
+					<h3 class="page-title">{{__('Coupons Details')}}</h3>
 					<ul class="breadcrumb">
 						<li class="breadcrumb-item">
 							<a href="{{ route('dashboard') }}">Dashboard</a>
 						</li>
 						<li class="breadcrumb-item active-breadcrumb">
-							<a href="{{ route('brand.index') }}">{{ __('Brands') }}</a>
+							<a href="{{ route('coupon.index') }}">{{ __('Coupons') }}</a>
 						</li>
 					</ul>
 				</div>
+
+
                     <div class="col-md-3">
                         <div class="create-btn pull-right">
-                            <a href="{{ route('brand.create') }}" class="btn custom-create-btn">{{ __('Add New Brands') }}</a>
+                            <a href="{{ route('coupon.create') }}" class="btn custom-create-btn">{{ __('Add New Coupons') }}</a>
                         </div>                 
                     </div>
 			</div>
@@ -42,16 +44,42 @@
             <div class="card">
 
                 <div class="card-body">
+
+                <form  action="{{ route('coupon.index') }}" method="GET" enctype="multipart/form-data" >
+                     
+                <div class="row">
+                    <div class="form-group col-md-2">
+                        <label for="start_date" class="required">{{ __('START DATE') }}:</label>
+                        <input type="date" name="start_date" id="start_date" class="form-control @error('start_date') form-control-error @enderror" required="required" value="{{ @$request->start_date }}"/>
+                        @error('start_date')
+                            <span class="text-danger">{{ $message }}</span>
+                        @enderror
+                    </div>
+
+                    <div class="form-group col-md-2">
+                        <label for="end_date" class="required">{{ __('END DATE') }}:</label>
+                        <input type="date" name="end_date" id="end_date" class="form-control @error('end_date') form-control-error @enderror" required="required" value="{{ @$request->end_date }}"/>
+                        @error('end_date')
+                            <span class="text-danger">{{ $message }}</span>
+                        @enderror
+                    </div>
+
+                    <div class="form-group col-md-2 pt-4">
+                            <button type="submit"  class="btn custom-create-btn">{{ __('SUBMIT') }}</button>
+                    </div>
+                </div>
+                <form >  
                     <table class="table table-hover table-center mb-0" id="table">
                         <thead>
                             <tr>
                                 <th class="">{{ __('default.table.sl') }}</th>
-                                <th class="">{{ __('default.table.image') }}</th>
-                                <th class="">{{ __('Brand Name') }}</th>
-                                <th class="">{{ __('Slug') }}</th>
-                                <th class="">{{ __('Description') }}</th>
-                                <th class="">{{ __('status') }}</th>
-                                <th class="">{{ __('default.table.action') }}</th>
+                               {{-- <th class="">{{ __('default.table.image') }}</th>--}}
+                                <th class="">{{ __('HEADLINE') }}</th>
+                                <th class="">{{ __('Sub Headline') }}</th>
+                                <th class="">{{ __('CODE') }}</th>
+                                <th class="">{{ __('DESCRIPTIONS') }}</th>
+                                <th class="">{{ __('STATUS') }}</th>
+                                <th class="">{{ __('ACTIONS') }}</th>
                             </tr>
                         </thead>
 
@@ -79,16 +107,13 @@
                 order: [
                     [0, 'desc']
                 ],
-                ajax: "{{ route('brand.index') }}",
-                data: function(d) {
-                d.start_date = $('#start_date').val(); // Get start_date from input field
-                d.end_date = $('#end_date').val(); // Get end_date from input field
-               },
+                ajax: "{{ route('coupon.index') }}",
                 columns: [
 					{  data: 'DT_RowIndex', name: 'DT_RowIndex' },
-                    {  data: 'image_url', name: 'image_url' },
-                    {  data: 'name', name: 'name' },
-                    {  data: 'slug', name: 'slug' },
+                    //{  data: 'image_url', name: 'image_url' },
+                    {  data: 'headline', name: 'headline' },
+                    {  data: 'sub_headline', name: 'sub_headline' },
+                    {  data: 'code', name: 'code' },
                     {  data: 'description', name: 'description' },
                     {  data: 'status', name: 'status' },
                     {  data: 'action', name: 'action', orderable: false, searchable: false}
@@ -128,7 +153,7 @@
     </script>
 
     <script type="text/javascript">
-        $("body").on("click", ".remove-brand", function() {
+        $("body").on("click", ".remove-coupon", function() {
             var current_object = $(this);
             swal({
                 title: "Are you sure?",
@@ -162,7 +187,7 @@
             let _token = $('meta[name="csrf-token"]').attr('content');
 
             $.ajax({
-                url: `{{ route('brand.status_update') }}`,
+                url: `{{ route('coupon.status_update') }}`,
                 type: 'GET',
                 data: {
                     _token: _token,

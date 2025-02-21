@@ -129,40 +129,6 @@
                 <!---->
 
 
-
-
-                <li class="submenu">
-                    <a class="" href="javascript:void(0)" aria-expanded="false">
-                        <i data-feather="users"></i>
-                        <span class="hide-menu">{{__('Affiliate Market')}} </span>
-                        <span class="menu-arrow"></span>
-                    </a>
-
-                    <ul style="display: none;">
-                        <li>
-                            <a href="{{ route('category.index') }}" title="{{__('category')}}" class="sidebar-link {{ (request()->is('admin/category*')) ? 'active' : '' }}">
-                                <span class="hide-menu">{{__('Category')}}</span>
-                            </a>
-                        </li>
-
-                        <li>
-                            <a href="{{ route('brand.index') }}" title="{{__('Brands')}}" class="sidebar-link {{ (request()->is('admin/brand*')) ? 'active' : '' }}">
-                                <span class="hide-menu">{{__('Brands')}}</span>
-                            </a>
-                        </li>
-
-                      {{--  <li>
-                            <a href="{{ route('product.index') }}" title="{{__('Products')}}" class="sidebar-link {{ (request()->is('admin/product*')) ? 'active' : '' }}">
-                                <span class="hide-menu">{{__('Products')}}</span>
-                            </a>
-                        </li>
-                        --}}
-                    </ul> 
-
-                </li>
-
-
-
             <li class="{{ (request()->is('admin/campaign*')) ? '' : '' }}">
                        <a class="sidebar-link" href="{{ route('campaign.index') }}" aria-expanded="false">
                        <i class="fa-solid fa-arrow-right-from-bracket"></i>
@@ -260,12 +226,12 @@
 
                     <ul style="display: none;">
                         <li>
-                            <a href="{{ route('affiliate.index') }}" title="{{__('sidebar.user')}}" class="sidebar-link {{ (request()->is('admin/affiliate*')) ? 'active' : '' }}">
+                            <a href="{{ route('brand.index') }}" title="{{__('Brands')}}" class="sidebar-link {{ (request()->is('admin/brand*')) ? 'active' : '' }}">
                                 <span class="hide-menu">Create Cashback Offers</span>
                             </a>
                         </li>
                         <li>
-                            <a href="{{ route('affiliate.index') }}" title="{{__('sidebar.user')}}" class="sidebar-link {{ (request()->is('admin/affiliate*')) ? 'active' : '' }}">
+                            <a href="{{ route('coupon.index') }}" title="{{__('sidebar.coupon')}}" class="sidebar-link {{ (request()->is('admin/coupon*')) ? 'active' : '' }}">
                                 <span class="hide-menu">Create Coupons</span>
                             </a>
                         </li>
@@ -275,7 +241,7 @@
                             </a>
                         </li>
                         <li>
-                            <a href="{{ route('affiliate.index') }}" title="{{__('sidebar.user')}}" class="sidebar-link {{ (request()->is('admin/affiliate*')) ? 'active' : '' }}">
+                            <a href="{{ route('category.index') }}" title="{{__('category')}}" class="sidebar-link {{ (request()->is('admin/category*')) ? 'active' : '' }}">
                                 <span class="hide-menu">Create Category</span>
                             </a>
                         </li>
@@ -348,11 +314,6 @@
                 </li>
 
                 <!-- end -->
-
-
-
-
-
 
 
                 <!-- Withdrawal management -->

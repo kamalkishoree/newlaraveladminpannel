@@ -108,7 +108,6 @@ class UserAuthController extends Controller
      if($validated)
      {
           $user = User::where('mobile',$request->phone_number)->where('dial_code',$request->dial_code)->first();
-          $this->validate($user,$otp);
         
            if($user->phone_otp == $request->otp)
            {
@@ -132,8 +131,6 @@ class UserAuthController extends Controller
               
      
     }
-  
-
 
     public function checkNumberExist(UserPhoneAuthResouce $request)
     {
