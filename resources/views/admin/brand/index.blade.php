@@ -80,10 +80,6 @@
                     [0, 'desc']
                 ],
                 ajax: "{{ route('brand.index') }}",
-                data: function(d) {
-                d.start_date = $('#start_date').val(); // Get start_date from input field
-                d.end_date = $('#end_date').val(); // Get end_date from input field
-               },
                 columns: [
 					{  data: 'DT_RowIndex', name: 'DT_RowIndex' },
                     {  data: 'image_url', name: 'image_url' },

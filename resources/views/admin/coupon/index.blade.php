@@ -108,6 +108,7 @@
                     [0, 'desc']
                 ],
                 ajax: "{{ route('coupon.index') }}",
+                
                 columns: [
 					{  data: 'DT_RowIndex', name: 'DT_RowIndex' },
                     //{  data: 'image_url', name: 'image_url' },

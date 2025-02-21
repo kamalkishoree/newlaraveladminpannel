@@ -23,7 +23,6 @@ class CouponController extends Controller
             if ($request->has('start_date') && $request->has('end_date')) {
                 $data->whereBetween('created_at', [$request->start_date, $request->end_date]);
             }
-        
             // Get data before passing to DataTables
             $data = $data->get();  
         
