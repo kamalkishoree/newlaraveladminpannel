@@ -45,7 +45,7 @@
 
                 <div class="card-body">
 
-                <form  action="{{ route('coupon.index') }}" method="GET" enctype="multipart/form-data" >
+            {{--    <form  action="{{ route('coupon.index') }}" method="GET" enctype="multipart/form-data" >
                      
                 <div class="row">
                     <div class="form-group col-md-2">
@@ -69,6 +69,7 @@
                     </div>
                 </div>
                 <form >  
+                --}}
                     <table class="table table-hover table-center mb-0" id="table">
                         <thead>
                             <tr>
