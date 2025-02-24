@@ -44,6 +44,32 @@
             <div class="card">
 
                 <div class="card-body">
+
+                <form  action="{{ route('coupon.index') }}" method="GET" enctype="multipart/form-data" >
+                     
+                     <div class="row">
+                         <div class="form-group col-md-2">
+                             <label for="start_date" class="required">{{ __('START DATE') }}:</label>
+                             <input type="date" name="start_date" id="start_date" class="form-control @error('start_date') form-control-error @enderror" value="{{ @$request->start_date }}"/>
+                             @error('start_date')
+                                 <span class="text-danger">{{ $message }}</span>
+                             @enderror
+                         </div>
+     
+                         <div class="form-group col-md-2">
+                             <label for="end_date" class="required">{{ __('END DATE') }}:</label>
+                             <input type="date" name="end_date" id="end_date" class="form-control @error('end_date') form-control-error @enderror" value="{{ @$request->end_date }}"/>
+                             @error('end_date')
+                                 <span class="text-danger">{{ $message }}</span>
+                             @enderror
+                         </div>
+     
+                         <div class="form-group col-md-2 pt-4">
+                                 <button type="submit"  class="btn custom-create-btn">{{ __('SUBMIT') }}</button>
+                         </div>
+                     </div>
+                     <form >  
+
                     <table class="table table-hover table-center mb-0" id="table">
                         <thead>
                             <tr>
@@ -54,7 +80,7 @@
                                 <th class="">{{ __('default.table.mobile') }}</th>
                                 <th class="">{{ __('default.table.role') }}</th>
                                 <th class="">{{ __('default.table.status') }}</th>
-
+                                <th class="">{{ __('Created On') }}</th>
                                 @if (Gate::check('user-edit') || Gate::check('user-delete'))
                                     <th class="">{{ __('default.table.action') }}</th>
                                 @endif
@@ -85,7 +111,15 @@
                 order: [
                     [0, 'desc']
                 ],
-                ajax: '{{ route('users.index') }}',
+                ajax: {
+                url:'{{ route('users.index') }}',
+                type: "GET",
+                data: function(d) {
+                    d.start_date = $('#start_date').val();
+                    d.end_date = $('#end_date').val();
+                    d.custom_field = "custom_value"; // You can send any custom data like this
+                }
+                },
                 columns: [
 					{ data: 'DT_RowIndex', name: 'DT_RowIndex' },
                     {  data: 'image', name: 'image' },
@@ -94,7 +128,7 @@
                     {  data: 'mobile',  name: 'mobile' },
                     { data: 'role',  name: 'role' },
                     { data: 'status',  name: 'status'  },
-
+                    {  data: 'created_at', name: 'created_at' },
                     @if (Gate::check('user-edit') || Gate::check('user-delete'))
                         { data: 'action', name: 'action', orderable: false, searchable: false}
                     @endif

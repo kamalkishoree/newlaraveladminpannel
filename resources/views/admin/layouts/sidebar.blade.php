@@ -173,19 +173,6 @@
                 </li>
                 <!-- /banner -->
 
-
-                 <!-- Wallet  -->
-                 <li class="{{ (request()->is('admin/dashboard*')) ? '' : '' }}">
-                <a class="sidebar-link" href="{{ route('dashboard') }}" aria-expanded="false">
-                <i class="fa-regular fa-credit-card"></i>
-                  <!-- <i data-feather="book-open"></i> -->
-                    <span>
-                        {{__('Wallet  ')}}
-                    </span>
-                </a>
-                </li>
-                <!-- /Wallet  -->
-
                 <!-- add static new Wallet -->
                 <li class="submenu">
                     <a class="" href="javascript:void(0)" aria-expanded="false">
@@ -231,17 +218,17 @@
                             </a>
                         </li>
                         <li>
-                            <a href="{{ route('coupon.index') }}" title="{{__('sidebar.coupon')}}" class="sidebar-link {{ (request()->is('admin/coupon*')) ? 'active' : '' }}">
+                            <a href="{{ route('coupon.index') }}" title="{{__('Coupons')}}" class="sidebar-link {{ (request()->is('admin/coupon*')) ? 'active' : '' }}">
                                 <span class="hide-menu">Create Coupons</span>
                             </a>
                         </li>
                         <li>
-                            <a href="{{ route('affiliate.index') }}" title="{{__('sidebar.user')}}" class="sidebar-link {{ (request()->is('admin/affiliate*')) ? 'active' : '' }}">
+                            <a href="{{ route('deal.index') }}" title="{{__('Deals')}}" class="sidebar-link {{ (request()->is('admin/deal*')) ? 'active' : '' }}">
                                 <span class="hide-menu">Create Deals</span>
                             </a>
                         </li>
                         <li>
-                            <a href="{{ route('category.index') }}" title="{{__('category')}}" class="sidebar-link {{ (request()->is('admin/category*')) ? 'active' : '' }}">
+                            <a href="{{ route('category.index') }}" title="{{__('Cayegories')}}" class="sidebar-link {{ (request()->is('admin/category*')) ? 'active' : '' }}">
                                 <span class="hide-menu">Create Category</span>
                             </a>
                         </li>
@@ -397,13 +384,14 @@
                 <!-- /Financial Redirection Management   -->
 
                  <!--Reports   -->
-                 <li class="{{ (request()->is('admin/report*')) ? '' : '' }}">
+                {{-- <li class="{{ (request()->is('admin/report*')) ? '' : '' }}">
                                 <a class="sidebar-link" href="{{ route('report.index') }}" aria-expanded="false">
                                 <i data-feather="file-text"></i>
                                 <!-- <i class="fa-regular fa-file-lines"></i> -->
                     <span>
                         {{__('Reports ')}}
                     </span>
+                --}}
                 </a>
                 </li>
                 <!-- /Reports    -->

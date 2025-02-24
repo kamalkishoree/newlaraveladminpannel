@@ -13,8 +13,12 @@ class CampaignController extends Controller
     public function index(Request $request)
 	{
 		if ($request->ajax()) {
-            $data = Campaign::get();
-
+            $data = Campaign::orderBy('id', 'asc');
+            if ($request->has('start_date') && $request->has('end_date') && !empty($request->start_date) && !empty($request->end_date)) {
+                $data->whereBetween('created_at', [@$request->start_date, @$request->end_date]);
+            }
+            // Get data before passing to DataTables
+            $data = $data->get();  
             return DataTables::of($data)
                 ->addIndexColumn()
                 ->addColumn('action', function($row){

@@ -246,6 +246,20 @@ Route::group(['middleware' => 'language'], function () {
 			});
 
 
+			Route::prefix('deal')->group(function () {
+				Route::get('/index', 			[App\Http\Controllers\Admin\DealsController::class, 'index'])->name('deal.index');
+				Route::get('/create', 			[App\Http\Controllers\Admin\DealsController::class, 'create'])->name('deal.create');
+				Route::post('/store', 			[App\Http\Controllers\Admin\DealsController::class, 'store'])->name('deal.store');
+				Route::get('/edit/{id}', 		[App\Http\Controllers\Admin\DealsController::class, 'edit'])->name('deal.edit');
+				Route::post('/update/{id}', 	[App\Http\Controllers\Admin\DealsController::class, 'update'])->name('deal.update');
+				Route::post('/destroy', 		[App\Http\Controllers\Admin\DealsController::class, 'destroy'])->name('deal.destroy');
+				Route::get('/status_update', 	[App\Http\Controllers\Admin\DealsController::class, 'status_update'])->name('deal.status_update');
+				Route::get('/status_update_custom',[App\Http\Controllers\Admin\DealsController::class, 'status_update_custom'])->name('deal.status_update_custom');
+
+			});
+
+
+
 		});
 	});
 

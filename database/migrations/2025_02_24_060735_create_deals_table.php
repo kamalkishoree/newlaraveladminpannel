@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateCouponsTable extends Migration
+class CreateDealsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,7 +13,7 @@ class CreateCouponsTable extends Migration
      */
     public function up()
     {
-        Schema::create('coupons', function (Blueprint $table) {
+        Schema::create('deals', function (Blueprint $table) {
             $table->id();  // Auto-incrementing primary key
             $table->foreignId('brand_id')->constrained()->onDelete('cascade');  // Foreign key to Category table
             $table->string('headline');  // Brand name
@@ -21,7 +21,7 @@ class CreateCouponsTable extends Migration
             $table->text('image_url')->nullable();  // Logo URL (optional)
             $table->text('description')->nullable();  // Description (optional)
             $table->text('sharing_message')->nullable();  // Description (optional)
-            $table->string('code')->unique()->nullable();  // Description (code)
+            $table->string('code')->unique()->nullable();  // Description (optional)
             $table->text('target_url')->nullable();  // Description (optional)
             $table->text('clocking_url')->nullable();  // Description (optional)
             $table->enum('is_new', ['1', '0'])->default('0');
@@ -40,6 +40,6 @@ class CreateCouponsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('coupons');
+        Schema::dropIfExists('deals');
     }
 }

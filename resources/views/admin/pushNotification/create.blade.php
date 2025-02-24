@@ -110,7 +110,7 @@
                                         <span class="text-danger">{{ $message }}</span>
                                     @enderror
                                 </div>
-                               <x-ckeditor name="email_description" id="editor1" label="Description" />
+                               <x-ckeditor name="email_description" id="editor1" label="Description" description="" />
                             </div>
 
 

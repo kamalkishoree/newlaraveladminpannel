@@ -1,7 +1,7 @@
 @extends('admin.layouts.master')
 
 @section('page_title')
-    {{ __('coupon List') }}
+    {{ __('deal List') }}
 @endsection
 
 @push('css')
@@ -18,13 +18,13 @@
 		<div class="card breadcrumb-card">
 			<div class="row justify-content-between align-content-between" style="height: 100%;">
 				<div class="col-md-6">
-					<h3 class="page-title">{{__('Coupons Details')}}</h3>
+					<h3 class="page-title">{{__('Deals Details')}}</h3>
 					<ul class="breadcrumb">
 						<li class="breadcrumb-item">
 							<a href="{{ route('dashboard') }}">Dashboard</a>
 						</li>
 						<li class="breadcrumb-item active-breadcrumb">
-							<a href="{{ route('coupon.index') }}">{{ __('Coupons') }}</a>
+							<a href="{{ route('deal.index') }}">{{ __('Deals') }}</a>
 						</li>
 					</ul>
 				</div>
@@ -32,7 +32,7 @@
 
                     <div class="col-md-3">
                         <div class="create-btn pull-right">
-                            <a href="{{ route('coupon.create') }}" class="btn custom-create-btn">{{ __('Add New Coupons') }}</a>
+                            <a href="{{ route('deal.create') }}" class="btn custom-create-btn">{{ __('Add New Deals') }}</a>
                         </div>                 
                     </div>
 			</div>
@@ -45,7 +45,7 @@
 
                 <div class="card-body">
 
-               <form  action="{{ route('coupon.index') }}" method="GET" enctype="multipart/form-data" >
+               <form  action="{{ route('deal.index') }}" method="GET" enctype="multipart/form-data" >
                      
                 <div class="row">
                     <div class="form-group col-md-2">
@@ -109,7 +109,7 @@
                 [0, 'desc']
             ],
             ajax: {
-                url: "{{ route('coupon.index') }}",
+                url: "{{ route('deal.index') }}",
                 type: "GET",
                 data: function(d) {
                     d.start_date = $('#start_date').val();
@@ -162,7 +162,7 @@
     </script>
 
     <script type="text/javascript">
-        $("body").on("click", ".remove-coupon", function() {
+        $("body").on("click", ".remove-deal", function() {
             var current_object = $(this);
             swal({
                 title: "Are you sure?",
@@ -196,7 +196,7 @@
             let _token = $('meta[name="csrf-token"]').attr('content');
 
             $.ajax({
-                url: `{{ route('coupon.status_update') }}`,
+                url: `{{ route('deal.status_update') }}`,
                 type: 'GET',
                 data: {
                     _token: _token,
