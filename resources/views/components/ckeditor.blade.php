@@ -1,8 +1,8 @@
 @props(['name', 'id', 'label' => 'Content', 'value' => '', 'placeholder' => 'Enter text...'])
 
 <div class="form-group">
-    <label for="{{ $id }}">{{ $label }}</label>
-    <textarea name="{{ $name }}" id="{{ $id }}" class="form-control ckeditor" placeholder="{{ $placeholder }}">
+    <label for="{{ $id }}" class="required">{{ $label}}:</label>
+    <textarea name="{{ $name }}" id="{{ $id }}" class="form-control @error('description') form-control-error @enderror ckeditor" placeholder="{{ $placeholder }}">
         {{ old($name, $value) }}
     </textarea>
 </div>

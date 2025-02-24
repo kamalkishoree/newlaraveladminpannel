@@ -78,9 +78,8 @@
                             </div>
 
                             <div class="form-group">
-                                <label for="description" class="required">{{ __('Description') }}:</label>
-                                      <textarea type="text" name="description" id="description" class="form-control @error('description') form-control-error @enderror"  required="required" value="{{ $category->description  }}">{{ $category->description  }}</textarea>
-                                @error('description')
+                            <x-ckeditor name="description" id="description" label="Description" :value="$category->description" />
+                            @error('description')
                                     <span class="text-danger">{{ $message }}</span>
                                 @enderror
                             </div>
