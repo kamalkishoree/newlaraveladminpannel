@@ -10,6 +10,7 @@ use Yajra\DataTables\Facades\DataTables;
 use Brian2694\Toastr\Facades\Toastr;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Validation\Rule;
+use Illuminate\Support\Str;
 
 
 class DealsController extends Controller
@@ -32,7 +33,7 @@ class DealsController extends Controller
                                 <i class="fe fe-pencil"></i>
                                 ' . __('default.form.edit-button') . '
                             </a>';
-                    $delete = '<button class="custom-delete-btn remove-deals" data-id="' . $row->id . '" data-action="' . route('deal.destroy') . '">
+                    $delete = '<button class="custom-delete-btn remove-deal" data-id="' . $row->id . '" data-action="' . route('deal.destroy') . '">
                                     <i class="fe fe-trash"></i>
                                     ' . __('default.form.delete-button') . '
                                 </button>';
@@ -41,7 +42,11 @@ class DealsController extends Controller
                 ->addColumn('headline', fn ($row) => $row->headline)
                 ->addColumn('sub_headline', fn ($row) => $row->sub_headline)
                 ->addColumn('code', fn ($row) => $row->code)
-                ->addColumn('description', fn ($row) => $row->description)
+                ->addColumn('description', function($row){
+                    $maxLength = 50; // Limit description to 50 characters
+                    $shortDescription = Str::limit(strip_tags($row->description), $maxLength, '...');
+                    return $shortDescription;
+                })
                 ->addColumn('status', function ($row) {
                     $checked = $row->status == 1 ? 'checked' : '';
                     return "
@@ -220,13 +225,11 @@ class DealsController extends Controller
 		}
 	}
 
-	public function destroy()
-	{
-
-		     $id = request()->input('id');
+	public function destroy(Request $request)
+    {
+		    $id = request()->input('id');
 			$getbrand = Deal::find($id);
 			if (Storage::disk('s3')->exists($getbrand->image_url)) {
-				die('sss');
 				Storage::disk('s3')->delete($getbrand->image_url);
 			} 
 			try {

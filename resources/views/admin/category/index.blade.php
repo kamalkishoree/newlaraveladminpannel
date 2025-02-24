@@ -131,7 +131,8 @@
     </script>
 
     <script type="text/javascript">
-        $("body").on("click", ".remove-category", function() {
+        $("body").on("click", ".remove-category", function(e) {
+            e.preventDefault();
             var current_object = $(this);
             swal({
                 title: "Are you sure?",

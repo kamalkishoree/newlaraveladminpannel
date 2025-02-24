@@ -154,7 +154,8 @@
     </script>
 
     <script type="text/javascript">
-        $("body").on("click", ".remove-campaign", function() {
+        $("body").on("click", ".remove-campaign", function(e) {
+            e.preventDefault();
             var current_object = $(this);
             swal({
                 title: "Are you sure?",

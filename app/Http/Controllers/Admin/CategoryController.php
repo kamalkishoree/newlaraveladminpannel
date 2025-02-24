@@ -9,6 +9,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Validation\Rule;
 use Yajra\DataTables\Facades\DataTables;
+use Illuminate\Support\Str;
 
 class CategoryController extends Controller
 {
@@ -54,7 +55,9 @@ class CategoryController extends Controller
                     return $row->slug;
                 })
                 ->addColumn('description', function($row){
-                    return $row->description;
+                    $maxLength = 50; // Limit description to 50 characters
+                    $shortDescription = Str::limit(strip_tags($row->description), $maxLength, '...');
+                    return $shortDescription;
                 })
 
                 ->addColumn('status', function($row){

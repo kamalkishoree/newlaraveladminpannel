@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\AffilateIntegration;
 use Illuminate\Http\Request;
 use App\Models\Brand;
 use App\Models\Category;
@@ -10,6 +11,7 @@ use Brian2694\Toastr\Facades\Toastr;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Validation\Rule;
 use Yajra\DataTables\Facades\DataTables;
+use Illuminate\Support\Str;
 class BrandController extends Controller
 {
  
@@ -58,9 +60,11 @@ class BrandController extends Controller
                     return $row->slug;
                 })
                 ->addColumn('description', function($row){
-                    return $row->description;
+                    $maxLength = 50; // Limit description to 50 characters
+                    $shortDescription = Str::limit(strip_tags($row->description), $maxLength, '...');
+                    return $shortDescription;
                 })
-
+                
                 ->addColumn('status', function($row){
                 	if ($row->status == 1) {
                 		$current_status = 'Checked';
@@ -87,11 +91,15 @@ class BrandController extends Controller
 	{
 
         $categories = Category::whereNotNull('id')->get();
-		return view('admin.brand.create',compact('categories'));
+        $affiliate_partners = AffilateIntegration::select('id','provider_name')->whereNotNull('id')->get();
+		return view('admin.brand.create',compact('categories','affiliate_partners'));
+
+
 	}
 
 	public function store(Request $request)
 	{
+
 
 		$rules = [
             'name' => 'required|string|max:255',
@@ -99,6 +107,10 @@ class BrandController extends Controller
             'description' => 'nullable|string',
             'image_url' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',  // Logo should be an image file
             'category_id' => 'required|exists:categories,id', // Ensure category exists in the categories 
+            'target_url' => 'required|url',
+            'clocking_url' => 'required|url',
+            'affiliate_network_id' => 'required|exists:affilate_integrations,id',
+
         ];
         $messages = [
             'name.required' => 'The brand name is required.',
@@ -110,6 +122,11 @@ class BrandController extends Controller
             'description.string' => 'The description must be a string.',
             'category_id.required' => 'The category is required.',
             'category_id.exists' => 'The selected category does not exist.',
+            'target_url.required' => 'The target URL is required.',
+            'target_url.url' => 'The target URL must be a valid URL.',
+            'clocking_url.required' => 'The cloaking URL is required.',
+            'clocking_url.url' => 'The cloaking URL must be a valid URL.',
+            'affiliate_network_id.required' => 'The affiliate network is required.',
         ];
 
         
@@ -143,8 +160,10 @@ class BrandController extends Controller
 	public function edit($id)
 	{
 		$brand = Brand::find($id);
+        $affiliate_partners = AffilateIntegration::select('id','provider_name')->whereNotNull('id')->get();
         $categories = Category::whereNotNull('id')->get();
-		return view('admin.brand.edit',compact('brand','categories'));
+
+		return view('admin.brand.edit',compact('brand','categories','affiliate_partners'));
 	}
 
 	public function update(Request $request, $id)
@@ -230,8 +249,9 @@ class BrandController extends Controller
 		}
 	}
 
-	public function destroy()
+	public function destroy(Request $request)
 	{
+
 
 		     $id = request()->input('id');
 			$getbrand = Brand::find($id);

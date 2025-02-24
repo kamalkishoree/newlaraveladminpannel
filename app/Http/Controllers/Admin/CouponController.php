@@ -10,6 +10,7 @@ use Illuminate\Http\Request;
 use Brian2694\Toastr\Facades\Toastr;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Validation\Rule;
+use Illuminate\Support\Str;
 
 class CouponController extends Controller
 {
@@ -42,7 +43,14 @@ class CouponController extends Controller
                 ->addColumn('headline', fn ($row) => $row->headline)
                 ->addColumn('sub_headline', fn ($row) => $row->sub_headline)
                 ->addColumn('code', fn ($row) => $row->code)
-                ->addColumn('description', fn ($row) => $row->description)
+       
+
+                ->addColumn('description', function($row){
+                    $maxLength = 50; // Limit description to 50 characters
+                    $shortDescription = Str::limit(strip_tags($row->description), $maxLength, '...');
+                    return $shortDescription;
+                })
+
                 ->addColumn('status', function ($row) {
                     $checked = $row->status == 1 ? 'checked' : '';
                     return "

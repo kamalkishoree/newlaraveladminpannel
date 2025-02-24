@@ -20,6 +20,14 @@ class Brand extends Model
         'is_active',
         'is_new',
         'is_top',
-        'is_feature'
+        'is_feature',
+        'profit_tracking_hours',
+        'profit_confirmation_days',
+        'cashback_profit',
+        'cashback_terms',
+        'payout_type',
+        'payout_amount',
+        'clocking_url',
+        'affiliate_network_id',
     ];
 }

@@ -161,10 +161,11 @@
     </script>
 
     <script type="text/javascript">
-        $("body").on("click", ".remove-brand", function() {
+        $("body").on("click", ".remove-brand", function(e) {
+            e.preventDefault();
             var current_object = $(this);
             swal({
-                title: "Are you sure?",
+                title: "Are you suresssss?",
                 text: "You will not be able to recover this data!",
                 type: "error",
                 showCancelButton: true,
