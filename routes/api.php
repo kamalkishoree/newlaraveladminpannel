@@ -54,5 +54,5 @@ Route::group(['prefix' => 'campaign', 'middleware' => ['auth:api']], function ()
 Route::get('/homepage', [UserHomeController::class, 'homepage'])->name('homepage');
 Route::get('/brand-list/{category?}', [BrandController::class, 'brandList'])->name('brandList');
 Route::get('/brand-details/{id}', [BrandController::class, 'brandDetails'])->name('brand-details');
-Route::get('/vcommision/postback/{source}',[App\Http\Controllers\PostBackController::class, 'vCommissionpostBack'])->name('vcommission.postback');
+Route::get('/vcommision/postback/{source}/{clickid}/{p1}/{payout}/{txn_id}/{conversion_status}',[App\Http\Controllers\PostBackController::class, 'vCommissionpostBack'])->name('vcommission.postback');
 

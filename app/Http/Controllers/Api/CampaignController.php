@@ -19,20 +19,17 @@ class CampaignController extends Controller
         if($request->url)
         {
 
-            $params = getUrlParams($request->url);
-            $unique_id = (string) Str::uuid();
-            
+           $params = getUrlParams($request->url);
+           $unique_id = (string) Str::uuid();
            $campaign =  Campaign::create([
                 'campaign_id' => $params['campaign_id'],
                 'pub_id' =>$params['pub_id'],
-                'unique_p1_id' => isset($params['p1'])?$params['p1']:$unique_id,
                 'brand_id' => $request->brand_id,                  
                 'user_id' =>  Auth::user()->id,
                 'campaign_provider_id' => 1,
-                'click_id'  => isset($params['click_id'])?$params['click_id']:$unique_id,
+                'unique_source_id'  => isset($params['unique_source_id'])?$params['unique_source_id']:$unique_id,
+                'conversion_status' => 0
             ]);
-
-         
             if($campaign)
             {
                 $data['campaign'] = $campaign;

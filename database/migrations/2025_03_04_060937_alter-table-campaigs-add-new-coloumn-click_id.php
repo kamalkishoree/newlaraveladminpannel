@@ -14,7 +14,10 @@ class AlterTableCampaigsAddNewColoumnClickId extends Migration
     public function up()
     {
         Schema::table('campaigns', function (Blueprint $table) {
-            $table->uuid('click_id')->nullable()->after('id')->index();
+            $table->uuid('unique_source_id')->nullable()->after('id')->index();
+            $table->integer('conversion_status')->default(0);
+            $table->dropColumn('unique_p1_id');
+
         });
     }
 
@@ -27,7 +30,10 @@ class AlterTableCampaigsAddNewColoumnClickId extends Migration
     {
         //
         Schema::table('campaigns', function (Blueprint $table) {
-            $table->dropColumn('click_id');
+            $table->dropColumn('unique_source_id');
+            $table->uuid('unique_p1_id')->nullable()->after('id')->index();
+            $table->dropColumn('conversion_status');
+
         });
     }
 }
