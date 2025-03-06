@@ -28,7 +28,8 @@ class CampaignController extends Controller
                 'unique_p1_id' => isset($params['p1'])?$params['p1']:$unique_id,
                 'brand_id' => $request->brand_id,                  
                 'user_id' =>  Auth::user()->id,
-                'campaign_provider_id' => 1
+                'campaign_provider_id' => 1,
+                'click_id'  => isset($params['click_id'])?$params['click_id']:$unique_id,
             ]);
 
          
