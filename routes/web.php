@@ -221,10 +221,7 @@ Route::group(['middleware' => 'language'], function () {
 				Route::get('/status_update_custom', 	[App\Http\Controllers\Admin\PushNotificationController::class, 'status_update_custom'])->name('pushNotification.status_update_custom');
 
 			});
-			Route::prefix('conversion')->group(function () {
-				Route::get('/view',[App\Http\Controllers\Admin\ConversionController::class, 'view'])->name('conversion.view');
-
-			});
+			
 			Route::prefix('report')->group(function () {
 				Route::get('/index',[App\Http\Controllers\Admin\ReportController::class, 'index'])->name('report.index');
 				Route::get('/user',[App\Http\Controllers\Admin\ReportController::class, 'userExport'])->name('report.user');
@@ -258,7 +255,10 @@ Route::group(['middleware' => 'language'], function () {
 
 			});
 
+			Route::prefix('conversion')->group(function () {
+				Route::get('/view',[App\Http\Controllers\Admin\ConversionController::class, 'view'])->name('conversion.view');
 
+			});
 
 		});
 	});

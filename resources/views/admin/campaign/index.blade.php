@@ -94,24 +94,33 @@
         </div>
     </div>
 
-    <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-    <div class="modal-dialog" role="document">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title" id="myModalLabel">My Modal Title</h5>
-          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-             X  <span aria-hidden="true">&times;</span>
-          </button>
+
+
+    <div id="conversion-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="conversion-modal-title" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="conversion-modal-title">Conversion Details</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <ul class="list-group">
+                    <li class="list-group-item"><strong>ID:</strong> <span id="conversion-modal-id"></span></li>
+                    <li class="list-group-item"><strong>Unique Source ID:</strong> <span id="conversion-modal-unique-source-id"></span></li>
+                    <li class="list-group-item"><strong>Sale Amount:</strong> <span id="conversion-modal-sale"></span></li>
+                    <li class="list-group-item"><strong>Payout:</strong> <span id="conversion-modal-payout"></span></li>
+                    <li class="list-group-item"><strong>Brand:</strong> <span id="conversion-modal-brand"></span></li>
+                    <li class="list-group-item"><strong>Status:</strong> <span id="conversion-modal-status"></span></li>
+                    <li class="list-group-item"><strong>Transaction ID:</strong> <span id="conversion-modal-txn-id"></span></li>
+                    <li class="list-group-item"><strong>Note:</strong> <span id="conversion-modal-note"></span></li>
+                </ul>
+            </div>
         </div>
-        <div class="modal-body">
-         
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-        </div>
-      </div>
     </div>
-  </div>
+</div>
+
 
 @endsection
 
@@ -208,31 +217,43 @@
 
 
 
-
 <script type="text/javascript">
-        $("body").on("click", ".view-campaign-data", function() {
-            var current_object = $(this);
-            var id = $(this).attr('data-id');
-         
-            $.ajax({
-                url: `{{ route('conversion.view') }}`,
-                type: 'GET',
-                data: {
-                    id: id,
-                    status: status
-                },
-                success: function(result) {
-					// if(status == 1){
-                        $("#myModal").modal('show');
-                    	toastr.success(result.message);
-                	// }else{
-                    // 	toastr.error(result.message);
-                	// } 
+    $("body").on("click", ".view-campaign-data", function(e) {
+        e.preventDefault();
+
+        var id = $(this).attr('data-id');
+        var unique_source_id = $(this).attr('data-unique_source_id');
+
+        $.ajax({
+            url: `{{ route('conversion.view') }}`,
+            type: 'GET',
+            data: {
+                id: id,
+                unique_source_id: unique_source_id
+            },
+            success: function(result) {
+                if (result.status == 'success') {
+                    var data = result.conversion;
+
+                    $("#conversion-modal-id").text(data.id);
+                    $("#conversion-modal-unique-source-id").text(data.unique_source_id);
+                    $("#conversion-modal-sale").text(data.sale + ' ' + data.currency);
+                    $("#conversion-modal-payout").text(data.payout + ' ' + data.currency);
+                    $("#conversion-modal-brand").text(data.brand);
+                    $("#conversion-modal-status").text(data.status);
+                    $("#conversion-modal-txn-id").text(data.txn_id);
+                    $("#conversion-modal-note").text(data.note);
+                    $("#conversion-modal").modal("show");
+                    toastr.success("Data loaded successfully.");
+                } else {
+                    toastr.error(result.message);
                 }
-            });
-
-
+            },
+            error: function() {
+                toastr.error("Something went wrong.");
+            }
         });
+    });
 </script>
 
 

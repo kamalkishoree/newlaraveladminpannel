@@ -55,7 +55,7 @@ class CampaignController extends Controller
                     return $row->campaign_id;
                 })
                 ->addColumn('view', function($row){
-                    return '<button class="custom-delete-btn view-campaign-data" data-id="'.$row->id.'" data-action="'.route('conversion.view').'">
+                    return '<button class="custom-delete-btn view-campaign-data" data-id="'.$row->id.'"data-unique_source_id="'.$row->unique_source_id.'" data-action="'.route('conversion.view').'">
 							<i class="fe fe-eye"></i>
 		                          '.__('view').'
 							</button>';
