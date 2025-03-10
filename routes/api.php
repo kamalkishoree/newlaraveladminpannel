@@ -39,19 +39,14 @@ Route::group([
 
 Route::group(['prefix' => 'user', 'middleware' => ['auth:api']], function () {
 
-
     Route::get('/profile', [UserAuthController::class, 'userProfile'])->name('profile');
     Route::post('/editProfile', [UserAuthController::class, 'editProfile'])->name('editProfile');
     Route::post('/me', [UserAuthController::class, 'me'])->name('me');
     Route::post('/logout', [UserAuthController::class, 'logout'])->name('logout');
-
     //CampaignController
     Route::post('/create-campaign', [CampaignController::class, 'createUserCampaign'])->name('create.campaign');
-
-
     //WalletController
-    Route::post('/user-wallet', [WalletController::class, 'wallet'])->name('user.wallet');
-    
+    Route::post('/wallet', [WalletController::class, 'wallet'])->name('user.wallet');
 });
 
 //CampaignController

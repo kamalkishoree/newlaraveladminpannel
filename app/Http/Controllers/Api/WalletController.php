@@ -15,6 +15,8 @@ class WalletController extends Controller
      $wallet = Wallet::where('user_id',$user->id)->first();
      if(is_null($wallet))
      {
+
+   
         $wallet = Wallet::create([
             'user_id'=>$user->id,
             'balance'=>0,
@@ -30,6 +32,7 @@ class WalletController extends Controller
             'wallet'  => $wallet
         ], 200);
      }
+
         return response()->json([
             'error' => true,
             'message' => 'Something went wrong.',
