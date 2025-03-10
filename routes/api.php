@@ -46,7 +46,7 @@ Route::group(['prefix' => 'user', 'middleware' => ['auth:api']], function () {
     //CampaignController
     Route::post('/create-campaign', [CampaignController::class, 'createUserCampaign'])->name('create.campaign');
     //WalletController
-    Route::post('/wallet', [WalletController::class, 'wallet'])->name('user.wallet');
+    Route::get('/wallet', [WalletController::class, 'wallet'])->name('user.wallet');
 });
 
 //CampaignController
