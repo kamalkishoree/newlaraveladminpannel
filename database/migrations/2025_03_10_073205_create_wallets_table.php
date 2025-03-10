@@ -16,7 +16,7 @@ return new class extends Migration {
             $table->decimal('balance', 15, 2)->default(0.00);
             $table->decimal('pending_balance', 15, 2)->default(0.00);
             $table->decimal('withdrawn_balance', 15, 2)->default(0.00);
-            $table->string('currency', 10)->default('USD');
+            $table->string('currency', 10)->default('INR');
             $table->string('wallet_type')->default('default');
             $table->boolean('is_active')->default(true);
             $table->timestamps();
