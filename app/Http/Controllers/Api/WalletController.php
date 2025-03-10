@@ -35,7 +35,7 @@ class WalletController extends Controller
 
         return response()->json([
             'error' => true,
-            'message' => 'Something went wrong.',
+            'message' => 'Wallet data.',
             'wallet'  => $wallet
         ], 200);
 
