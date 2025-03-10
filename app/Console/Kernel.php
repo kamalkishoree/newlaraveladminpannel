@@ -16,12 +16,15 @@ class Kernel extends ConsoleKernel
     protected function schedule(Schedule $schedule)
     {
         // $schedule->command('inspire')->hourly();
-       // $schedule->command('inspire')->hourly();
-
+       $schedule->command('inspire')->hourly();
+       $schedule->command('conversion:create-job')->everyThirtyMinutes()->withoutOverlapping();
+       $schedule->command('conversion:status-job')->daily()->withoutOverlapping();
     }
 
     protected $commands = [
         \App\Console\Commands\ModuleMigrateCommand::class,
+        \App\Console\Commands\CreateClickConversionsCommand::class, // Register command
+        \App\Console\Commands\ConversionStatusJob::class, // Register command
     ];
 
     /**

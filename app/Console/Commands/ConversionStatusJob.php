@@ -31,12 +31,10 @@ class ConversionStatusJob extends Command
         try {
             $conversions = Conversion::where('status', 'pending')->get();
             foreach ($conversions as $conversion) {
-
-                pr($conversion->brand);
-                if (!str_contains($campaign->brand->target_url ?? '', 'vcommission')) {
+                if (!str_contains($conversion->campaigns->brand->target_url ?? '', 'vcommission')) {
                     continue;
                 }
-                $conversion = (new TrackierService())->getConversions($campaign);
+                $conversion = (new TrackierService())->getConversions($conversions);
                 $conversion = $conversion['conversions'][0] ?? [];
                 if (!empty($conversion)) {
                    

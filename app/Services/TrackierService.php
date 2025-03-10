@@ -21,16 +21,23 @@ class TrackierService
         $this->apiKey = $AffilateIntegration->api_key;
     }
 
-    public function getConversions($unique_source_id)
+    public function getConversions($campaign)
     {
     
         try {
-            $url = $this->apiUrl.'/'.$this->version.'/publishers/conversions';
-            $response = $this->client->get($url.'?source='.$unique_source_id, [
+            $url = $this->apiUrl . '/' . $this->version . '/publishers/conversions';
+            $queryParams = [
+                'source' => $campaign->unique_source_id,
+                'start' => $campaign->created_at->format('Y-m-d'), // Campaign creation date
+                'end' => $campaign->created_at->addDays(15)->format('Y-m-d'), // 15 days after creation
+            ];
+            $response = $this->client->get($url, [
                 'headers' => [
                     'Accept' => 'application/json',
                     'X-Api-Key' => $this->apiKey,
                 ],
+                'query' => $queryParams, // Adding query parameters properly
+
             ]);
             return json_decode($response->getBody(), true);
         } catch (\Exception $e) {

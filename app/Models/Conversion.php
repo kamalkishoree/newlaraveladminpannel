@@ -33,4 +33,10 @@ class Conversion extends Model
     
 
 use HasFactory;
+
+    public function campaigns()
+    {
+        return   $this->hasOne(Campaign::class,'unique_source_id','unique_source_id');
+    }
+
 }
