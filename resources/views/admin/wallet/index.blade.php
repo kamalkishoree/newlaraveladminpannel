@@ -1,7 +1,7 @@
 @extends('admin.layouts.master')
 
 @section('page_title')
-    {{ __('Brand List') }}
+    {{ __('Wallet List') }}
 @endsection
 
 @push('css')
@@ -18,19 +18,19 @@
 		<div class="card breadcrumb-card">
 			<div class="row justify-content-between align-content-between" style="height: 100%;">
 				<div class="col-md-6">
-					<h3 class="page-title">{{__('Brands Details')}}</h3>
+					<h3 class="page-title">{{__('Wallets Details')}}</h3>
 					<ul class="breadcrumb">
 						<li class="breadcrumb-item">
 							<a href="{{ route('dashboard') }}">Dashboard</a>
 						</li>
 						<li class="breadcrumb-item active-breadcrumb">
-							<a href="{{ route('brand.index') }}">{{ __('Brands') }}</a>
+							<a href="{{ route('wallet.index') }}">{{ __('Wallets') }}</a>
 						</li>
 					</ul>
 				</div>
                     <div class="col-md-3">
                         <div class="create-btn pull-right">
-                            <a href="{{ route('brand.create') }}" class="btn custom-create-btn">{{ __('Add New Brands') }}</a>
+                            <a href="{{ route('wallet.create') }}" class="btn custom-create-btn">{{ __('Add New Wallets') }}</a>
                         </div>                 
                     </div>
 			</div>
@@ -71,13 +71,12 @@
                         <thead>
                             <tr>
                                 <th class="">{{ __('default.table.sl') }}</th>
-                                <th class="">{{ __('default.table.image') }}</th>
-                                <th class="">{{ __('Brand Name') }}</th>
-                                <th class="">{{ __('Slug') }}</th>
-                                <th class="">{{ __('Description') }}</th>
-                                <th class="">{{ __('status') }}</th>
+                                <th class="">{{ __('User') }}</th>
+                                <th class="">{{ __('Balance') }}</th>
+                                <th class="">{{ __('Withdrawn Balance') }}</th>
                                 <th class="">{{ __('Created On') }}</th>
-                                <th class="">{{ __('default.table.action') }}</th>
+                                <th class="">{{ __('Action') }}</th>
+
                             </tr>
                         </thead>
 
@@ -107,7 +106,7 @@
                 ],
           
                 ajax: {
-                url:"{{ route('brand.index') }}",
+                url:"{{ route('wallet.index') }}",
                 type: "GET",
                 data: function(d) {
                     d.start_date = $('#start_date').val();
@@ -118,11 +117,9 @@
 
                 columns: [
 					{  data: 'DT_RowIndex', name: 'DT_RowIndex' },
-                    {  data: 'image_url', name: 'image_url' },
-                    {  data: 'name', name: 'name' },
-                    {  data: 'slug', name: 'slug' },
-                    {  data: 'description', name: 'description' },
-                    {  data: 'status', name: 'status' },                    
+                    {  data: 'user', name: 'user' },
+                    {  data: 'balance', name: 'balance' },
+                    {  data: 'withdrawn_balance', name: 'withdrawn_balance' },
                     {  data: 'created_at', name: 'created_at' },
                     {  data: 'action', name: 'action', orderable: false, searchable: false}
                 ],
@@ -161,7 +158,7 @@
     </script>
 
     <script type="text/javascript">
-        $("body").on("click", ".remove-brand", function(e) {
+        $("body").on("click", ".remove-wallet", function(e) {
             e.preventDefault();
             var current_object = $(this);
             swal({
@@ -196,7 +193,7 @@
             let _token = $('meta[name="csrf-token"]').attr('content');
 
             $.ajax({
-                url: `{{ route('brand.status_update') }}`,
+                url: `{{ route('wallet.status_update') }}`,
                 type: 'GET',
                 data: {
                     _token: _token,

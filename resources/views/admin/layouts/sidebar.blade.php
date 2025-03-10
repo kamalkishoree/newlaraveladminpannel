@@ -183,20 +183,27 @@
 
                     <ul style="display: none;">
                         <li>
-                            <a href="{{ route('affiliate.index') }}" title="{{__('sidebar.user')}}" class="sidebar-link {{ (request()->is('admin/affiliate*')) ? 'active' : '' }}">
+                            <a href="{{ route('affiliate.index') }}" title="{{__('sidebar.wallet')}}" class="sidebar-link {{ (request()->is('admin/affiliate*')) ? 'active' : '' }}">
                                 <span class="hide-menu">Total Funds</span>
                             </a>
                         </li>
                         <li>
-                            <a href="{{ route('affiliate.index') }}" title="{{__('sidebar.user')}}" class="sidebar-link {{ (request()->is('admin/affiliate*')) ? 'active' : '' }}">
+                            <a href="{{ route('affiliate.index') }}" title="{{__('sidebar.wallet')}}" class="sidebar-link {{ (request()->is('admin/affiliate*')) ? 'active' : '' }}">
                                 <span class="hide-menu">Total Penny Drop</span>
                             </a>
                         </li>
                         <li>
-                            <a href="{{ route('affiliate.index') }}" title="{{__('sidebar.user')}}" class="sidebar-link {{ (request()->is('admin/affiliate*')) ? 'active' : '' }}">
+                            <a href="{{ route('affiliate.index') }}" title="{{__('sidebar.wallet')}}" class="sidebar-link {{ (request()->is('admin/affiliate*')) ? 'active' : '' }}">
                                 <span class="hide-menu">Total Profit</span>
                             </a>
                         </li>
+
+                        <li>
+                            <a href="{{ route('wallet.index') }}" title="{{__('sidebar.wallet')}}" class="sidebar-link {{ (request()->is('admin/wallet*')) ? 'active' : '' }}">
+                                <span class="hide-menu">Users Wallet</span>
+                            </a>
+                        </li>
+
                     </ul> 
                 </li>
 

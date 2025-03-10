@@ -255,6 +255,18 @@ Route::group(['middleware' => 'language'], function () {
 
 			});
 
+			Route::prefix('wallet')->group(function () {
+				Route::get('/index', 			[App\Http\Controllers\Admin\WalletController::class, 'index'])->name('wallet.index');
+				Route::get('/create', 			[App\Http\Controllers\Admin\WalletController::class, 'create'])->name('wallet.create');
+				Route::post('/store', 			[App\Http\Controllers\Admin\WalletController::class, 'store'])->name('wallet.store');
+				Route::get('/edit/{id}', 		[App\Http\Controllers\Admin\WalletController::class, 'edit'])->name('wallet.edit');
+				Route::post('/update/{id}', 	[App\Http\Controllers\Admin\WalletController::class, 'update'])->name('wallet.update');
+				Route::post('/destroy', 		[App\Http\Controllers\Admin\WalletController::class, 'destroy'])->name('wallet.destroy');
+				Route::get('/status_update', 	[App\Http\Controllers\Admin\WalletController::class, 'status_update'])->name('wallet.status_update');
+				Route::get('/status_update_custom',[App\Http\Controllers\Admin\WalletController::class, 'status_update_custom'])->name('wallet.status_update_custom');
+
+			});
+
 			Route::prefix('conversion')->group(function () {
 				Route::get('/view',[App\Http\Controllers\Admin\ConversionController::class, 'view'])->name('conversion.view');
 
