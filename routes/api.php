@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Api\BrandController;
 use App\Http\Controllers\Api\CampaignController;
+use App\Http\Controllers\Api\ConversionController;
 use App\Http\Controllers\Api\UserAuthController;
 use App\Http\Controllers\Api\UserHomeController;
 use App\Http\Controllers\Api\WalletController;
@@ -47,6 +48,7 @@ Route::group(['prefix' => 'user', 'middleware' => ['auth:api']], function () {
     Route::post('/create-campaign', [CampaignController::class, 'createUserCampaign'])->name('create.campaign');
     //WalletController
     Route::get('/wallet', [WalletController::class, 'wallet'])->name('user.wallet');
+    Route::get('/my-conversion', [ConversionController::class, 'myConversion'])->name('user.conversion');
 });
 
 //CampaignController

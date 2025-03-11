@@ -54,6 +54,13 @@ class ConversionController extends Controller
                  ];
 
                   $conversion_data =  Conversion::create($filteredArray);
+               //   if($conversion['status'] == 'approved')
+
+               //   {
+
+               //   }
+
+                  
                   return response()->json(['status'=>'success','conversion'=>$conversion_data]);
                }
                return response()->json(['status'=>'success','conversion'=>[]]);
