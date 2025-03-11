@@ -48,7 +48,7 @@ Route::group(['prefix' => 'user', 'middleware' => ['auth:api']], function () {
     Route::post('/create-campaign', [CampaignController::class, 'createUserCampaign'])->name('create.campaign');
     //WalletController
     Route::get('/wallet', [WalletController::class, 'wallet'])->name('user.wallet');
-    Route::get('/my-conversion', [ConversionController::class, 'myConversion'])->name('user.conversion');
+    Route::get('/conversion', [ConversionController::class, 'myConversion'])->name('user.conversion');
 });
 
 //CampaignController
