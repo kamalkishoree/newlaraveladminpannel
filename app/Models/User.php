@@ -60,4 +60,9 @@ class User extends Authenticatable
         $user = Auth::user();
         return $roles = Role::where('name',$user->getRoleNames())->get();
     }
+
+    public function bankAccounts()
+    {
+        return $this->hasMany(BankAccount::class);
+    }
 }

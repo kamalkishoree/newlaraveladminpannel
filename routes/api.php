@@ -6,6 +6,7 @@ use App\Http\Controllers\Api\ConversionController;
 use App\Http\Controllers\Api\UserAuthController;
 use App\Http\Controllers\Api\UserHomeController;
 use App\Http\Controllers\Api\WalletController;
+use App\Http\Controllers\Api\UserBankAccountController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -49,6 +50,16 @@ Route::group(['prefix' => 'user', 'middleware' => ['auth:api']], function () {
     //WalletController
     Route::get('/wallet', [WalletController::class, 'wallet'])->name('user.wallet');
     Route::get('/conversion', [ConversionController::class, 'myConversion'])->name('user.conversion');
+
+    Route::group(['prefix' => 'bank-accounts'], function () {
+    // Bank Account Routes - Fix the prefix to avoid conflicts
+        Route::get('index', [UserBankAccountController::class, 'index']);
+        Route::post('store', [UserBankAccountController::class, 'store']);
+        Route::get('show/{bankAccount}', [UserBankAccountController::class, 'show']);
+        Route::put('update/{bankAccount}', [UserBankAccountController::class, 'update']);
+        Route::delete('destroy/{bankAccount}', [UserBankAccountController::class, 'destroy']);
+        Route::post('setDefault/{bankAccount}/', [UserBankAccountController::class, 'setDefault']);
+    });
 });
 
 //CampaignController
@@ -64,3 +75,5 @@ Route::get('/homepage', [UserHomeController::class, 'homepage'])->name('homepage
 Route::get('/brand-list/{category?}', [BrandController::class, 'brandList'])->name('brandList');
 Route::get('/brand-details/{id}', [BrandController::class, 'brandDetails'])->name('brand-details');
 Route::get('/vcommision/postback/{source}/{clickid}/{p1}/{payout}/{txn_id}/{conversion_status}', [App\Http\Controllers\PostBackController::class, 'vCommissionpostBack'])->name('vcommission.postback');
+
+
