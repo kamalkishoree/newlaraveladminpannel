@@ -42,6 +42,7 @@ class TrackierService
             return json_decode($response->getBody(), true);
         } catch (\Exception $e) {
             Log::error('Error fetching Trackier conversions: ' . $e->getMessage());
+            Log::error('Error fetching Trackier conversions: ' . $e->getLine());
             return ['error' => 'Failed to fetch conversions'.$e->getMessage()];
         }
     }

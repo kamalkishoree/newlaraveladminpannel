@@ -198,7 +198,7 @@ class BrandController extends Controller
 
         $this->validate($request, $rules, $messages);
 		$file = $request->file('image_url');
-        $url = '';
+        $url = $brand->image_url;
 
          if(!is_null($file))
            {
@@ -256,7 +256,6 @@ class BrandController extends Controller
 		     $id = request()->input('id');
 			$getbrand = Brand::find($id);
 			if (Storage::disk('s3')->exists($getbrand->image_url)) {
-				die('sss');
 				Storage::disk('s3')->delete($getbrand->image_url);
 			} 
 			try {

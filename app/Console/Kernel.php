@@ -17,8 +17,8 @@ class Kernel extends ConsoleKernel
     {
         // $schedule->command('inspire')->hourly();
        $schedule->command('inspire')->hourly();
-       $schedule->command('conversion:create-job')->everyThirtyMinutes()->withoutOverlapping();
-       $schedule->command('conversion:status-job')->daily()->withoutOverlapping();
+       $schedule->command('conversion:create-job')->everyFourHours()->withoutOverlapping();
+       $schedule->command('conversion:status-job')->everyFourHours()->withoutOverlapping();
     }
 
     protected $commands = [

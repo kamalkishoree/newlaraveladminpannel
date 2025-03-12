@@ -206,7 +206,6 @@ class CategoryController extends Controller
 		     $id = request()->input('id');
 			$getCategory = Category::find($id);
 			if (Storage::disk('s3')->exists($getCategory->image_url)) {
-				die('sss');
 				Storage::disk('s3')->delete($getCategory->image_url);
 			} 
 			try {

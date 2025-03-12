@@ -206,7 +206,6 @@ class BannersController extends Controller
 		     $id = request()->input('id');
 			$getBanner = Banner::find($id);
 			if (Storage::disk('s3')->exists($getBanner->image_url)) {
-				die('sss');
 				Storage::disk('s3')->delete($getBanner->image_url);
 			} 
 			try {

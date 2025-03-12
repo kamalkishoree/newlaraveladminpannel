@@ -235,7 +235,6 @@ class CouponController extends Controller
 		     $id = request()->input('id');
 			$getbrand = Coupon::find($id);
 			if (Storage::disk('s3')->exists($getbrand->image_url)) {
-				die('sss');
 				Storage::disk('s3')->delete($getbrand->image_url);
 			} 
 			try {

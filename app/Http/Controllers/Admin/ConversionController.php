@@ -27,7 +27,7 @@ class ConversionController extends Controller
                return response()->json(['status'=>'success','conversion'=>$conversion]);
             }
             else{
-               $conversion = (new TrackierService())->getConversions($campaign->unique_source_id);
+               $conversion = (new TrackierService())->getConversions($campaign);
                $conversion = isset($conversion['conversions'][0])?$conversion['conversions'][0]:[];
                if(count($conversion)>0)
                {

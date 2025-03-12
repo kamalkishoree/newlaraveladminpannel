@@ -42,7 +42,7 @@
                   <div class="col-md-6">
                                 
                            <div class="input-group mb-5">
-                            <img src="{{$brand->image_url}}" alt="{{$brand->slug}}" width="100" height="100">                            
+                            <img src="{{$brand->image_url}}" alt="" width="100" height="100">                            
                           </div>
                             <div class="input-group mb-5">
                                 <input type="file" id="image1" class="form-control" name="image_url" value="">
@@ -123,20 +123,20 @@
                     <label>{{ __('Payout Type') }}:</label>
                     <div class="input-group mb-3">
                         <div class="form-check form-check-inline">
-                            <input class="form-check-input payout_type" type="radio" id="flat" name="payout_type" value="flat" checked>
+                            <input class="form-check-input payout_type" type="radio" id="flat" name="payout_type" value="flat"  <?= $brand->payout_type == 'flat'?'checked':''?>  >
                             <label class="form-check-label" for="flat">Flat</label>
                         </div>
 
                         <div class="form-check form-check-inline">
-                            <input class="form-check-input payout_type" type="radio" id="percentage" name="payout_type" value="percentage">
+                            <input class="form-check-input payout_type" type="radio" id="percentage" name="payout_type" value="percentage" <?= $brand->payout_type == 'percentage'?'checked' :'';?> >
                             <label class="form-check-label" for="percentage">Percentage</label>
                         </div>
 
                         <div class="form-check form-check-inline">
-                            <input class="form-check-input payout_type" type="radio" id="custom" name="payout_type" value="custom">
+                            <input class="form-check-input payout_type" type="radio" id="custom" name="payout_type" value="custom"  <?= $brand->payout_type == 'custom'?'checked':''?> >
                             <label class="form-check-label" for="custom">Custom</label>
                         </div>
-                        <input type="text" name="payout_amount" class="form-control" placeholder="Enter Amount ..." value="">
+                        <input type="text" name="payout_amount" class="form-control" placeholder="Enter Amount ..." value="{{$brand->payout_amount}}">
                       </div>
                      </div>
 

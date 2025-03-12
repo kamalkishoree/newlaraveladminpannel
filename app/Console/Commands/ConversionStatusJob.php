@@ -29,15 +29,19 @@ class ConversionStatusJob extends Command
     public function handle()
     {
         try {
-            $conversions = Conversion::where('status', 'pending')->get();
+            $conversions = Conversion::where('status', 'pending')
+                ->limit(10)
+                ->get();
             foreach ($conversions as $conversion) {
-                if (!str_contains($conversion->campaigns->brand->target_url ?? '', 'vcommission')) {
+                if (!str_contains($conversion->campaign->brand->target_url ?? '', 'vcommission')) {
                     continue;
                 }
+                $conversions = $conversion->campaign;
                 $conversion = (new TrackierService())->getConversions($conversions);
                 $conversion = $conversion['conversions'][0] ?? [];
-                if (!empty($conversion)) {
-                   
+                if (!empty($conversion) && $conversion['status'] == 'approved') {
+                    $conversion->update(['status' => 'approved']);
+                    $this->info('Conversion approved: ' . $conversion->id);
                 }
             }
         } catch (\Exception $e) {
