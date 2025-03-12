@@ -56,6 +56,14 @@
     border-color: #000000;
     border-radius: 4px;
 }
+
+.custom-primary-btn {
+    background: #18964d;
+    color: #ffffff;
+    border-color: #18964d;
+    border-radius: 4px;
+}
+
 .custom-create-btn:hover{
     color: #000;
     border-color: #fdc100;

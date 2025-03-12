@@ -55,10 +55,18 @@ class CampaignController extends Controller
                     return $row->campaign_id;
                 })
                 ->addColumn('view', function($row){
-                    return '<button class="custom-delete-btn view-campaign-data" data-id="'.$row->id.'"data-unique_source_id="'.$row->unique_source_id.'" data-action="'.route('conversion.view').'">
+                    $conversion = \App\Models\Conversion::where('unique_source_id', $row->unique_source_id)->first();
+                    if ($conversion) {
+                    return '<button class="custom-primary-btn view-campaign-data" data-id="'.$row->id.'"data-unique_source_id="'.$row->unique_source_id.'" data-action="'.route('conversion.view').'">
 							<i class="fe fe-eye"></i>
-		                          '.__('view').'
+		                          '.__('view Conversion').'
 							</button>';
+                    }
+                    else{
+                        return '<button class="custom-delete-btn view-campaign-data" ">
+		                          '.__('Not Generated').'
+							</button>';
+                    }
                 })
                 ->editColumn('created_at', '{{date("jS M Y", strtotime($created_at))}}')
 	            ->editColumn('updated_at', '{{date("jS M Y", strtotime($updated_at))}}')

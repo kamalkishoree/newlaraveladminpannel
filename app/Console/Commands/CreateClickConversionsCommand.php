@@ -4,6 +4,8 @@ namespace App\Console\Commands;
 
 use App\Models\Campaign;
 use App\Models\Conversion;
+use App\Models\Transaction;
+use App\Models\Wallet;
 use App\Services\TrackierService;
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\Log;
@@ -44,6 +46,7 @@ class CreateClickConversionsCommand extends Command
         try {
             $campaigns = Campaign::where('conversion_status', 0)->get();
             foreach ($campaigns as $campaign) {
+
                 if (!str_contains($campaign->brand->target_url ?? '', 'vcommission')) {
                     continue;
                 }
@@ -76,6 +79,7 @@ class CreateClickConversionsCommand extends Command
                     if (!empty(array_filter($filteredArray))) {
                         Conversion::create($filteredArray);
                         $campaign->update(['conversion_status'=>1]);
+                        $this->updateWallet($campaign->brand,$campaign->user_id,$conversion['payout'],'pending');
                         Log::info("Conversion stored successfully", ['campaign_id' => $campaign->id]);
                     }
                 }
@@ -88,4 +92,45 @@ class CreateClickConversionsCommand extends Command
             ]);
         }
     }
+
+    public function updateWallet($brand,$user_id,$amount,$status)
+    {
+  
+        $amount_to_update = 0;
+        if($brand->payout_type == 'flat')
+        {
+            $amount_to_update = $brand->payout_amount;
+        }
+        elseif($brand->payout_type == 'percentage')
+        {
+            $amount_to_update = $amount * $brand->payout_amount / 100;
+        }
+        elseif($brand->payout_type == 'custom')
+        {
+            $amount_to_update = $brand->payout_amount;
+        }
+         $wallet = Wallet::where('user_id',$user_id)->first();
+         if($wallet)
+         {
+            if($status == 'pending')
+            {
+                $wallet->pending_balance += $amount_to_update;
+                $wallet->save();
+                Transaction::createTransaction($user_id,$amount_to_update,'credit','conversion','pending','');
+            }
+           
+         }
+         else{
+            $wallet = Wallet::create([
+                'user_id'=>$user_id,
+            ]);
+
+             $wallet->pending_balance += $amount_to_update;
+                $wallet->save();
+                Transaction::createTransaction($user_id,$amount_to_update,'credit','conversion','pending','');
+            }
+    }
+
+
+
 }
