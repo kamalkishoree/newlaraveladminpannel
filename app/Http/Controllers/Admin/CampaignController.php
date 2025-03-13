@@ -73,7 +73,7 @@ class CampaignController extends Controller
 	            ->escapeColumns([])
                 ->make(true);
         }
-        return view('admin/campaign/index');
+        return view('admin/campaign/index',compact('request'));
 	}
 
 		

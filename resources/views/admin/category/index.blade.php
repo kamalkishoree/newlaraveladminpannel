@@ -44,7 +44,7 @@
                 <div class="card-body">
 
 
-                <form  action="{{ route('coupon.index') }}" method="GET" enctype="multipart/form-data" >
+                <form  action="{{ route('category.index') }}" method="GET" enctype="multipart/form-data" >
                      
                      <div class="row">
                          <div class="form-group col-md-2">

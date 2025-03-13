@@ -79,7 +79,7 @@ class CategoryController extends Controller
 	            ->escapeColumns([])
                 ->make(true);
         }
-        return view('admin.category.index');
+        return view('admin.category.index',compact('request'));
 	}
 
 	public function create()

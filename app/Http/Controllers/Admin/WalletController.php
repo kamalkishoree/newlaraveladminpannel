@@ -64,7 +64,7 @@ class WalletController extends Controller
               ->escapeColumns([])
               ->make(true);
       }
-      return view('admin.wallet.index');
+      return view('admin.wallet.index',compact('request'));
   }
   
 

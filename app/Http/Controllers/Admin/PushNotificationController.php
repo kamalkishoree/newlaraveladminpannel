@@ -83,7 +83,7 @@ class PushNotificationController extends Controller
 	            ->escapeColumns([])
                 ->make(true);
         }
-        return view('admin/pushNotification/index');
+        return view('admin/pushNotification/index',compact('request'));
 	}
 
     public function create()

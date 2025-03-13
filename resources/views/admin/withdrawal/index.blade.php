@@ -1,7 +1,7 @@
 @extends('admin.layouts.master')
 
 @section('page_title')
-    {{ __('Banners') }}
+    {{ __('Withdrawal List') }}
 @endsection
 
 @push('css')
@@ -12,27 +12,23 @@
     </style>
 @endpush
 
+
 @section('content')
     <!-- Page Header -->
 	<div class="page-header">
 		<div class="card breadcrumb-card">
 			<div class="row justify-content-between align-content-between" style="height: 100%;">
 				<div class="col-md-6">
-					<h3 class="page-title">{{__('Banner Details')}}</h3>
+					<h3 class="page-title">{{__('Withdrawals Details')}}</h3>
 					<ul class="breadcrumb">
 						<li class="breadcrumb-item">
 							<a href="{{ route('dashboard') }}">Dashboard</a>
 						</li>
 						<li class="breadcrumb-item active-breadcrumb">
-							<a href="{{ route('banner.index') }}">{{ __('Banners') }}</a>
+							<a href="{{ route('withdrawal.index') }}">{{ __('Withdrawal Request') }}</a>
 						</li>
 					</ul>
 				</div>
-                    <div class="col-md-3">
-                        <div class="create-btn pull-right">
-                            <a href="{{ route('banner.create') }}" class="btn custom-create-btn">{{ __('Add new Banner') }}</a>
-                        </div>                 
-                    </div>
 			</div>
 		</div><!-- /card finish -->	
 	</div><!-- /Page Header -->
@@ -41,11 +37,10 @@
         <div class="col-md-12">
             <div class="card">
 
-                <div class="card-body">
 
+            <form  action="{{ route('withdrawal.index') }}" method="GET" enctype="multipart/form-data" >
+            <div class="card-body">
 
-                <form  action="{{ route('banner.index') }}" method="GET" enctype="multipart/form-data" >
-                     
                      <div class="row">
                          <div class="form-group col-md-2">
                              <label for="start_date" class="required">{{ __('START DATE') }}:</label>
@@ -62,25 +57,36 @@
                                  <span class="text-danger">{{ $message }}</span>
                              @enderror
                          </div>
+
+                         <div class="form-group col-md-2">
+                             <label for="status" class="">{{ __('STATUS') }}:</label>
+                             <select name="status" id="status" class="form-control @error('status') form-control-error @enderror">
+                                <option value="">Select Status</option>
+                                <option <?=@$request->status == 'pending' ? 'selected' : '' ?> value="pending">Pending</option>
+                                <option <?= @$request->status == 'approved' ? 'selected' : '' ?> value="approved">Approved</option>
+                                <option <?= @$request->status == 'rejected' ? 'selected' : '' ?> value="rejected">Rejected</option>
+                             </select>
+                             @error('status')
+                                 <span class="text-danger">{{ $message }}</span>
+                             @enderror
+                         </div>
      
                          <div class="form-group col-md-2 pt-4">
                                  <button type="submit"  class="btn custom-create-btn">{{ __('SUBMIT') }}</button>
                          </div>
                      </div>
                      <form >  
-
                     <table class="table table-hover table-center mb-0" id="table">
                         <thead>
                             <tr>
                                 <th class="">{{ __('default.table.sl') }}</th>
-                                <th class="">{{ __('default.table.image') }}</th>
-                                <th class="">{{ __('title') }}</th>
-                                <th class="">{{ __('description') }}</th>
-                                <th class="">{{ __('redirect_url') }}</th>
-                                <th class="">{{ __('platform') }}</th>
-                                <th class="">{{ __('status') }}</th>
+                                <th class="">{{ __('User') }}</th>
+                                <th class="">{{ __('Amount') }}</th>
+                                <th class="">{{ __('Bank Account') }}</th>
+                                <th class="">{{ __('Status') }}</th>
                                 <th class="">{{ __('Created On') }}</th>
-                                <th class="">{{ __('default.table.action') }}</th>
+                                <th class="">{{ __('Action') }}</th>
+
                             </tr>
                         </thead>
 
@@ -108,28 +114,28 @@
                 order: [
                     [0, 'desc']
                 ],
+          
                 ajax: {
-                url: "{{ route('banner.index') }}",
+                url:"{{ route('withdrawal.index') }}",
                 type: "GET",
-                    data: function(d) {
-                        d.start_date = $('#start_date').val();
-                        d.end_date = $('#end_date').val();
-                        d.custom_field = "custom_value"; // You can send any custom data like this
-                    }
-                },
+                data: function(d) {
+                    d.start_date = $('#start_date').val();
+                    d.end_date = $('#end_date').val();
+                    d.status = $('#status').val();
+                    d.custom_field = "custom_value"; // You can send any custom data like this
+                }
+            },
 
+      
                 columns: [
 					{  data: 'DT_RowIndex', name: 'DT_RowIndex' },
-                    {  data: 'image_url', name: 'image_url' },
-                    {  data: 'title', name: 'title' },
-                    {  data: 'description', name: 'description' },
-                    {  data: 'redirect_url',  name: 'redirect_url' },
-                    {  data: 'platform',  name: 'platform' },
-                    {  data: 'status',  name: 'status'  },
+                    {  data: 'user', name: 'user' },
+                    {  data: 'amount', name: 'amount' },
+                    {  data: 'bank_account', name: 'bank_account' },
+                    {  data: 'status', name: 'status' },
                     {  data: 'created_at', name: 'created_at' },
                     {  data: 'action', name: 'action', orderable: false, searchable: false}
                 ],
-
                 dom: '<"top"Bfr>t<"bottom"lp>', 
                 buttons: [
                 {
@@ -157,61 +163,44 @@
                     text: 'Print',
                     className: 'btn btn-info'
                 }
-            ]
+            ],
+            lengthMenu: [10, 25, 50, 100], // Page length options
+            pageLength: 10 // Default page length
             });
         });
     </script>
 
-    <script type="text/javascript">
-        $("body").on("click", ".remove-Banner", function() {
-            var current_object = $(this);
-            swal({
-                title: "Are you sure?",
-                text: "You will not be able to recover this data!",
-                type: "error",
-                showCancelButton: true,
-                dangerMode: true,
-                cancelButtonClass: '#DD6B55',
-                confirmButtonColor: '#dc3545',
-                confirmButtonText: 'Delete!',
-            }, function(result) {
-                if (result) {
-                    var action = current_object.attr('data-action');
-                    var token = jQuery('meta[name="csrf-token"]').attr('content');
-                    var id = current_object.attr('data-id');
-
-                    $('body').html("<form class='form-inline remove-form' method='POST' action='" + action + "'></form>");
-                    $('body').find('.remove-form').append( '<input name="_method" type="hidden" value="post">');
-                    $('body').find('.remove-form').append('<input name="_token" type="hidden" value="' + token + '">');
-                    $('body').find('.remove-form').append('<input name="id" type="hidden" value="' + id + '">');
-                    $('body').find('.remove-form').submit();
-                }
-            });
-        });
-    </script>
+   
 
 
     <script type="text/javascript">
-        function changeUserStatus(_this, id) {
-            var status = $(_this).prop('checked') == true ? 1 : 0;
+
+        $(document).on('click', '.change-status-withdrawal', function() {
+            var id = $(this).data('id');
+            var status = $(this).data('status');
             let _token = $('meta[name="csrf-token"]').attr('content');
-
+            let action = $(this).data('action');
             $.ajax({
-                url: `{{ route('banner.status_update') }}`,
+                url: action,
                 type: 'GET',
                 data: {
                     _token: _token,
                     id: id,
                     status: status
                 },
-                success: function(result) {
-					if(status == 1){
-                    	toastr.success(result.message);
-                	}else{
-                    	toastr.error(result.message);
-                	} 
-                }
+                success:function(response) {
+                    toastr.success(response.message);
+                    setTimeout(function() {
+                        location.reload();
+                    }, 1000);
+                },
+                error: function(xhr, status, error) {
+                    toastr.error(xhr.responseJSON.message);   
+                    setTimeout(function() {
+                        location.reload();
+                    }, 1000);                }
             });
-        }
+
+        });
     </script>
 @endpush

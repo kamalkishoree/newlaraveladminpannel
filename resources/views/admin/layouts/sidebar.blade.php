@@ -330,7 +330,7 @@
 
                         @can('cmspage-list')
                         <li>
-                            <a href="{{ route('cmspages.index') }}" title="{{__('sidebar.cms-pages')}}" class="sidebar-link {{ (request()->is('admin/cmspage*')) ? 'active' : '' }}">
+                            <a href="{{ route('withdrawal.index') }}" title="{{__('withdrawal Request')}}" class="sidebar-link {{ (request()->is('admin/withdrawal*')) ? 'active' : '' }}">
                                 <span class="hide-menu">{{__('Withdrawal Request')}}</span>
                             </a>
                         </li>

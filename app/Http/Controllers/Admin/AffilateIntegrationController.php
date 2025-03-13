@@ -10,10 +10,10 @@ use Spatie\Permission\Models\Role;
 use Illuminate\Support\Facades\DB;
 use Brian2694\Toastr\Facades\Toastr;
 use Illuminate\Support\Facades\Hash;
-use DataTables;
 use Storage;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Gate;
+use Yajra\DataTables\Facades\DataTables;
 
 class AffilateIntegrationController extends Controller
 {
@@ -23,7 +23,7 @@ class AffilateIntegrationController extends Controller
 	{
 		if ($request->ajax()) {
             $data = AffilateIntegration::get();
-            return Datatables::of($data)
+            return DataTables::of($data)
                 ->addIndexColumn()
                 ->addColumn('action', function($row){
 			

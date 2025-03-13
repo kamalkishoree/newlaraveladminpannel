@@ -19,8 +19,9 @@ class CreateWithdrawalsTable extends Migration
                 $table->decimal('amount', 10, 2);
                 $table->string('currency')->default('INR');
                 $table->string('status')->default('pending'); // 'pending', 'approved', 'rejected'
-                $table->string('txn_id')->nullable(); // Transaction reference
+                $table->string('txn_id')->unique(); // Tra nsaction reference
                 $table->text('admin_note')->nullable(); // Admin can add a note
+                $table->foreignId('bank_account_id')->constrained()->onDelete('cascade');
                 $table->timestamps();
         });
     }
@@ -32,6 +33,7 @@ class CreateWithdrawalsTable extends Migration
      */
     public function down()
     {
+     
         Schema::dropIfExists('withdrawals');
     }
 }

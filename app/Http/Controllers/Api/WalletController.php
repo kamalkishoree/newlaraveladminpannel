@@ -7,6 +7,7 @@ use App\Models\Transaction;
 use App\Models\Wallet;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 
 class WalletController extends Controller
 {
@@ -15,6 +16,7 @@ class WalletController extends Controller
      $user = Auth::user();
      $wallet = Wallet::where('user_id',$user->id)->first();
      $transaction = Transaction::where('user_id',$user->id)->get();
+
      if(is_null($wallet))
      {
         $wallet = Wallet::create([

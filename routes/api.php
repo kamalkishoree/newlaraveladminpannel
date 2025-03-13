@@ -7,6 +7,7 @@ use App\Http\Controllers\Api\UserAuthController;
 use App\Http\Controllers\Api\UserHomeController;
 use App\Http\Controllers\Api\WalletController;
 use App\Http\Controllers\Api\UserBankAccountController;
+use App\Http\Controllers\Api\WithdrawalController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -59,6 +60,13 @@ Route::group(['prefix' => 'user', 'middleware' => ['auth:api']], function () {
         Route::put('update/{bankAccount}', [UserBankAccountController::class, 'update']);
         Route::delete('destroy/{bankAccount}', [UserBankAccountController::class, 'destroy']);
         Route::post('setDefault/{bankAccount}/', [UserBankAccountController::class, 'setDefault']);
+    });
+    // Withdrawal Routes - Fix the prefix to avoid conflicts
+    Route::group(['prefix' => 'withdrawal'], function () {
+        Route::get('index', [WithdrawalController::class, 'index']);
+        Route::post('store', [WithdrawalController::class, 'store']);
+        Route::put('update/{withdrawal}', [WithdrawalController::class, 'update']);
+        Route::delete('destroy/{withdrawal}', [WithdrawalController::class, 'destroy']);
     });
 });
 

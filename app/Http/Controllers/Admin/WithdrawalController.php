@@ -11,12 +11,14 @@ class WithdrawalController extends Controller
 {
     
 public function index(Request $request)
-{
+{      
     if ($request->ajax()) {
         $data = Withdrawal::orderBy('id', 'asc');
-        
-        if ($request->has('start_date') && $request->has('end_date') && !empty($request->start_date) && !empty($request->end_date)) {
+        if ($request->has('start_date') && $request->has('end_date') && !empty($request->start_date) && !empty($request->end_date) ) {
             $data->whereBetween('created_at', [@$request->start_date, @$request->end_date]);
+        }
+        if($request->has('status') && !empty($request->status) ) {
+            $data->where('status', $request->status);
         }
         
         $data = $data->get();  
@@ -24,37 +26,40 @@ public function index(Request $request)
         return DataTables::of($data)
             ->addIndexColumn()
             ->addColumn('user', function($row) {
-                return ($row->user->name && $row->user->last_name ) ? $row->user->name.' '.$row->user->last_name : 'N/A';
+                return ($row->getuser->name && $row->getuser->last_name ) ? $row->getuser->name.' '.$row->getuser->last_name : 'N/A';
             })
-            ->addColumn('balance', function($row) {
-                return number_format($row->balance, 2).' '.$row->currency;
+            ->addColumn('amount', function($row) {
+                return number_format($row->amount, 2).' '.$row->currency;
             })
-            ->addColumn('pending_balance', function($row) {
-                return number_format($row->pending_balance, 2).' '.$row->currency;
-            })
-            ->addColumn('withdrawn_balance', function($row) {
-                return number_format($row->withdrawn_balance, 2).' '.$row->currency;
-            })
-            ->addColumn('wallet_type', function($row) {
-                return ucfirst($row->wallet_type);
+           
+            ->addColumn('bank_account', function($row) {
+                return $row->userBankAccount->account_number;
             })
             ->addColumn('status', function($row) {
-                $checked = $row->is_active ? 'Checked' : '';
-                return "
-                    <input type='checkbox' id='status_$row->id' class='check' onclick='changeWalletStatus(event.target, $row->id);' $checked>
-                    <label for='status_$row->id' class='checktoggle'>checkbox</label>
-                ";
+          
+                $html = $row->status == 'pending' ? '<span class="badge badge-warning">Pending</span>' : ($row->status == 'approved' ? '<span class="badge badge-success">Completed</span>' : '<span class="badge badge-danger">Rejected</span>');        
+                return $html;
             })
             ->addColumn('action', function($row) {
-                $edit = '<a href="'.route('wallet.edit', $row->id).'" class="custom-edit-btn mr-1">
-                            <i class="fe fe-pencil"></i>
-                            '.__('default.form.edit-button').'
-                         </a>';
-                $delete = '<button class="custom-delete-btn remove-wallet" data-id="'.$row->id.'" data-action="'.route('wallet.destroy').'">
-                                <i class="fe fe-trash"></i>
-                                '.__('default.form.delete-button').'
+                $html = '';
+                if($row->status == 'pending') {
+                $html .='<button type="button" class="custom-edit-btn change-status-withdrawal" data-status="approved" data-id="'.$row->id.'" data-action="'.route('withdrawal.status_update').'">
+                                <i class="fe fe-check"></i>
+                                '.__('Approve').'
                             </button>';
-                return $edit.' '.$delete;
+                
+                $html .= ' '.'<button  type="button" class="custom-delete-btn change-status-withdrawal" data-status="rejected" data-id="'.$row->id.'" data-action="'.route('withdrawal.status_update').'">
+                                <i class="fe fe-close"></i>
+                                '.__('Reject').'
+                            </button>';
+                }
+                elseif ($row->status != 'pending') {
+                    $html .= '<button type="button" class="custom-warning-btn change-status-withdrawal" data-status="pending" data-id="'.$row->id.'" data-action="'.route('withdrawal.status_update').'">
+                                <i class="fe fe-check"></i>
+                                '.__('Pending').'
+                            </button>';
+                }
+                return $html;
             })
             ->rawColumns(['action', 'status'])
             ->editColumn('created_at', '{{date("jS M Y", strtotime($created_at))}}')
@@ -62,7 +67,15 @@ public function index(Request $request)
             ->escapeColumns([])
             ->make(true);
     }
-    return view('admin.withdrawal.index');
+    return view('admin.withdrawal.index',compact('request'));
 }
 
+
+public function statusUpdate(Request $request)
+{
+    $withdrawal = Withdrawal::find($request->id);
+    $withdrawal->status = $request->status;
+    $withdrawal->save();
+    return response()->json(['message' => 'Status updated successfully']);
+}
 }

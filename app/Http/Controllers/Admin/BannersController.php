@@ -85,7 +85,7 @@ class BannersController extends Controller
 	            ->escapeColumns([])
                 ->make(true);
         }
-        return view('admin.banner.index');
+        return view('admin.banner.index',compact('request'));
 	}
 
 	public function create()

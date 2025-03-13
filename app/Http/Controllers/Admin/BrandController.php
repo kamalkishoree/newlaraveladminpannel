@@ -84,7 +84,7 @@ class BrandController extends Controller
 	            ->escapeColumns([])
                 ->make(true);
         }
-        return view('admin.brand.index');
+        return view('admin.brand.index',compact('request'));
 	}
 
 	public function create()

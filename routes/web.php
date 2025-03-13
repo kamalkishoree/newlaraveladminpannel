@@ -268,7 +268,8 @@ Route::group(['middleware' => 'language'], function () {
 			});
 
 			Route::prefix('withdrawal')->group(function () {
-				Route::get('/index', 			[App\Http\Controllers\Admin\WithdrawalController::class, 'index'])->name('withdrawal.index');
+					Route::get('/index', 			[App\Http\Controllers\Admin\WithdrawalController::class, 'index'])->name('withdrawal.index');
+					Route::get('/status_update', 	[App\Http\Controllers\Admin\WithdrawalController::class, 'statusUpdate'])->name('withdrawal.status_update');
 			});
 
 			Route::prefix('conversion')->group(function () {
