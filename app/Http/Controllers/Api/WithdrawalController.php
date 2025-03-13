@@ -12,7 +12,7 @@ class WithdrawalController extends Controller
 {
     public function index(Request $request)
     {
-        $withdrawals = Withdrawal::where('user_id', $request->user()->id)->paginate(10);
+        $withdrawals = Withdrawal::with('userBankAccount')->where('user_id', $request->user()->id)->paginate(10);
         return response()->json($withdrawals);
     }
 
