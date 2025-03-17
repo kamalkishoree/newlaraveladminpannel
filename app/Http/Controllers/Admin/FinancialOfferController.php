@@ -3,20 +3,23 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use App\Models\Category;
-use Brian2694\Toastr\Facades\Toastr;
+use App\Models\AffilateIntegration;
+use App\Models\FinancialCategory;
 use Illuminate\Http\Request;
+use App\Models\FinancialOffer;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Validation\Rule;
 use Yajra\DataTables\Facades\DataTables;
 use Illuminate\Support\Str;
+use Brian2694\Toastr\Facades\Toastr;
+use Exception;
 
-class CategoryController extends Controller
+class FinancialOfferController extends Controller
 {
     public function index(Request $request)
 	{
 		if ($request->ajax()) {
-            $data = Category::orderBy('id', 'asc');
+            $data = FinancialOffer::orderBy('id', 'asc');
             if ($request->has('start_date') && $request->has('end_date') && !empty($request->start_date) && !empty($request->end_date)) {
                 $data->whereBetween('created_at', [@$request->start_date, @$request->end_date]);
             }
@@ -26,11 +29,11 @@ class CategoryController extends Controller
                 ->addIndexColumn()
                 ->addColumn('action', function($row){
 					
-                        $edit = '<a href="'.route('category.edit', $row->id).'" class="custom-edit-btn mr-1">
+                        $edit = '<a href="'.route('financial-offer.edit', $row->id).'" class="custom-edit-btn mr-1">
                                     <i class="fe fe-pencil"></i>
                                         '.__('default.form.edit-button').'
                                 </a>';
-                        $delete = '<button class="custom-delete-btn remove-category" data-id="'.$row->id.'" data-action="'.route('category.destroy').'">
+                        $delete = '<button class="custom-delete-btn remove-financial-offer" data-id="'.$row->id.'" data-action="'.route('financial-offer.destroy').'">
 										<i class="fe fe-trash"></i>
 		                                '.__('default.form.delete-button').'
 									</button>';
@@ -41,7 +44,7 @@ class CategoryController extends Controller
 
                 ->addColumn('image_url', function($row){
                     if ($row->image_url == null or empty($row->image_url)) {
-                    	$image = '<img src="/assets/admin/img/default-Category.png" class="w-50 rounded-circle img-fluid img-thumbnail" style="max-width: 50px;">';
+                    	$image = '<img src="/assets/admin/img/default-financial-offer.png" class="w-50 rounded-circle img-fluid img-thumbnail" style="max-width: 50px;">';
                     }else{
                     	$image = '<img src="'.$row->image_url.'" class="w-50 rounded-circle img-fluid img-thumbnail" style="max-width: 60px; height: 45px;">';
                     }
@@ -59,9 +62,9 @@ class CategoryController extends Controller
                     $shortDescription = Str::limit(strip_tags($row->description), $maxLength, '...');
                     return $shortDescription;
                 })
-
+                
                 ->addColumn('status', function($row){
-                	if ($row->is_active == 1) {
+                	if ($row->status == 1) {
                 		$current_status = 'Checked';
                 	}else{
                 		$current_status = '';
@@ -79,37 +82,56 @@ class CategoryController extends Controller
 	            ->escapeColumns([])
                 ->make(true);
         }
-        return view('admin.category.index',compact('request'));
+        return view('admin.financial-offer.index',compact('request'));
 	}
 
 	public function create()
 	{
-		return view('admin.category.create');
+
+        $categories = FinancialCategory::whereNotNull('id')->get();
+        $affiliate_partners = AffilateIntegration::select('id','provider_name')->whereNotNull('id')->get();
+		return view('admin.financial-offer.create',compact('categories','affiliate_partners'));
+
+
 	}
 
 	public function store(Request $request)
 	{
-        
+
+
 		$rules = [
-            'name' => 'required|string|max:255|unique:categories,name',
-            'slug' => 'required|string|max:255|unique:categories,slug',
+            'name' => 'required|string|max:255',
+            'slug' => 'required|string|unique:brands,slug|max:255',
             'description' => 'nullable|string',
-            'image_url' => 'nullable|image|mimes:jpeg,png,jpg,gif',
+            'image_url' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',  // Logo should be an image file
+            'category_id' => 'required|exists:categories,id', // Ensure category exists in the categories 
+            'target_url' => 'required|url',
+            'clocking_url' => 'required|url',
+            'affiliate_network_id' => 'required|exists:affilate_integrations,id',
+
         ];
         $messages = [
-            'name.required' => 'The category name is required.',
-            'name.unique' => 'This category name already exists. Please choose another.',
-            'slug.required' => 'The slug is required.',
-            'slug.unique' => 'The slug must be unique. Please choose another.',
-            'image_url.image' => 'The uploaded file must be an image.',
-            'image_url.mimes' => 'The image must be a file of type: jpeg, png, jpg, gif.',
+            'name.required' => 'The financial-offer name is required.',
+            'name.string' => 'The financial-offer name must be a string.',
+            'name.max' => 'The financial-offer name cannot exceed 255 characters.',
+            'slug.required' => 'The financial-offer slug is required.',
+            'slug.unique' => 'This financial-offer slug has already been taken.',
+            'slug.max' => 'The slug cannot exceed 255 characters.',
+            'description.string' => 'The description must be a string.',
+            'category_id.required' => 'The category is required.',
+            'category_id.exists' => 'The selected category does not exist.',
+            'target_url.required' => 'The target URL is required.',
+            'target_url.url' => 'The target URL must be a valid URL.',
+            'clocking_url.required' => 'The cloaking URL is required.',
+            'clocking_url.url' => 'The cloaking URL must be a valid URL.',
+            'affiliate_network_id.required' => 'The affiliate network is required.',
         ];
 
-
+        
         $this->validate($request, $rules, $messages);
+
         $file = $request->file('image_url');
         $url = '';
-       
          if(!is_null($file))
            {
                $fileName = time() . '_' . $file->getClientOriginalName();
@@ -123,52 +145,59 @@ class CategoryController extends Controller
           $input['image_url'] = $url;
 
     		try {
-			$Category = Category::create($input);
-			Toastr::success(__('Category Added Successfully'));
-		    return redirect()->route('category.index');
+			$financialoffer = FinancialOffer::create($input);
+			Toastr::success(__('Financial offer Added Successfully'));
+		    return redirect()->route('financial-offer.index');
 
 		} catch (Exception $e) {
-			Toastr::error(__('Failed to create Category record.'));
-		    return redirect()->route('category.index');
+            pr($e);
+			Toastr::error(__('Failed to create financial offer record.'.$e->getMessage()));
+		    //return redirect()->route('financial-offer.index');
 		}
 	}
 
 	public function edit($id)
 	{
-		$category = Category::find($id);
-		return view('admin.category.edit',compact('category'));
+		$financialoffer = FinancialOffer::find($id);
+        $affiliate_partners = AffilateIntegration::select('id','provider_name')->whereNotNull('id')->get();
+        $categories = FinancialCategory::whereNotNull('id')->get();
+
+		return view('admin.financial-offer.edit',compact('financialoffer','categories','affiliate_partners'));
 	}
 
 	public function update(Request $request, $id)
 	{
 
-        $Category = Category::find($id);
-		$rules = [
-            'name' => [
-                'required',
-                'string',
-                'max:255',
-                Rule::unique('categories')->ignore($Category->id),
-            ],
+        $financialoffer = FinancialOffer::find($id);
+        $rules = [
+            'name' => 'required|string|max:255',
             'slug' => [
                 'required',
                 'string',
                 'max:255',
-                Rule::unique('categories')->ignore($Category->id),
+                Rule::unique('categories')->ignore($financialoffer->id),
             ],
             'description' => 'nullable|string',
-            'image_url' => 'nullable|image|mimes:jpeg,png,jpg,gif',
+            'image_url' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',  // Logo should be an image file
+            'category_id' => 'required|exists:categories,id', // Ensure category exists in the categories 
         ];
         $messages = [
-            'name.required' => 'The category name is required.',
-            'slug.required' => 'The slug is required.',
-            'slug.unique' => 'The slug must be unique. Please choose another.',
-            'image_url.image' => 'The uploaded file must be an image.',
-            'image_url.mimes' => 'The image must be a file of type: jpeg, png, jpg, gif.',
+            'name.required' => 'The financial-offer name is required.',
+            'name.string' => 'The financial-offer name must be a string.',
+            'name.max' => 'The financial-offer name cannot exceed 255 characters.',
+            'slug.required' => 'The financial-offer slug is required.',
+            'slug.unique' => 'This financial-offer slug has already been taken.',
+            'slug.max' => 'The slug cannot exceed 255 characters.',
+            'description.string' => 'The description must be a string.',
+            'category_id.required' => 'The category is required.',
+            'category_id.exists' => 'The selected category does not exist.',
         ];
+    
+      
+
         $this->validate($request, $rules, $messages);
 		$file = $request->file('image_url');
-        $url = '';
+        $url = $financialoffer->image_url;
 
          if(!is_null($file))
            {
@@ -185,8 +214,9 @@ class CategoryController extends Controller
 
 	    	
 		if (empty($input['image_url'])) {
-			$input['image_url'] = $Category->image_url;
+			$input['image_url'] = $financialoffer->image_url;
 		}
+
         if($request->has('is_new'))
         {
        
@@ -207,38 +237,41 @@ class CategoryController extends Controller
         }
 
 		try {
-			$Category->update($input);
-            Toastr::success(__('Category updated Successfully'));
-		    return redirect()->route('category.index');
+
+			$financialoffer->update($input);
+            Toastr::success(__('Financial-offer updated Successfully'));
+		    return redirect()->route('financial-offer.index');
 
 		} catch (Exception $e) {
-			Toastr::error(__('Failed to update Category record.'));
-		    return redirect()->route('category.index');
+			Toastr::error(__('Failed to update financial offer record.'));
+		    return redirect()->route('financial-offer.index');
 		}
 	}
 
-	public function destroy()
+	public function destroy(Request $request)
 	{
 
+
 		     $id = request()->input('id');
-			$getCategory = Category::find($id);
-			if (Storage::disk('s3')->exists($getCategory->image_url)) {
-				Storage::disk('s3')->delete($getCategory->image_url);
+			$getbrand = FinancialOffer::find($id);
+			if (Storage::disk('s3')->exists($getbrand->image_url)) {
+				Storage::disk('s3')->delete($getbrand->image_url);
 			} 
 			try {
-				Category::find($id)->delete();
-				return back()->with(Toastr::error(__('Category deleted')));
+				FinancialOffer::find($id)->delete();
+				return back()->with(Toastr::error(__('financial-offer deleted')));
 			} catch (Exception $e) {
-				$error_msg = Toastr::error(__('Failed to delete Category'));
-				return redirect()->route('Category.index')->with($error_msg);
+				$error_msg = Toastr::error(__('Failed to delete financial-offer'));
+				return redirect()->route('financial-offer.index')->with($error_msg);
 			}
 	}
 	
 	public function status_update(Request $request)
 	{
-		$Category = Category::find($request->id)->update(['is_active' => $request->status]);
 
-		if($request->is_status == 1)
+        $financialoffer = FinancialOffer::find($request->id)->update(['status' => $request->status]);
+
+		if($request->status == 1)
         {
             return response()->json(['message' => 'Status activated successfully.']);
         }
@@ -252,7 +285,7 @@ class CategoryController extends Controller
 	public function status_update_custom(Request $request)
 	{
 
-		$Category = Category::find($request->id)->update([$request->field => $request->value]);
+		$financialoffer = FinancialOffer::find($request->id)->update([$request->field => $request->value]);
 
         if($request->field == 'is_feature')
         {
@@ -273,8 +306,5 @@ class CategoryController extends Controller
             return response()->json(['value'=>$request->value,'message' => $field .' deactivated successfully.']);
         }  
 	}
-
-
-
-
+    
 }

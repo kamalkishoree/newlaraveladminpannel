@@ -172,6 +172,31 @@ Route::group(['middleware' => 'language'], function () {
 
 			});
 
+			Route::prefix('financial-category')->group(function () {
+				Route::get('/index', 			[App\Http\Controllers\Admin\FinancialCategoryController::class, 'index'])->name('financial-category.index');
+				Route::get('/create', 			[App\Http\Controllers\Admin\FinancialCategoryController::class, 'create'])->name('financial-category.create');
+				Route::post('/store', 			[App\Http\Controllers\Admin\FinancialCategoryController::class, 'store'])->name('financial-category.store');
+				Route::get('/edit/{id}', 		[App\Http\Controllers\Admin\FinancialCategoryController::class, 'edit'])->name('financial-category.edit');
+				Route::post('/update/{id}', 	[App\Http\Controllers\Admin\FinancialCategoryController::class, 'update'])->name('financial-category.update');
+				Route::post('/destroy', 		[App\Http\Controllers\Admin\FinancialCategoryController::class, 'destroy'])->name('financial-category.destroy');
+				Route::get('/status_update', 	[App\Http\Controllers\Admin\FinancialCategoryController::class, 'status_update'])->name('financial-category.status_update');
+				Route::get('/status_update_custom', 	[App\Http\Controllers\Admin\FinancialCategoryController::class, 'status_update_custom'])->name('financial-category.status_update_custom');
+
+			});
+
+			Route::prefix('financial-offer')->group(function () {
+				Route::get('/index', 			[App\Http\Controllers\Admin\FinancialOfferController::class, 'index'])->name('financial-offer.index');
+				Route::get('/create', 			[App\Http\Controllers\Admin\FinancialOfferController::class, 'create'])->name('financial-offer.create');
+				Route::post('/store', 			[App\Http\Controllers\Admin\FinancialOfferController::class, 'store'])->name('financial-offer.store');
+				Route::get('/edit/{id}', 		[App\Http\Controllers\Admin\FinancialOfferController::class, 'edit'])->name('financial-offer.edit');
+				Route::post('/update/{id}', 	[App\Http\Controllers\Admin\FinancialOfferController::class, 'update'])->name('financial-offer.update');
+				Route::post('/destroy', 		[App\Http\Controllers\Admin\FinancialOfferController::class, 'destroy'])->name('financial-offer.destroy');
+				Route::get('/status_update', 	[App\Http\Controllers\Admin\FinancialOfferController::class, 'status_update'])->name('financial-offer.status_update');
+				Route::get('/status_update_custom', 	[App\Http\Controllers\Admin\FinancialOfferController::class, 'status_update_custom'])->name('financial-offer.status_update_custom');
+
+			});
+
+
 			Route::prefix('brand')->group(function () {
 				Route::get('/index', 			[App\Http\Controllers\Admin\BrandController::class, 'index'])->name('brand.index');
 				Route::get('/create', 			[App\Http\Controllers\Admin\BrandController::class, 'create'])->name('brand.create');

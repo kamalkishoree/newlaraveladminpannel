@@ -3,20 +3,21 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use App\Models\Category;
+use App\Models\FinancialCategory;
 use Brian2694\Toastr\Facades\Toastr;
+use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Validation\Rule;
 use Yajra\DataTables\Facades\DataTables;
 use Illuminate\Support\Str;
 
-class CategoryController extends Controller
+class FinancialCategoryController extends Controller
 {
     public function index(Request $request)
 	{
 		if ($request->ajax()) {
-            $data = Category::orderBy('id', 'asc');
+            $data = FinancialCategory::orderBy('id', 'asc');
             if ($request->has('start_date') && $request->has('end_date') && !empty($request->start_date) && !empty($request->end_date)) {
                 $data->whereBetween('created_at', [@$request->start_date, @$request->end_date]);
             }
@@ -26,11 +27,11 @@ class CategoryController extends Controller
                 ->addIndexColumn()
                 ->addColumn('action', function($row){
 					
-                        $edit = '<a href="'.route('category.edit', $row->id).'" class="custom-edit-btn mr-1">
+                        $edit = '<a href="'.route('financial-category.edit', $row->id).'" class="custom-edit-btn mr-1">
                                     <i class="fe fe-pencil"></i>
                                         '.__('default.form.edit-button').'
                                 </a>';
-                        $delete = '<button class="custom-delete-btn remove-category" data-id="'.$row->id.'" data-action="'.route('category.destroy').'">
+                        $delete = '<button class="custom-delete-btn remove-category" data-id="'.$row->id.'" data-action="'.route('financial-category.destroy').'">
 										<i class="fe fe-trash"></i>
 		                                '.__('default.form.delete-button').'
 									</button>';
@@ -79,12 +80,12 @@ class CategoryController extends Controller
 	            ->escapeColumns([])
                 ->make(true);
         }
-        return view('admin.category.index',compact('request'));
+        return view('admin.financial-category.index',compact('request'));
 	}
 
 	public function create()
 	{
-		return view('admin.category.create');
+		return view('admin.financial-category.create');
 	}
 
 	public function store(Request $request)
@@ -105,7 +106,7 @@ class CategoryController extends Controller
             'image_url.mimes' => 'The image must be a file of type: jpeg, png, jpg, gif.',
         ];
 
-
+       
         $this->validate($request, $rules, $messages);
         $file = $request->file('image_url');
         $url = '';
@@ -123,26 +124,26 @@ class CategoryController extends Controller
           $input['image_url'] = $url;
 
     		try {
-			$Category = Category::create($input);
+			$Category = FinancialCategory::create($input);
 			Toastr::success(__('Category Added Successfully'));
-		    return redirect()->route('category.index');
+		    return redirect()->route('financial-category.index');
 
 		} catch (Exception $e) {
 			Toastr::error(__('Failed to create Category record.'));
-		    return redirect()->route('category.index');
+		    return redirect()->route('financial-category.index');
 		}
 	}
 
 	public function edit($id)
 	{
-		$category = Category::find($id);
-		return view('admin.category.edit',compact('category'));
+		$category = FinancialCategory::find($id);
+		return view('admin.financial-category.edit',compact('category'));
 	}
 
 	public function update(Request $request, $id)
 	{
 
-        $Category = Category::find($id);
+        $Category = FinancialCategory::find($id);
 		$rules = [
             'name' => [
                 'required',
@@ -187,6 +188,7 @@ class CategoryController extends Controller
 		if (empty($input['image_url'])) {
 			$input['image_url'] = $Category->image_url;
 		}
+
         if($request->has('is_new'))
         {
        
@@ -206,14 +208,17 @@ class CategoryController extends Controller
 
         }
 
+
+
+
 		try {
 			$Category->update($input);
             Toastr::success(__('Category updated Successfully'));
-		    return redirect()->route('category.index');
+		    return redirect()->route('financial-category.index');
 
 		} catch (Exception $e) {
-			Toastr::error(__('Failed to update Category record.'));
-		    return redirect()->route('category.index');
+			Toastr::error(__('Failed to update Category record. due to '.$e->getMessage()));
+		    return redirect()->route('financial-category.index');
 		}
 	}
 
@@ -221,12 +226,12 @@ class CategoryController extends Controller
 	{
 
 		     $id = request()->input('id');
-			$getCategory = Category::find($id);
+			$getCategory = FinancialCategory::find($id);
 			if (Storage::disk('s3')->exists($getCategory->image_url)) {
 				Storage::disk('s3')->delete($getCategory->image_url);
 			} 
 			try {
-				Category::find($id)->delete();
+				FinancialCategory::find($id)->delete();
 				return back()->with(Toastr::error(__('Category deleted')));
 			} catch (Exception $e) {
 				$error_msg = Toastr::error(__('Failed to delete Category'));
@@ -236,7 +241,7 @@ class CategoryController extends Controller
 	
 	public function status_update(Request $request)
 	{
-		$Category = Category::find($request->id)->update(['is_active' => $request->status]);
+		$Category = FinancialCategory::find($request->id)->update(['is_active' => $request->status]);
 
 		if($request->is_status == 1)
         {
@@ -252,7 +257,7 @@ class CategoryController extends Controller
 	public function status_update_custom(Request $request)
 	{
 
-		$Category = Category::find($request->id)->update([$request->field => $request->value]);
+		$Category = FinancialCategory::find($request->id)->update([$request->field => $request->value]);
 
         if($request->field == 'is_feature')
         {
@@ -274,7 +279,5 @@ class CategoryController extends Controller
         }  
 	}
 
-
-
-
+   //
 }

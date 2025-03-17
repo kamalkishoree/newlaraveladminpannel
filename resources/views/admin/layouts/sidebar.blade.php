@@ -289,12 +289,12 @@
 
                     <ul style="display: none;">
                         <li>
-                            <a href="{{ route('affiliate.index') }}" title="{{__('sidebar.user')}}" class="sidebar-link {{ (request()->is('admin/affiliate*')) ? 'active' : '' }}">
+                            <a href="{{ route('financial-category.index') }}" title="{{__('financial-category')}}" class="sidebar-link {{ (request()->is('admin/financial-category*')) ? 'active' : '' }}">
                                 <span class="hide-menu">Create Category </span>
                             </a>
                         </li>
                         <li>
-                            <a href="{{ route('affiliate.index') }}" title="{{__('sidebar.user')}}" class="sidebar-link {{ (request()->is('admin/affiliate*')) ? 'active' : '' }}">
+                            <a href="{{ route('financial-offer.index') }}" title="{{__('financial-offer')}}" class="sidebar-link {{ (request()->is('admin/financial-offer*')) ? 'active' : '' }}">
                                 <span class="hide-menu">Create Offers</span>
                             </a>
                         </li>

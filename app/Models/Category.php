@@ -19,6 +19,7 @@ class Category extends Model
         'is_active',
         'is_new',
         'is_top',
-        'is_feature'
+        'is_feature',
+        'status'
     ];
 }
