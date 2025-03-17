@@ -99,6 +99,31 @@
             </div>
         </div>
     </div>
+
+<!-- Bank Details Modal -->
+<div class="modal fade" id="bankDetailModal" tabindex="-1" role="dialog" aria-labelledby="bankDetailModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="bankDetailModalLabel">Bank Account Details</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <p><strong>Bank Name:</strong> <span id="modal-bank-name"></span></p>
+        <p><strong>Account Number:</strong> <span id="modal-account-number"></span></p>
+        <p><strong>Branch:</strong> <span id="modal-branch"></span></p>
+        <p><strong>IFSC Code:</strong> <span id="modal-ifsc"></span></p>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+
+
 @endsection
 
 
@@ -202,5 +227,18 @@
             });
 
         });
+
+
+        $(document).on('click', '[data-toggle="modal"]', function() {
+    var bankName = $(this).data('bank-name');
+    var accountNumber = $(this).data('account-number');
+    var branch = $(this).data('branch');
+    var ifsc = $(this).data('ifsc');
+
+    $('#modal-bank-name').text(bankName);
+    $('#modal-account-number').text(accountNumber);
+    $('#modal-branch').text(branch);
+    $('#modal-ifsc').text(ifsc);
+});
     </script>
 @endpush

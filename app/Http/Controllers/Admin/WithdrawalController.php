@@ -33,9 +33,14 @@ public function index(Request $request)
             })
            
             ->addColumn('bank_account', function($row) {
-                return $row->userBankAccount->account_number;
-            })
-            ->addColumn('status', function($row) {
+                return $row->userBankAccount->account_number.'  ' . '<i class="fa fa-info-circle text-primary" style="cursor:pointer" 
+                data-toggle="modal" data-target="#bankDetailModal" 
+                data-account-number="'.$row->userBankAccount->account_number.'" 
+                data-bank-name="'.$row->userBankAccount->bank_name.'" 
+                data-branch="'.$row->userBankAccount->branch.'" 
+                data-ifsc="'.$row->userBankAccount->ifsc_code.'"></i>';
+               })
+                 ->addColumn('status', function($row) {
           
                 $html = $row->status == 'pending' ? '<span class="badge badge-warning">Pending</span>' : ($row->status == 'approved' ? '<span class="badge badge-success">Completed</span>' : '<span class="badge badge-danger">Rejected</span>');        
                 return $html;

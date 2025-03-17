@@ -346,8 +346,8 @@
                         <!-- new added -->
                         @can('cmspage-list')
                         <li>
-                            <a href="{{ route('cmspages.index') }}" title="{{__('sidebar.cms-pages')}}" class="sidebar-link {{ (request()->is('admin/cmspage*')) ? 'active' : '' }}">
-                                <span class="hide-menu">Pending Withdrawals</span>
+                            <a href="{{ route('withdrawal.index',['status' => 'pending']) }}" title="{{__('withdrawal Request')}}" class="sidebar-link {{ (request()->is('admin/withdrawal*')) ? 'active' : '' }}">
+                                <span class="hide-menu">{{__('Pending Withdrawals')}}</span>
                             </a>
                         </li>
                         @endcan

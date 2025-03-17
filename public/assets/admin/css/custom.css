@@ -64,6 +64,24 @@
     border-radius: 4px;
 }
 
+
+.custom-primary-btn:hover{
+    color: #fff;
+}
+
+
+.custom-warning-btn {
+    background: #ffbc34;
+    color: #ffffff;
+    border-color: #ffbc34;
+    border-radius: 4px;
+}
+
+
+.custom-warning-btn:hover{
+    color: #fff;
+}
+
 .custom-create-btn:hover{
     color: #000;
     border-color: #fdc100;
