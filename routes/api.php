@@ -82,6 +82,14 @@ Route::get('/homepage', [UserHomeController::class, 'homepage'])->name('homepage
 //BrandController
 Route::get('/brand-list/{category?}', [BrandController::class, 'brandList'])->name('brandList');
 Route::get('/brand-details/{id}', [BrandController::class, 'brandDetails'])->name('brand-details');
-Route::get('/vcommision/postback/{source}/{clickid}/{p1}/{payout}/{txn_id}/{conversion_status}', [App\Http\Controllers\PostBackController::class, 'vCommissionpostBack'])->name('vcommission.postback');
+
+Route::get('/vcommission-webhook', function (Request $request) {
+    Log::info('vCommission Webhook Triggered', $request->all());
+    return response()->json([
+        'status' => 'success',
+        'message' => 'Webhook received successfully',
+        'data' => $request->all()
+    ]);
+});
 
 

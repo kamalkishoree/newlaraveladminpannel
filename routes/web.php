@@ -307,3 +307,14 @@ Route::group(['middleware' => 'language'], function () {
 
 });
 Route::get('/test',[App\Http\Controllers\Admin\ProductController::class, 'customtest'])->name('test');
+
+Route::get('/vcommission-webhook', function (Request $request) {
+	
+    Log::info('vCommission Webhook Triggered', $request->all());
+    
+    return response()->json([
+        'status' => 'success',
+        'message' => 'Webhook received successfully',
+        'data' => $request->all()
+    ]);
+});
