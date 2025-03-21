@@ -83,13 +83,5 @@ Route::get('/homepage', [UserHomeController::class, 'homepage'])->name('homepage
 Route::get('/brand-list/{category?}', [BrandController::class, 'brandList'])->name('brandList');
 Route::get('/brand-details/{id}', [BrandController::class, 'brandDetails'])->name('brand-details');
 
-Route::get('/vcommission-webhook', function (Request $request) {
-    Log::info('vCommission Webhook Triggered', $request->all());
-    return response()->json([
-        'status' => 'success',
-        'message' => 'Webhook received successfully',
-        'data' => $request->all()
-    ]);
-});
-
+Route::get('/quicks-webhook', [App\Http\Controllers\PostBackController::class, 'vCommissionpostBack']);
 

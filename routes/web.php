@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route; 
+use Illuminate\Http\Request;
 
 /*
 |--------------------------------------------------------------------------
@@ -308,13 +309,4 @@ Route::group(['middleware' => 'language'], function () {
 });
 Route::get('/test',[App\Http\Controllers\Admin\ProductController::class, 'customtest'])->name('test');
 
-Route::get('/vcommission-webhook', function (Request $request) {
-	
-    Log::info('vCommission Webhook Triggered', $request->all());
-    
-    return response()->json([
-        'status' => 'success',
-        'message' => 'Webhook received successfully',
-        'data' => $request->all()
-    ]);
-});
+Route::get('/quicks-webhook', [App\Http\Controllers\PostBackController::class, 'vCommissionpostBack']);
