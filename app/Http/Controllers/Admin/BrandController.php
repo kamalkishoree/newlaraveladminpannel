@@ -108,7 +108,7 @@ class BrandController extends Controller
             'image_url' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',  // Logo should be an image file
             'category_id' => 'required|exists:categories,id', // Ensure category exists in the categories 
             'target_url' => 'required|url',
-            'clocking_url' => 'required|url',
+            //'clocking_url' => 'required|url',
             'affiliate_network_id' => 'required|exists:affilate_integrations,id',
 
         ];
@@ -124,7 +124,7 @@ class BrandController extends Controller
             'category_id.exists' => 'The selected category does not exist.',
             'target_url.required' => 'The target URL is required.',
             'target_url.url' => 'The target URL must be a valid URL.',
-            'clocking_url.required' => 'The cloaking URL is required.',
+            // 'clocking_url.required' => 'The cloaking URL is required.',
             'clocking_url.url' => 'The cloaking URL must be a valid URL.',
             'affiliate_network_id.required' => 'The affiliate network is required.',
         ];
@@ -145,9 +145,13 @@ class BrandController extends Controller
           }
           $input = request()->all();
           $input['image_url'] = $url;
-
+         
     		try {
+
 			$brand = Brand::create($input);
+            $clocking_url = request()->root().'/affiliate-network?brand='.$brand->id;
+            $brand->clocking_url = $clocking_url;
+            $brand->save();
 			Toastr::success(__('brand Added Successfully'));
 		    return redirect()->route('brand.index');
 
@@ -196,6 +200,7 @@ class BrandController extends Controller
     
       
 
+
         $this->validate($request, $rules, $messages);
 		$file = $request->file('image_url');
         $url = $brand->image_url;
@@ -238,9 +243,11 @@ class BrandController extends Controller
         }
 
 		try {
-
+            $clocking_url = request()->root().'/affiliate-network?brand='.$brand->id;
+            $input['clocking_url'] = $clocking_url;
 			$brand->update($input);
             Toastr::success(__('brand updated Successfully'));
+
 		    return redirect()->route('brand.index');
 
 		} catch (Exception $e) {

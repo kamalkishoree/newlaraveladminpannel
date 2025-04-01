@@ -114,7 +114,10 @@ class DealsController extends Controller
 
      
      try {
-	    $deals = Deal::create($input);
+            $deals = Deal::create($input);
+            $clocking_url = request()->root().'/affiliate-network?deal='.$deals->id;
+            $deals->clocking_url = $clocking_url;
+            $deals->save();
 			Toastr::success(__('deals Added Successfully'));
 		    return redirect()->route('deal.index');
 
@@ -214,7 +217,8 @@ class DealsController extends Controller
         }
 
 		try {
-
+            $clocking_url = request()->root().'/affiliate-network?deal='.$deals->id;
+            $input['clocking_url'] = $clocking_url;
 			$deals->update($input);
             Toastr::success(__('deals updated Successfully'));
 		    return redirect()->route('deal.index');

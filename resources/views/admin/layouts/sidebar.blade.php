@@ -283,7 +283,7 @@
                     <li class="submenu">
                     <a class="" href="javascript:void(0)" aria-expanded="false">
                     <i class="fa-regular fa-credit-card"></i>
-                        <span class="hide-menu">Finencial Offers </span>
+                        <span class="hide-menu">Financial Offers </span>
                         <span class="menu-arrow"></span>
                     </a>
 

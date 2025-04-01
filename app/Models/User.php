@@ -32,7 +32,9 @@ class User extends Authenticatable
         'status',
         'dial_code',
         'image',
-        'otp_request_id'
+        'otp_request_id',
+        'referral_code',
+        'referral_balance'
     ];
 
     /**

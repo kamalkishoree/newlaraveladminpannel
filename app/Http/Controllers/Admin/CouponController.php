@@ -119,7 +119,10 @@ class CouponController extends Controller
 
      
      try {
-	    $coupon = Coupon::create($input);
+            $coupon = Coupon::create($input);
+            $clocking_url = request()->root().'/affiliate-network?coupon='.$coupon->id;
+            $coupon->clocking_url = $clocking_url;
+            $coupon->save();
 			Toastr::success(__('coupon Added Successfully'));
 		    return redirect()->route('coupon.index');
 
@@ -219,7 +222,8 @@ class CouponController extends Controller
         }
 
 		try {
-
+            $clocking_url = request()->root().'/affiliate-network?coupon='.$coupon->id;
+            $input['clocking_url'] = $clocking_url;
 			$coupon->update($input);
             Toastr::success(__('coupon updated Successfully'));
 		    return redirect()->route('coupon.index');
@@ -232,19 +236,18 @@ class CouponController extends Controller
 
 	public function destroy()
 	{
-
-		     $id = request()->input('id');
-			$getbrand = Coupon::find($id);
-			if (Storage::disk('s3')->exists($getbrand->image_url)) {
-				Storage::disk('s3')->delete($getbrand->image_url);
-			} 
-			try {
-				Coupon::find($id)->delete();
-				return back()->with(Toastr::error(__('coupon deleted')));
-			} catch (Exception $e) {
-				$error_msg = Toastr::error(__('Failed to delete coupon'));
-				return redirect()->route('coupon.index')->with($error_msg);
-			}
+        $id = request()->input('id');
+        $getbrand = Coupon::find($id);
+        if (Storage::disk('s3')->exists($getbrand->image_url)) {
+            Storage::disk('s3')->delete($getbrand->image_url);
+        } 
+        try {
+            Coupon::find($id)->delete();
+            return back()->with(Toastr::error(__('coupon deleted')));
+        } catch (Exception $e) {
+            $error_msg = Toastr::error(__('Failed to delete coupon'));
+            return redirect()->route('coupon.index')->with($error_msg);
+        }
 	}
 	
 	public function status_update(Request $request)

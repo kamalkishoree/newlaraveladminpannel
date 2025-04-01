@@ -8,6 +8,7 @@ use App\Http\Controllers\Api\UserHomeController;
 use App\Http\Controllers\Api\WalletController;
 use App\Http\Controllers\Api\UserBankAccountController;
 use App\Http\Controllers\Api\WithdrawalController;
+use App\Http\Controllers\Api\ReferralController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -85,3 +86,8 @@ Route::get('/brand-details/{id}', [BrandController::class, 'brandDetails'])->nam
 
 Route::get('/quicks-webhook', [App\Http\Controllers\PostBackController::class, 'vCommissionpostBack']);
 
+Route::group(['prefix' => 'referrals', 'middleware' => ['auth:api']], function () {
+    Route::get('/generate-code', [ReferralController::class, 'generateReferralCode']);
+    Route::post('/apply-code', [ReferralController::class, 'applyReferralCode']);
+    Route::get('/stats', [ReferralController::class, 'getReferralStats']);
+});

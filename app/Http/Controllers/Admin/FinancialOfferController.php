@@ -144,8 +144,12 @@ class FinancialOfferController extends Controller
           $input = request()->all();
           $input['image_url'] = $url;
 
-    		try {
+    	try {
+            
 			$financialoffer = FinancialOffer::create($input);
+            $clocking_url = request()->root().'/affiliate-network?financial-Offer='.$financialoffer->id;
+            $financialoffer->clocking_url = $clocking_url;
+            $financialoffer->save();
 			Toastr::success(__('Financial offer Added Successfully'));
 		    return redirect()->route('financial-offer.index');
 
@@ -237,7 +241,9 @@ class FinancialOfferController extends Controller
         }
 
 		try {
-
+            $clocking_url = request()->root().'/affiliate-network?financial-Offer='.$coupon->id;
+            $input['clocking_url'] = $clocking_url;
+			$coupon->update($input);
 			$financialoffer->update($input);
             Toastr::success(__('Financial-offer updated Successfully'));
 		    return redirect()->route('financial-offer.index');

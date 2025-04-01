@@ -303,10 +303,16 @@ Route::group(['middleware' => 'language'], function () {
 
 			});
 
+			Route::prefix('referral')->group(function () {
+				Route::get('/index', 			[App\Http\Controllers\Admin\ReferralController::class, 'index'])->name('referral.index');
+				Route::get('/reject', 			[App\Http\Controllers\Admin\ReferralController::class, 'index'])->name('referral.reject');
+				Route::get('/change-status', 	 [App\Http\Controllers\Admin\ReferralController::class, 'changeStatus'])->name('referral.change-status');
+
+			});
+
 		});
 	});
 
 });
-Route::get('/test',[App\Http\Controllers\Admin\ProductController::class, 'customtest'])->name('test');
-
+Route::get('/affiliate-network',[App\Http\Controllers\Admin\ClockingUrlController::class, 'targetUrl']);
 Route::get('/quicks-webhook', [App\Http\Controllers\PostBackController::class, 'vCommissionpostBack']);
