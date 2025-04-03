@@ -90,4 +90,6 @@ Route::group(['prefix' => 'referrals', 'middleware' => ['auth:api']], function (
     Route::get('/generate-code', [ReferralController::class, 'generateReferralCode']);
     Route::post('/apply-code', [ReferralController::class, 'applyReferralCode']);
     Route::get('/stats', [ReferralController::class, 'getReferralStats']);
+    Route::post('/redeem', [ReferralController::class, 'referralToWallet']);
+
 });

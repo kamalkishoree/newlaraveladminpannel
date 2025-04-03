@@ -2,7 +2,7 @@
 namespace App\Http\Traits;
 use Illuminate\Support\Facades\Auth;
 use App\Models\{Wallet,Transaction};
-
+use Illuminate\Support\Str;
 trait WalletTrait{
 
     public function updateWallet($brand,$user_id,$amount,$status)
@@ -54,4 +54,5 @@ trait WalletTrait{
        
     }
 
+  
 }

@@ -8,9 +8,15 @@ use App\Models\Referral;
 use App\Services\ReferralService;
 use Illuminate\Http\Request;
 use Illuminate\Http\JsonResponse;
+use App\Http\Traits\WalletTrait;
+use Illuminate\Support\Facades\Log;
+use App\Models\{Wallet,Transaction};
+use Illuminate\Support\Str;
 
 class ReferralController extends Controller
 {
+    use WalletTrait;
+
     protected $referralService;
 
     public function __construct(ReferralService $referralService)
@@ -78,4 +84,39 @@ class ReferralController extends Controller
             'referrals' => $referrals
         ]);
     }
+
+
+
+    public function referralToWallet(Request $request)
+    {
+        try {
+            $user = $request->user();
+            if ($user->referral_balance <= 0) {
+                return response()->json([
+                    'success' => false,
+                    'message' => 'Insufficient referral balance',
+                ], 400);
+            }
+            $wallet = Wallet::firstOrCreate(['user_id' => $user->id]);
+            $wallet->increment('withdrawn_balance', $user->referral_balance);
+            $user->decrement('referral_balance',$user->referral_balance);
+            $transactionId = 'referral_transax_' . Str::uuid();
+            Transaction::createTransaction($user->id, $user->referral_balance, 'credit', 'referral', 'approved', $transactionId);
+            $data = [
+                'success' => true,
+                'message' => 'Referral amount added successfully',
+                'transaction_id' => $transactionId,
+                'wallet_balance' => $wallet->withdrawn_balance
+                ];
+        } catch (\Exception $e) {
+            \Log::error('Error in referralToWallet: ' . $e->getMessage());
+             $data =[
+                'success' => false,
+                'message' => 'Failed to process referral amount',
+                'error' => $e->getMessage()
+              ];
+        }
+          return $data ;
+    }
+
 } 
