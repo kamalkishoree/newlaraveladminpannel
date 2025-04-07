@@ -379,6 +379,16 @@
                 @endif
                 <!-- /Withdrawal management -->
 
+                <li class="{{ (request()->is('admin/refferal*')) ? '' : '' }}">
+                                <a class="sidebar-link" href="{{ route('referral.index') }}" aria-expanded="false">
+                                <i class="fa-solid fa-user-plus"></i>
+                                                    <span>
+                        {{__('Refferal  ')}}
+                    </span>
+                </a>
+                </li>
+
+
                 <!-- Financial Redirection Management   -->
                 <li class="{{ (request()->is('admin/dashboard*')) ? '' : '' }}">
                                 <a class="sidebar-link" href="{{ route('dashboard') }}" aria-expanded="false">
