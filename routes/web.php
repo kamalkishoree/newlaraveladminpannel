@@ -19,6 +19,12 @@ Route::get('/', function () {
     return redirect('/');
 })->name('setlocale');
 
+
+Route::get('/admin', function () {
+    return redirect('/admin/login');
+})->name('setlocale');
+
+
 Route::get('logs', [\Rap2hpoutre\LaravelLogViewer\LogViewerController::class, 'index']);
 // Frontend Routes commented to open admin directely
 // Route::get('/', [App\Http\Controllers\Frontend\HomeController::class, 'index'])->name('home');
