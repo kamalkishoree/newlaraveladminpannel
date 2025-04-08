@@ -387,8 +387,6 @@
                     </span>
                 </a>
                 </li>
-
-
                 <!-- Financial Redirection Management   -->
                 <li class="{{ (request()->is('admin/dashboard*')) ? '' : '' }}">
                                 <a class="sidebar-link" href="{{ route('dashboard') }}" aria-expanded="false">

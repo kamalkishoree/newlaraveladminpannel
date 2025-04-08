@@ -16,7 +16,7 @@ use Illuminate\Http\Request;
 
 
 Route::get('/', function () {
-    return redirect('/admin/login');
+    return redirect('/');
 })->name('setlocale');
 
 Route::get('logs', [\Rap2hpoutre\LaravelLogViewer\LogViewerController::class, 'index']);
@@ -312,6 +312,10 @@ Route::group(['middleware' => 'language'], function () {
 
 		});
 	});
+
+	Route::get('/',[App\Http\Controllers\HomeController::class, 'index'])->name('home.index');
+	Route::get('/page/{page}',[App\Http\Controllers\HomeController::class, 'getpage'])->name('home.page');
+
 
 });
 Route::get('/affiliate-network',[App\Http\Controllers\Admin\ClockingUrlController::class, 'targetUrl']);
