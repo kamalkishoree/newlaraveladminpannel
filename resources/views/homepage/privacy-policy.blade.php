@@ -109,17 +109,17 @@
       <div class="container">
         <p class="mb-0">
           © 2025 Quicks. All rights reserved. |
-          <a href="privacy-policy.html" class="text-white text-decoration-none"
+          <a href="{{route('home.page',['page'=>'privacy-policy'])}}" class="text-white text-decoration-none"
             >Privacy Policy</a
           >
           |
           <a
-            href="terms-conditions.html"
+            href="{{route('home.page',['page'=>'terms-conditions'])}}"
             class="text-white text-decoration-none"
             >Terms and Conditions</a
           >
           |
-          <a href="contact.html" class="text-white text-decoration-none"
+          <a href="{{route('home.page',['page'=>'contact'])}}" class="text-white text-decoration-none"
             >Contact Us</a
           >
         </p>
