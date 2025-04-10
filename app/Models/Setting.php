@@ -34,6 +34,24 @@ class Setting extends Model
         'linkedin',
         'instagram',
         'github',
+        //staic OTP
+        'static_otp',
+        // SMTP fields
+        'mail_mailer',
+        'mail_host',
+        'mail_port',
+        'mail_username',
+        'mail_password',
+        'mail_encryption',
+        'mail_from_address',
+        'mail_from_name',
+        // OTP fields
+        'otp_service',
+        'otp_api_key',
+        'otp_api_secret',
+        'otp_sender_id',
+        'otp_template_id',
+        'otp_enabled',
     ];
 
     public function currency()

@@ -68,6 +68,14 @@
 				<li class="nav-item">
 					<a class="nav-link" id="social-tab" data-toggle="tab" href="#social" role="tab" aria-controls="social" aria-selected="false">Social Media</a>
 				</li>
+			
+				<li class="nav-item">
+					<a class="nav-link" id="smtp-tab" data-toggle="tab" href="#smtp" role="tab" aria-controls="social" aria-selected="false">SMTP</a>
+				</li>
+
+				<li class="nav-item">
+					<a class="nav-link" id="otp-tab" data-toggle="tab" href="#otp" role="tab" aria-controls="social" aria-selected="false">OTP Setting</a>
+				</li>
 			</ul>
 			<!-- /Tab Menu -->
 			
@@ -381,7 +389,117 @@
 					</div>
 				</div>
 				<!-- Social Media Setting -->
+				
+				<!-- SMTP Settings -->
+					<div class="tab-pane fade" id="smtp" role="tabpanel" aria-labelledby="smtp-tab">
+						<div class="card">
+							<div class="card-header">
+								<h5 class="card-title">SMTP Settings</h5>
+							</div>
 
+							<div class="card-body">
+								@foreach([
+									'mail_mailer' => 'Mailer',
+									'mail_host' => 'Host',
+									'mail_port' => 'Port',
+									'mail_username' => 'Username',
+									'mail_password' => 'Password',
+									'mail_encryption' => 'Encryption',
+									'mail_from_address' => 'From Email',
+									'mail_from_name' => 'From Name'
+								] as $field => $label)
+									<div class="form-group">
+										<label for="{{ $field }}">{{ $label }}:</label>
+										<input type="{{ $field === 'mail_password' ? 'password' : 'text' }}"
+											name="{{ $field }}"
+											id="{{ $field }}"
+											class="form-control @error($field) form-control-error @enderror"
+											value="{{ old($field, $setting->$field ?? '') }}">
+
+										@error($field)
+											<span class="text-danger">{{ $message }}</span>
+										@enderror
+									</div>
+								@endforeach
+							</div>
+						</div>
+					</div>
+
+
+					<!-- OTP Settings -->
+					<div class="tab-pane fade" id="otp" role="tabpanel" aria-labelledby="otp-tab">
+						<div class="card">
+							<div class="card-header">
+								<h5 class="card-title">OTP Settings</h5>
+							</div>
+
+							<div class="card-body">
+								@foreach([
+									'otp_service' => 'Service',
+									'otp_api_key' => 'API Key',
+									'otp_api_secret' => 'API Secret',
+									'otp_sender_id' => 'Sender ID',
+									'otp_template_id' => 'Template ID'
+								] as $field => $label)
+									<div class="form-group">
+										<label for="{{ $field }}">{{ $label }}:</label>
+										<input type="{{ str_contains($field, 'secret') ? 'password' : 'text' }}"
+											name="{{ $field }}"
+											id="{{ $field }}"
+											class="form-control @error($field) form-control-error @enderror"
+											value="{{ old($field, $setting->$field ?? '') }}">
+
+										@error($field)
+											<span class="text-danger">{{ $message }}</span>
+										@enderror
+									</div>
+								@endforeach
+
+								<!-- Enable OTP -->
+								<div class="form-group">
+									<label for="otp_enabled">Enable OTP:</label>
+									<select name="otp_enabled" id="otp_enabled" class="form-control @error('otp_enabled') form-control-error @enderror">
+										<option value="0" {{ old('otp_enabled', $setting->otp_enabled ?? 0) == 0 ? 'selected' : '' }}>No</option>
+										<option value="1" {{ old('otp_enabled', $setting->otp_enabled ?? 0) == 1 ? 'selected' : '' }}>Yes</option>
+									</select>
+
+									@error('otp_enabled')
+										<span class="text-danger">{{ $message }}</span>
+									@enderror
+								</div>
+
+								<!-- Static OTP Toggle -->
+								<div class="form-group">
+									<label for="static_otp_enabled">Enable Static OTP:</label>
+									<select name="static_otp_enabled" id="static_otp_enabled" class="form-control @error('static_otp_enabled') form-control-error @enderror">
+										<option value="0" {{ old('static_otp_enabled', $setting->static_otp_enabled ?? 0) == 0 ? 'selected' : '' }}>No</option>
+										<option value="1" {{ old('static_otp_enabled', $setting->static_otp_enabled ?? 0) == 1 ? 'selected' : '' }}>Yes</option>
+									</select>
+
+									@error('static_otp_enabled')
+										<span class="text-danger">{{ $message }}</span>
+									@enderror
+								</div>
+
+								<!-- Static OTP Value (Only if Static OTP is enabled) -->
+								<div class="form-group" id="static_otp_value_div" style="display: {{ old('static_otp_enabled', $setting->static_otp_enabled ?? 0) == 1 ? 'block' : 'none' }};">
+									<label for="static_otp_value">Static OTP Value:</label>
+									<input type="text" name="static_otp_value" id="static_otp_value" class="form-control @error('static_otp_value') form-control-error @enderror"
+										value="{{ old('static_otp_value', $setting->static_otp_value ?? '') }}">
+
+									@error('static_otp_value')
+										<span class="text-danger">{{ $message }}</span>
+									@enderror
+								</div>
+
+							</div>
+						</div>
+					</div>
+
+					<!-- JavaScript to toggle static OTP value input -->
+					
+
+					
 			</div><!-- /Tab Content -->
 									
 		</section> <!-- /section -->
@@ -434,4 +552,13 @@
 	document.getElementById(output).src = $url;
 	}
 </script>
+
+
+	<script>
+						
+	  
+                 
+
+	</script>
+
 @endpush

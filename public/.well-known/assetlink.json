@@ -1,0 +1,14 @@
+[
+  {
+   "relation": ["delegate_permission/common.handle_all_urls"],
+   "target": {
+     "namespace": "android_app",
+     "package_name": "com.quicks",
+     "sha256_cert_fingerprints": [
+       "FA:C6:17:45:DC:09:03:78:6F:B9:ED:E6:2A:96:2B:39:9F:73:48:F0:BB:6F:89:9B:83:32:66:75:91:03:3B:9C",
+       "20:09:33:54:E6:AB:C5:01:18:12:2F:4B:83:44:3E:C1:B9:37:62:3D:BD:A8:98:EA:CA:15:C0:D9:26:A7:61:B9",
+       "FD:CC:B9:0E:33:F9:F2:AD:DD:7E:37:97:00:04:F3:B7:DA:8F:E5:ED:24:FF:02:DF:0D:B1:86:F1:BB:9B:9C:FD"
+     ]
+   }
+  }
+]

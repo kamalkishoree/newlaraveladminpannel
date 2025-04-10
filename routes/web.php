@@ -36,6 +36,7 @@ Route::group(['middleware' => 'language'], function () {
 	// Admin Routes
 	Route::prefix('admin')->group(function () {
 		Route::get('/login', 					[App\Http\Controllers\Auth\LoginController::class, 'login'])->name('login');
+		Route::get('/login', 					[App\Http\Controllers\Auth\LoginController::class, 'login'])->name('login');
 		Route::post('/login', 					[App\Http\Controllers\Auth\LoginController::class, 'login_go'])->name('login_go');
 		Route::get('/logout', 					[App\Http\Controllers\Auth\LoginController::class, 'logout'])->name('logout');
 		Route::get('forget-password', 			[App\Http\Controllers\Auth\ForgotPasswordController::class, 'showForgetPasswordForm'])->name('forget.password.get');
@@ -326,3 +327,7 @@ Route::group(['middleware' => 'language'], function () {
 });
 Route::get('/affiliate-network',[App\Http\Controllers\Admin\ClockingUrlController::class, 'targetUrl']);
 Route::get('/quicks-webhook', [App\Http\Controllers\PostBackController::class, 'vCommissionpostBack']);
+Route::get('/referral-download', [App\Http\Controllers\ReferralController::class, 'handleReferral']);
+
+// quicksapp://referral-download?code=GEFEKQHS
+ 

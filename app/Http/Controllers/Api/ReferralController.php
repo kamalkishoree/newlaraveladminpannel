@@ -34,7 +34,8 @@ class ReferralController extends Controller
             ]);
         }
         return response()->json([
-            'referral_code' => $user->referral_code
+            'referral_code' => $user->referral_code,
+            'referral_url' => $request->root().'/referral-download?code='.$user->referral_code
         ]);
     }
 
@@ -81,7 +82,8 @@ class ReferralController extends Controller
             'total_referrals' => $referrals->count(),
             'completed_referrals' => $referrals->where('status', 'completed')->count(),
             'pending_referrals' => $referrals->where('status', 'pending')->count(),
-            'referrals' => $referrals
+            'referrals' => $referrals,
+            
         ]);
     }
 

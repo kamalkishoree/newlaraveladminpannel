@@ -1,0 +1,11 @@
+{
+    "applinks": {
+      "apps": [],
+      "details": [
+        {
+          "appID": "29TTZ3T947.com.quicks",
+          "paths": ["*", "/"]
+        }
+      ]
+    }
+  }
