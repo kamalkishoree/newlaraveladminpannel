@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Carbon\Carbon;
 
 class Transaction extends Model {
     use HasFactory;
@@ -31,7 +32,7 @@ class Transaction extends Model {
             'transaction_type' => $transaction_type,
             'source' => $source,
             'status' => $status,
-            'txn_id' => $txn_id
+            'txn_id' => 'TXN-' . Carbon::now()->format('YmdHis') . rand(1000, 9999),
         ]);
         return $transaction;
     }

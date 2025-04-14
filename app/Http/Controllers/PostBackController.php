@@ -48,12 +48,10 @@ class PostBackController extends Controller
             ];
          
             if (!empty(array_filter($filteredArray))) {
-
                 $conversion = Conversion::firstOrCreate(
                     ['unique_source_id' => $data['source'] ?? null], // Lookup key
                     $filteredArray // Data to insert if not found
                 );
-                
                 if($filteredArray['conversion_status'] != $conversion->conversion_status || $conversion->conversion_status == 0)
                 {
                     $this->updateWallet($campaign->brand,$campaign->user_id,$filteredArray['payout'],$filteredArray['conversion_status']);

@@ -6,10 +6,12 @@ use App\Http\Controllers\Controller;
 use App\Models\Withdrawal;
 use Illuminate\Http\Request;
 use Yajra\DataTables\Facades\DataTables;
+use App\Http\Traits\WalletTrait;
 
 class WithdrawalController extends Controller
 {
-    
+    use WalletTrait;
+
 public function index(Request $request)
 {      
     if ($request->ajax()) {
@@ -75,12 +77,13 @@ public function index(Request $request)
     return view('admin.withdrawal.index',compact('request'));
 }
 
+    public function statusUpdate(Request $request)
+    {
 
-public function statusUpdate(Request $request)
-{
-    $withdrawal = Withdrawal::find($request->id);
-    $withdrawal->status = $request->status;
-    $withdrawal->save();
-    return response()->json(['message' => 'Status updated successfully']);
-}
+        $withdrawal = Withdrawal::find($request->id);
+        $withdrawal->status = $request->status;
+        $withdrawal->save();
+        $this->updateWalletMain($withdrawal->user_id,$withdrawal->amount,$request->status);
+        return response()->json(['message' => 'Status updated successfully']);
+    }
 }

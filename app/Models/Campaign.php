@@ -10,8 +10,8 @@ class Campaign extends Model
     use HasFactory;
 
      protected $fillable = [
-          'campaign_id','unique_source_id','brand_id','campaign_id','campaign_provider_id','user_id','pub_id','conversion_status',
-          'status'
+          'campaign_id','unique_source_id','brand_id','campaign_id','campaign_provider_id','user_id','pub_id','conversion_status','mode_type',
+          'deal_id','coupon_id','financial_id'
      ];
 
      public function brand()

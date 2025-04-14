@@ -21,7 +21,7 @@ trait WalletTrait{
         {
             $amount_to_update = $brand->payout_amount;
         }
-         $wallet = Wallet::where('user_id',$user_id)->first();
+        //  $wallet = Wallet::where('user_id',$user_id)->first();
          $wallet = Wallet::firstOrCreate(
             ['user_id' => $user_id], // Check condition
             ['pending_balance' => 0] // Default values if creating new
@@ -53,6 +53,42 @@ trait WalletTrait{
         }
        
     }
+           
+    public function updateWalletMain($user_id,$amount_to_update,$status)
+    {
 
+        $wallet = Wallet::firstOrCreate(
+            ['user_id' => $user_id], // Check condition
+            ['pending_balance' => 0] // Default values if creating new
+         );
+
+        if ($status == 'pending') {
+            $wallet->increment('pending_balance', $amount_to_update);
+            $wallet->decrement('withdrawn_balance', $amount_to_update);
+            Transaction::createTransaction($user_id, $amount_to_update, 'debit', 'withdrawal', 'pending', '');
+        }
+        
+        if ($status == 'success' ||  $status == 'approved' ) {
+            // Ensure sufficient pending balance before subtracting
+            if ($wallet->pending_balance >= $amount_to_update) {
+                $wallet->decrement('pending_balance', $amount_to_update);
+                $wallet->increment('balance', $amount_to_update);
+                Transaction::createTransaction($user_id, $amount_to_update, 'debit', 'withdrawal', 'success', '');
+            } else {
+                \Log::error("Insufficient pending balance for user: $user_id");
+            }
+        }
+        
+        if ($status == 'rejected') {
+            // Ensure sufficient pending balance before subtracting
+            if ($wallet->pending_balance >= $amount_to_update) {
+                $wallet->decrement('pending_balance', $amount_to_update);
+                $wallet->increment('withdrawn_balance', $amount_to_update);
+                Transaction::createTransaction($user_id, $amount_to_update, 'debit', 'withdrawal', 'rejected', '');
+            } else {
+                \Log::error("Insufficient pending balance to reject for user: $user_id");
+            }
+        }
+    }
   
 }
