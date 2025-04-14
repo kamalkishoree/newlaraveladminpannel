@@ -12,7 +12,7 @@ use App\Http\Traits\WalletTrait;
 use Illuminate\Support\Facades\Log;
 use App\Models\{Wallet,Transaction};
 use Illuminate\Support\Str;
-
+use Illuminate\Support\Facades\Validator;
 class ReferralController extends Controller
 {
     use WalletTrait;
@@ -35,30 +35,39 @@ class ReferralController extends Controller
         }
         return response()->json([
             'referral_code' => $user->referral_code,
-            'referral_url' => $request->root().'/referral-download?code='.$user->referral_code
+            'referral_url' => $request->root().'/api/referral-download?code='.$user->referral_code
         ]);
     }
 
     public function applyReferralCode(Request $request): JsonResponse
     {
-        $request->validate([
+
+        $validator = Validator::make($request->all(), [
             'referral_code' => 'required|string|exists:users,referral_code'
         ]);
-
+        if ($validator->fails()) {
+        
+            return response()->json([
+                'status' => 'error',
+                'errors' => $validator->errors(),
+            ], 400);
+        }
+    
         $user = $request->user();
         $referrer = User::where('referral_code', $request->referral_code)->first();
 
+      
         if ($user->id === $referrer->id) {
             return response()->json([
                 'message' => 'You cannot refer yourself'
-            ], 422);
+            ], 400);
         }
 
         $existingReferral = Referral::where('referred_id', $user->id)->exists();
         if ($existingReferral) {
             return response()->json([
                 'message' => 'You have already used a referral code'
-            ], 422);
+            ], 400);
         }
 
         $referral = $this->referralService->createReferral($referrer, $user);
@@ -66,14 +75,14 @@ class ReferralController extends Controller
         return response()->json([
             'message' => 'Referral code applied successfully',
             'referral' => $referral
-        ]);
+        ],200);
     }
 
     public function getReferralStats(Request $request): JsonResponse
     {
         $user = $request->user();
         $referrals = Referral::where('referrer_id', $user->id)
-            ->with('referred:id,name,email')
+            ->with('referred:id,name,email,last_name,image')
             ->get();
 
         return response()->json([
@@ -86,8 +95,6 @@ class ReferralController extends Controller
             
         ]);
     }
-
-
 
     public function referralToWallet(Request $request)
     {
@@ -119,6 +126,65 @@ class ReferralController extends Controller
               ];
         }
           return $data ;
+    }
+
+     public function refferalHandle(Request $request )
+    {
+        try {
+            $code = $request->code ? $request->code : 'quicks';
+            $encodedData = base64_encode("quicks://".$code);
+            $encodedUrl =$request->root().'/'.$encodedData;
+            $deepLink = base64_decode($encodedUrl);
+            $userAgent = $request->header('User-Agent');
+            $isAndroid = stripos($userAgent, 'Android') !== false;
+            $isIOS = preg_match('/iPhone|iPad|iPod|Macintosh/i', $userAgent);
+            $fallbackUrl = $isAndroid
+                ? env('PLAY_STORE_URL')
+                : ($isIOS ? env('APP_STORE_URL') : $request->root());
+
+
+            return response()->make("
+                <html>
+                    <head>
+                        <title>Redirecting...</title>
+                        <script>
+                            var appLink = '{$deepLink}';
+                            var fallbackUrl = '{$fallbackUrl}';
+                            var hasFocus = true;
+                            var isRedirecting = false;
+
+                            document.addEventListener('visibilitychange', function() {
+                                if (document.hidden) {
+                                    hasFocus = false;
+                                }
+                            });
+
+                            window.addEventListener('focus', function() {
+                                isRedirecting = true;
+                            });
+
+                            window.location.href = appLink;
+
+                            setTimeout(function() {
+                                if (hasFocus && !isRedirecting) {
+                                    window.location.href = fallbackUrl;
+                                }
+                            }, 3000);
+                        </script>
+                    </head>
+                    <body>
+                        <p>If you are not redirected, <a href=\"{$fallbackUrl}\">click here</a>.</p>
+                    </body>
+                </html>
+            ", 200, ['Content-Type' => 'text/html']);
+
+        } catch (\Throwable $e) {
+            Log::error("Linking Error: " . $e->getMessage());
+            return response()->json([
+                'status' => 500,
+                'message' => $e->getMessage()
+            ], 500);
+        }
     }
 
 } 

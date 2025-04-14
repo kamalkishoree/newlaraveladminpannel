@@ -21,7 +21,7 @@ use App\Http\Traits\smsManager;
 use App\Models\Otp;
 use App\Models\UserDevice;
 use Illuminate\Support\Facades\Storage;
-
+use App\Models\Setting;
 class UserAuthController extends Controller
 {
 
@@ -64,8 +64,9 @@ class UserAuthController extends Controller
             //   pr($user);
               $token = '';
               $is_otp_varified = $this->varifyOtp($user,$request->otp);
-
-              if($is_otp_varified || $request->otp == 1111)
+              $Setting = Setting::where('id','!=',NULL)->first();
+              $static_otp = $Setting->static_otp ? $Setting->static_otp:0;
+              if($is_otp_varified || ($request->otp == 1111 &&  $static_otp == 1))
               {
                 $token = $user->createToken('access_token')->accessToken;
                 $user->access_token = $token;

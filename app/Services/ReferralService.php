@@ -5,6 +5,7 @@ namespace App\Services;
 use App\Models\User;
 use App\Models\Referral;
 use Illuminate\Support\Str;
+use App\Models\Setting;
 
 class ReferralService
 {
@@ -14,13 +15,14 @@ class ReferralService
     }
 
     public function createReferral(User $referrer, User $referred): Referral
-    {
+    {  
+        $setting = Setting::find(1);
         return Referral::create([
             'referrer_id' => $referrer->id,
             'referred_id' => $referred->id,
             'referral_code' => $referrer->referral_code,
             'status' => 'pending',
-            'reward_amount' => config('referral.reward_amount', 10.00)
+            'reward_amount' => $setting->refferal_amount
         ]);
     }
 

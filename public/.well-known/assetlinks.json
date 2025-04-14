@@ -1,0 +1,12 @@
+[
+  {
+    "relation": ["delegate_permission\/common.handle_all_urls"],
+    "target": {
+      "namespace": "android_app",
+      "package_name": "com.quicks",
+      "sha256_cert_fingerprints": [
+        "94:CF:68:F9:1C:D4:53:F4:9C:05:DE:05:E6:16:49:42:5B:15:22:85:32:DB:76:B0:17:FF:D3:F2:17:8C:CD:CA"
+      ]
+    }
+  }
+]

@@ -327,7 +327,6 @@ Route::group(['middleware' => 'language'], function () {
 });
 Route::get('/affiliate-network',[App\Http\Controllers\Admin\ClockingUrlController::class, 'targetUrl']);
 Route::get('/quicks-webhook', [App\Http\Controllers\PostBackController::class, 'vCommissionpostBack']);
-Route::get('/referral-download', [App\Http\Controllers\ReferralController::class, 'handleReferral']);
 
 // quicksapp://referral-download?code=GEFEKQHS
  

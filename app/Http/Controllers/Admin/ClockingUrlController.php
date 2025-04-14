@@ -33,6 +33,6 @@ class ClockingUrlController extends Controller
       if($data)
       {
         return Redirect::intended($data->target_url);
-     }
+      }
    }
 }

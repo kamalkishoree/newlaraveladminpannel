@@ -52,6 +52,8 @@ class Setting extends Model
         'otp_sender_id',
         'otp_template_id',
         'otp_enabled',
+        'refferal_amount'
+        
     ];
 
     public function currency()

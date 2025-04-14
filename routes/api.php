@@ -93,3 +93,5 @@ Route::group(['prefix' => 'referrals', 'middleware' => ['auth:api']], function (
     Route::post('/redeem', [ReferralController::class, 'referralToWallet']);
 
 });
+
+Route::get('/referral-download', [ReferralController::class, 'refferalHandle']);
