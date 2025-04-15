@@ -31,4 +31,14 @@ class Brand extends Model
         'affiliate_network_id',
         'status'
     ];
+
+    public function cashbackRates()
+    {
+        return $this->hasMany(CashbackRate::class);
+    }
+
+    public function coupons()
+    {
+        return $this->hasMany(Coupon::class);
+    }
 }

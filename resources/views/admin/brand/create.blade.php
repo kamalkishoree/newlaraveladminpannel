@@ -102,13 +102,19 @@
                             <input type="text" name="profit_confirmation_days" id="profit_confirmation_days" class="form-control" value="{{ old('profit_confirmation_days') }}">
                         </div>
 
-                    {{-- Cashback Rates --}}
+                    {{-- Cashback Rates 
                     <div class="form-group">
                         <label>{{ __('Cashback Rates') }}:</label>
                         <div class="input-group">
                             <input type="text" name="cashback_profit" class="form-control" placeholder="Profit" value="{{ old('cashback_profit') }}">
                         </div>
+                    </div>--}}
+
+
+                    <div class="form-group cashback-rates-main">
+                        <label>{{ __('Cashback Rates') }} : </label> <button style="" type="button" class="add_more_cashback_rates btn custom-create-btn m-2">ADD <i class="fa-solid fa-plus"></i></button>
                     </div>
+
 
                     {{-- Cashback Terms --}}
                     <div class="form-group">
@@ -211,4 +217,35 @@
 	// 	document.getElementById(output).src = $url;
 	// }
 </script>
+
+
+<script>
+    let cashbackIndex = 0;
+    $('.add_more_cashback_rates').on('click', function () {
+        let newRow = `
+            <div class="row cashback-rate-row mb-2">
+                <div class="input-group col-md-3">
+                    <input type="text" name="cashback_rate[${cashbackIndex}][profit]" class="form-control" placeholder="Enter Value">
+                </div>
+                <div class="input-group col-md-8">
+                    <input type="text" name="cashback_rate[${cashbackIndex}][description]" class="form-control" placeholder=" Enter Description">
+                </div>
+                <div class="col-md-1">
+                 <button type="button" class="btn btn-danger btn-sm remove-cashback-rate">
+                    <i class="fa fa-trash"></i>
+                 </button>
+               </div>
+            </div>
+        `;
+        $('.cashback-rates-main').append(newRow);
+        cashbackIndex++;
+    });
+
+
+// Delete row on trash icon click
+$(document).on('click', '.remove-cashback-rate', function () {
+    $(this).closest('.cashback-rate-row').remove();
+});
+</script>
+
 @endpush

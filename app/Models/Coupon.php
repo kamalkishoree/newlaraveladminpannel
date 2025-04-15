@@ -27,4 +27,9 @@ class Coupon extends Model
         'is_feature',
         'status'
     ];
+
+    public function brand()
+    {
+        return $this->belongsTo(Brand::class);
+    }
 }

@@ -3,15 +3,14 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use App\Models\AffilateIntegration;
 use Illuminate\Http\Request;
-use App\Models\Brand;
-use App\Models\Category;
 use Brian2694\Toastr\Facades\Toastr;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Validation\Rule;
 use Yajra\DataTables\Facades\DataTables;
 use Illuminate\Support\Str;
+use App\Models\{Brand,Category,AffilateIntegration,CashbackRate};
+
 class BrandController extends Controller
 {
  
@@ -89,12 +88,9 @@ class BrandController extends Controller
 
 	public function create()
 	{
-
         $categories = Category::whereNotNull('id')->get();
         $affiliate_partners = AffilateIntegration::select('id','provider_name')->whereNotNull('id')->get();
 		return view('admin.brand.create',compact('categories','affiliate_partners'));
-
-
 	}
 
 	public function store(Request $request)
@@ -145,10 +141,15 @@ class BrandController extends Controller
           }
           $input = request()->all();
           $input['image_url'] = $url;
-         
-    		try {
-
+    	  try {
 			$brand = Brand::create($input);
+            if($brand)
+            {
+                if(is_array($request->cashback_rate))
+                {
+                    $this->createCashbackRates($brand,$request->cashback_rate);
+                }
+            }
             $clocking_url = request()->root().'/affiliate-network?brand='.$brand->id;
             $brand->clocking_url = $clocking_url;
             $brand->save();
@@ -166,8 +167,8 @@ class BrandController extends Controller
 		$brand = Brand::find($id);
         $affiliate_partners = AffilateIntegration::select('id','provider_name')->whereNotNull('id')->get();
         $categories = Category::whereNotNull('id')->get();
-
-		return view('admin.brand.edit',compact('brand','categories','affiliate_partners'));
+        $cashbackRates = $brand->cashbackRates;
+		return view('admin.brand.edit',compact('brand','categories','affiliate_partners','cashbackRates'));
 	}
 
 	public function update(Request $request, $id)
@@ -197,10 +198,6 @@ class BrandController extends Controller
             'category_id.required' => 'The category is required.',
             'category_id.exists' => 'The selected category does not exist.',
         ];
-    
-      
-
-
         $this->validate($request, $rules, $messages);
 		$file = $request->file('image_url');
         $url = $brand->image_url;
@@ -245,9 +242,15 @@ class BrandController extends Controller
 		try {
             $clocking_url = request()->root().'/affiliate-network?brand='.$brand->id;
             $input['clocking_url'] = $clocking_url;
-			$brand->update($input);
+			if($brand->update($input))
+            {
+                $brand->cashbackRates()->delete();
+                if(is_array($request->cashback_rate))
+                {
+                    $this->createCashbackRates($brand,$request->cashback_rate);
+                }
+            }
             Toastr::success(__('brand updated Successfully'));
-
 		    return redirect()->route('brand.index');
 
 		} catch (Exception $e) {
@@ -258,10 +261,8 @@ class BrandController extends Controller
 
 	public function destroy(Request $request)
 	{
-
-
-		     $id = request()->input('id');
-			$getbrand = Brand::find($id);
+		 $id = request()->input('id');
+		 $getbrand = Brand::find($id);
 			if (Storage::disk('s3')->exists($getbrand->image_url)) {
 				Storage::disk('s3')->delete($getbrand->image_url);
 			} 
@@ -314,13 +315,15 @@ class BrandController extends Controller
         }  
 	}
 
+    public function createCashbackRates($brand,$cashback_rate)
+    {
+        foreach ($cashback_rate as $rate) {
 
+                $brand->cashbackRates()->create([
+                'profit' => $rate['profit'],
+                'description' => $rate['description'],
+            ]);
+        }
+    }
 
-
-
-
-
-
-
-    
 }

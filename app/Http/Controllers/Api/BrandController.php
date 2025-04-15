@@ -37,7 +37,8 @@ class BrandController extends Controller
         if($brand)
         {
             $data['brands'] = $brand;
-
+            $data['coupon'] = $brand->coupons;
+            $data['cashback_rates'] = $brand->cashbackRates;
         }
         return response()->json([
             'message' =>'success',

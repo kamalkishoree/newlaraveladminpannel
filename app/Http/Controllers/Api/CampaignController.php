@@ -28,7 +28,8 @@ class CampaignController extends Controller
                 'user_id' =>  Auth::user()->id,
                 'campaign_provider_id' => 1,
                 'unique_source_id'  => isset($params['unique_source_id'])?$params['unique_source_id']:$unique_id,
-                'conversion_status' => 0
+                'conversion_status' => 0,
+                'mode_type' => 'brand'
             ]);
             if($campaign)
             {

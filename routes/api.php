@@ -84,6 +84,16 @@ Route::get('/homepage', [UserHomeController::class, 'homepage'])->name('homepage
 Route::get('/brand-list/{category?}', [BrandController::class, 'brandList'])->name('brandList');
 Route::get('/brand-details/{id}', [BrandController::class, 'brandDetails'])->name('brand-details');
 
+//Deals
+Route::get('/deal-list/{category?}', [DealController::class, 'dealList'])->name('dealList');
+Route::get('/deal-details/{id}', [DealController::class, 'dealDetails'])->name('deal-details');
+
+//Coupon
+Route::get('/coupon-list/{category?}', [CouponController::class, 'couponList'])->name('couponList');
+Route::get('/coupon-details/{id}', [CouponController::class, 'couponDetails'])->name('coupon-details');
+
+
+
 Route::get('/quicks-webhook', [App\Http\Controllers\PostBackController::class, 'vCommissionpostBack']);
 
 Route::group(['prefix' => 'referrals', 'middleware' => ['auth:api']], function () {
