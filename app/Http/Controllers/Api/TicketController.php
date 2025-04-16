@@ -64,7 +64,7 @@ class TicketController extends Controller
                 $image = $request->file('image_url');
                 $filename = Str::random(40) . '.' . $image->getClientOriginalExtension();
                 $path = 'tickets/' . date('Y/m');
-                $imageUrl = Storage::disk('s3')->putFileAs($path, $image, $filename);
+                $imageUrl = Storage::disk('s3')->putFileAs($path, $image, $filename,'public');
                 $imageUrl = Storage::disk('s3')->url($imageUrl);
             }
 
@@ -157,7 +157,13 @@ class TicketController extends Controller
                 $image = $request->file('image');
                 $filename = Str::random(40) . '.' . $image->getClientOriginalExtension();
                 $path = 'tickets/' . date('Y/m');
-                $imageUrl = Storage::disk('s3')->putFileAs($path, $image, $filename);
+                $imageUrl = Storage::disk('s3')->putFileAs($path, $image, $filename,  'public' );
+                // $file->storeAs('website/Categories/images', $fileName, [
+                //     'disk' => 's3',
+                //     'visibility' => 'public'
+                // ]);      
+
+
                 $data['image_url'] = Storage::disk('s3')->url($imageUrl);
             }
 
@@ -190,10 +196,10 @@ class TicketController extends Controller
             // }
 
             // Delete image from S3 if exists
-            if ($ticket->image_url) {
-                $imagePath = str_replace(Storage::disk('s3')->url(''), '', $ticket->image_url);
-                Storage::disk('s3')->delete($imagePath);
-            }
+            // if ($ticket->image_url && !empty($ticket->image_url) ) {
+            //     $imagePath = str_replace(Storage::disk('s3')->url(''), '', $ticket->image_url);
+            //     Storage::disk('s3')->delete($imagePath);
+            // }
 
             $ticket->delete();
 
@@ -254,14 +260,18 @@ class TicketController extends Controller
     public function userTickets(Request $request)
     {
         try {
+            if($request->filled('status')) {
+                $status = strtolower($request->status);
+            }
+        
             $tickets = Ticket::where('user_id', Auth::id())
-                ->with(['order'])
-                ->when($request->status, function($query) use ($request) {
-                    return $query->where('status', $request->status);
+                ->when($request->filled('status'), function($query) use ($request) {
+                    $status = strtolower($request->status);
+                    return $query->whereRaw('LOWER(status) = ?', [$status]);
                 })
                 ->orderBy('created_at', 'desc')
                 ->paginate(10);
-
+        
             return response()->json([
                 'status' => 'success',
                 'data' => $tickets

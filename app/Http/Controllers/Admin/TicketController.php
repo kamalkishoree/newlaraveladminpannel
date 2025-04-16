@@ -42,6 +42,10 @@ class TicketController extends Controller
                     
                     return '<span class="badge ' . $statusClass[$row->status] . '">' . ucfirst($row->status) . '</span>';
                 })
+
+                ->addColumn('image_url', function($row) {
+                    return $row->image_url;
+                })
                 ->addColumn('action', function($row) {
                     $html = '';
                     
@@ -89,7 +93,6 @@ class TicketController extends Controller
     {
         $ticket = Ticket::findOrFail($id);
         $ticket->delete();
-        
         return response()->json(['message' => 'Ticket deleted successfully']);
     }
 }

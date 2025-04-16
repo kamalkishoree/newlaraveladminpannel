@@ -1,4 +1,4 @@
-@extends('admin.layouts.app')
+@extends('admin.layouts.master')
 
 @section('content')
 <div class="container-fluid">
@@ -93,7 +93,7 @@ $(document).ready(function() {
         processing: true,
         serverSide: true,
         ajax: {
-            url: "{{ route('admin.tickets.index') }}",
+            url: "{{ route('ticket.index') }}",
             data: function(d) {
                 d.start_date = $('#start_date').val();
                 d.end_date = $('#end_date').val();
@@ -107,9 +107,7 @@ $(document).ready(function() {
             { data: 'order_amount', name: 'order_amount' },
             { data: 'order_status', name: 'order_status' },
             { data: 'status', name: 'status' },
-            { 
-                data: 'image_url', 
-                name: 'image_url',
+            { data: 'image_url', name: 'image_url',
                 render: function(data, type, row) {
                     if (data) {
                         return '<img src="' + data + '" alt="Ticket Image" class="img-thumbnail" style="max-width: 50px; cursor: pointer;" onclick="previewImage(\'' + data + '\')">';
@@ -139,7 +137,7 @@ $(document).ready(function() {
         
         if (confirm('Are you sure you want to change the ticket status?')) {
             $.ajax({
-                url: "{{ route('admin.tickets.status.update') }}",
+                url: "{{ route('ticket.status.update') }}",
                 type: 'POST',
                 data: {
                     id: id,
@@ -157,7 +155,7 @@ $(document).ready(function() {
     $(document).on('click', '.view-ticket', function() {
         var id = $(this).data('id');
         $.ajax({
-            url: "{{ route('admin.tickets.show', '') }}/" + id,
+            url: "{{ route('ticket.show', '') }}/" + id,
             type: 'GET',
             success: function(response) {
                 var ticket = response.data;
@@ -187,7 +185,7 @@ $(document).ready(function() {
         
         if (confirm('Are you sure you want to delete this ticket?')) {
             $.ajax({
-                url: "{{ route('admin.tickets.destroy', '') }}/" + id,
+                url: "{{ route('ticket.destroy', '') }}/" + id,
                 type: 'DELETE',
                 data: {
                     _token: "{{ csrf_token() }}"

@@ -88,10 +88,6 @@
                         <!-- end -->
                     </ul>
 
-
-
-
-
                     <ul style="display: none;">
                         @can('user-list')
                         <li>
@@ -387,6 +383,17 @@
                     </span>
                 </a>
                 </li>
+
+           <!-- /Ticket management -->
+                <li class="{{ (request()->is('admin/tickets*')) ? '' : '' }}">
+                     <a class="sidebar-link" href="{{ route('ticket.index') }}" aria-expanded="false">
+                                <i class="fa-solid fa-user-plus"></i>
+                                                    <span>
+                        {{__('Ticket  ')}}
+                    </span>
+                   </a>
+                </li>
+
                 <!-- Financial Redirection Management   -->
                 <li class="{{ (request()->is('admin/dashboard*')) ? '' : '' }}">
                                 <a class="sidebar-link" href="{{ route('dashboard') }}" aria-expanded="false">

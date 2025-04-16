@@ -316,6 +316,21 @@ Route::group(['middleware' => 'language'], function () {
 				Route::get('/change-status', 	 [App\Http\Controllers\Admin\ReferralController::class, 'changeStatus'])->name('referral.change-status');
 
 			});
+			// Route::prefix('tickets')->group(function () {
+			// 	Route::get('/', 'Admin\TicketController@index')->name('tickets.index');
+			// 	Route::post('tickets/status-update', 'Admin\TicketController@statusUpdate')->name('admin.tickets.status.update');
+			// 	Route::delete('tickets/{id}', 'Admin\TicketController@destroy')->name('admin.tickets.destroy');
+			// });
+			 
+			Route::prefix('ticket')->group(function () {
+				Route::get('/index', [App\Http\Controllers\Admin\TicketController::class, 'index'])->name('ticket.index');
+				Route::post('/status-update', [App\Http\Controllers\Admin\TicketController::class, 'statusUpdate'])->name('ticket.status.update');
+				Route::delete('/{id}', [App\Http\Controllers\Admin\TicketController::class, 'destroy'])->name('ticket.destroy');
+				Route::delete('/show', [App\Http\Controllers\Admin\TicketController::class, 'show'])->name('ticket.show');
+			});
+			 
+
+
 
 		});
 	});
@@ -330,9 +345,3 @@ Route::get('/quicks-webhook', [App\Http\Controllers\PostBackController::class, '
 
 // quicksapp://referral-download?code=GEFEKQHS
 
-Route::prefix('admin')->middleware(['auth', 'admin'])->group(function () {
-    Route::get('tickets', 'Admin\TicketController@index')->name('admin.tickets.index');
-    Route::post('tickets/status-update', 'Admin\TicketController@statusUpdate')->name('admin.tickets.status.update');
-    Route::delete('tickets/{id}', 'Admin\TicketController@destroy')->name('admin.tickets.destroy');
-});
- 
