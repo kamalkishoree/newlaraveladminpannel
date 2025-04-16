@@ -15,7 +15,7 @@ class AlteTablCategoryAddNewColomnForBrandBanners extends Migration
     {
         Schema::table('categories', function (Blueprint $table) {
             //static OTP
-             $table->integer('top_home')->default(0)->after('otp_enabled');
+             $table->integer('top_home')->nullbale();
        });
     }
 

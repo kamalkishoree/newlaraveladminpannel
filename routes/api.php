@@ -10,6 +10,7 @@ use App\Http\Controllers\Api\UserBankAccountController;
 use App\Http\Controllers\Api\WithdrawalController;
 use App\Http\Controllers\Api\ReferralController;
 use App\Http\Controllers\Api\SearchController;
+use App\Http\Controllers\Api\TicketController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -106,3 +107,19 @@ Route::group(['prefix' => 'referrals', 'middleware' => ['auth:api']], function (
 Route::get('/referral-download', [ReferralController::class, 'refferalHandle']);
 Route::get('/search-brand', [SearchController::class, 'searchBrand']);
 Route::get('/search-category', [SearchController::class, 'homeCategory']);
+
+Route::middleware(['auth:api'])->group(function () {
+    // ... existing routes ...
+    
+    // Ticket Routes
+    
+    Route::group(['prefix' => 'ticket', 'middleware' => ['auth:api']], function () {
+        Route::get('/', [TicketController::class, 'index']);
+        Route::post('/', [TicketController::class, 'store']);
+        Route::get('/{id}', [TicketController::class, 'show']);
+        Route::put('/{id}', [TicketController::class, 'update']);
+        Route::delete('/{id}', [TicketController::class, 'destroy']);
+        Route::post('/{id}/status', [TicketController::class, 'updateStatus']);
+        Route::get('/user/tickets', [TicketController::class, 'userTickets']);
+    });
+});

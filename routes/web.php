@@ -329,4 +329,10 @@ Route::get('/affiliate-network',[App\Http\Controllers\Admin\ClockingUrlControlle
 Route::get('/quicks-webhook', [App\Http\Controllers\PostBackController::class, 'vCommissionpostBack']);
 
 // quicksapp://referral-download?code=GEFEKQHS
+
+Route::prefix('admin')->middleware(['auth', 'admin'])->group(function () {
+    Route::get('tickets', 'Admin\TicketController@index')->name('admin.tickets.index');
+    Route::post('tickets/status-update', 'Admin\TicketController@statusUpdate')->name('admin.tickets.status.update');
+    Route::delete('tickets/{id}', 'Admin\TicketController@destroy')->name('admin.tickets.destroy');
+});
  
