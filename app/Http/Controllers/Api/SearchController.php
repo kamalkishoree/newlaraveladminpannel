@@ -8,7 +8,7 @@ use App\Models\{Brand,Category};
 
 class SearchController extends Controller
 {
-    public function homeBrand(Request $request)
+    public function searchBrand(Request $request)
     {
         if ($request->filled('keyword')) {
             $search = $request->keyword;
@@ -19,8 +19,7 @@ class SearchController extends Controller
                           ->orWhere('description', 'like', '%' . $search . '%')
                           ->orWhere('slug', 'like', '%' . $search . '%');
                 })
-                ->paginate(10) // Optional: Limit results for performance
-                ->get();
+                ->paginate(10);// Optional: Limit results for performance
             return response()->json([
                 'status' => 200,
                 'data' => $brands
