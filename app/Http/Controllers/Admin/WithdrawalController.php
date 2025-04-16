@@ -83,7 +83,11 @@ public function index(Request $request)
         $withdrawal = Withdrawal::find($request->id);
         $withdrawal->status = $request->status;
         $withdrawal->save();
-        $this->updateWalletMain($withdrawal->user_id,$withdrawal->amount,$request->status);
+        if($request->status=="approved"|| $request->status=="accepted")
+        {
+            $this->updateWalletMain($withdrawal->user_id,$withdrawal->amount,$request->status);
+
+        }
         return response()->json(['message' => 'Status updated successfully']);
     }
 }

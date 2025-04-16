@@ -79,6 +79,7 @@ Route::group(['prefix' => 'campaign', 'middleware' => ['auth:api']], function ()
 
 
 Route::get('/homepage', [UserHomeController::class, 'homepage'])->name('homepage');
+Route::get('/homepage3', [UserHomeController::class, 'homepage3'])->name('homepage3');
 
 //BrandController
 Route::get('/brand-list/{category?}', [BrandController::class, 'brandList'])->name('brandList');
@@ -91,9 +92,6 @@ Route::get('/deal-details/{id}', [DealController::class, 'dealDetails'])->name('
 //Coupon
 Route::get('/coupon-list/{category?}', [CouponController::class, 'couponList'])->name('couponList');
 Route::get('/coupon-details/{id}', [CouponController::class, 'couponDetails'])->name('coupon-details');
-
-
-
 Route::get('/quicks-webhook', [App\Http\Controllers\PostBackController::class, 'vCommissionpostBack']);
 
 Route::group(['prefix' => 'referrals', 'middleware' => ['auth:api']], function () {
@@ -105,3 +103,4 @@ Route::group(['prefix' => 'referrals', 'middleware' => ['auth:api']], function (
 });
 
 Route::get('/referral-download', [ReferralController::class, 'refferalHandle']);
+Route::get('/search-brands', [ReferralController::class, 'searchBrands']);

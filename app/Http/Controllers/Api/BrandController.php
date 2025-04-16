@@ -33,7 +33,7 @@ class BrandController extends Controller
     {
         $data = [];
         $data['brands']=[];
-        $brand = Brand::find($request->id);
+        $brand = Brand::with('category')->find($request->id);
         if($brand)
         {
             $data['brands'] = $brand;

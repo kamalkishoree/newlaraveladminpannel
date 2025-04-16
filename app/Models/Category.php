@@ -22,4 +22,10 @@ class Category extends Model
         'is_feature',
         'status'
     ];
+
+    public function brands()
+    {
+        return $this->hasMany(Brand::class, 'category_id');
+    }
+
 }

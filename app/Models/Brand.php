@@ -29,8 +29,17 @@ class Brand extends Model
         'payout_amount',
         'clocking_url',
         'affiliate_network_id',
-        'status'
+        'status'    
     ];
+
+    // public function category()
+    // {
+    //     return $this->hasOne(Category::class,'id','category_id');
+    // }
+    public function category()
+    {
+        return $this->belongsTo(Category::class, 'category_id');
+    }
 
     public function cashbackRates()
     {
