@@ -10,6 +10,7 @@ class SearchController extends Controller
 {
     public function searchBrand(Request $request)
     {
+       
         if ($request->filled('keyword')) {
             $search = $request->keyword;
         
@@ -18,13 +19,20 @@ class SearchController extends Controller
                     $query->where('name', 'like', '%' . $search . '%')
                           ->orWhere('description', 'like', '%' . $search . '%')
                           ->orWhere('slug', 'like', '%' . $search . '%');
-                })
-                ->paginate(10);// Optional: Limit results for performance
-            return response()->json([
-                'status' => 200,
-                'data' => $brands
-            ]);
-        }
+                });
+          }
+
+          if($request->filled('category_id'))
+          {
+            $category_id = $request->category_id;
+            $brands = $brands->where('category_id',$category_id);
+          }
+
+         $brands = $brands->paginate(10);// Optional: Limit results for performance
+        return response()->json([
+            'status' => 200,
+            'data' => $brands
+        ]);
     }
     public function homeCategory(Request $request)
     {
