@@ -9,6 +9,7 @@ use App\Http\Controllers\Api\WalletController;
 use App\Http\Controllers\Api\UserBankAccountController;
 use App\Http\Controllers\Api\WithdrawalController;
 use App\Http\Controllers\Api\ReferralController;
+use App\Http\Controllers\Api\SearchController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -103,4 +104,5 @@ Route::group(['prefix' => 'referrals', 'middleware' => ['auth:api']], function (
 });
 
 Route::get('/referral-download', [ReferralController::class, 'refferalHandle']);
-Route::get('/search-brands', [ReferralController::class, 'searchBrands']);
+Route::get('/search-brand', [SearchController::class, 'searchBrand']);
+Route::get('/search-category', [SearchController::class, 'homeCategory']);
