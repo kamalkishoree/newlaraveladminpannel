@@ -10,7 +10,7 @@ class SearchController extends Controller
 {
     public function searchBrand(Request $request)
     {
-       
+        $brands =[];
         if ($request->filled('keyword')) {
             $search = $request->keyword;
         
@@ -36,6 +36,7 @@ class SearchController extends Controller
     }
     public function homeCategory(Request $request)
     {
+        $categories = [];
         if ($request->filled('keyword')) {
             $search = $request->keyword;
     
