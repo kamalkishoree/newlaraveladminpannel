@@ -13,17 +13,14 @@ class CampaignController extends Controller
     
     public function createUserCampaign(Request $request)
     {
-
-  
         $data = [];
         if($request->url)
         {
-
            $params = getUrlParams($request->url);
            $unique_id = (string) Str::uuid();
            $campaign =  Campaign::create([
-                'campaign_id' => $params['campaign_id'],
-                'pub_id' =>$params['pub_id'],
+                'campaign_id' => @$params['campaign_id'],
+                'pub_id' =>@$params['pub_id'],
                 'brand_id' => $request->brand_id,                  
                 'user_id' =>  Auth::user()->id,
                 'campaign_provider_id' => 1,
