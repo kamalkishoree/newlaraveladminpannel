@@ -22,18 +22,6 @@ class TicketController extends Controller
                 $data->where('status', $request->status);
             }
             
-            if ($request->has('search') && !empty($request->search)) {
-                $search = $request->search;
-                $data->where(function($query) use ($search) {
-                    $query->where('title', 'like', "%{$search}%")
-                          ->orWhere('description', 'like', "%{$search}%")
-                          ->orWhereHas('user', function($q) use ($search) {
-                              $q->where('name', 'like', "%{$search}%")
-                                ->orWhere('last_name', 'like', "%{$search}%");
-                          });
-                });
-            }
-            
             $data = $data->get();
             
             return DataTables::of($data)
@@ -54,11 +42,9 @@ class TicketController extends Controller
                     
                     return '<span class="badge ' . $statusClass[$row->status] . '">' . ucfirst($row->status) . '</span>';
                 })
+
                 ->addColumn('image_url', function($row) {
-                    if ($row->image_url) {
-                        return '<img src="' . $row->image_url . '" alt="Ticket Image" class="img-thumbnail" style="max-width: 100px;">';
-                    }
-                    return 'N/A';
+                    return $row->image_url;
                 })
                 ->addColumn('action', function($row) {
                     $html = '';
@@ -87,7 +73,7 @@ class TicketController extends Controller
                     
                     return $html;
                 })
-                ->rawColumns(['status', 'image_url', 'action'])
+                ->rawColumns(['status', 'action'])
                 ->make(true);
         }
         
@@ -109,7 +95,6 @@ class TicketController extends Controller
         $ticket->delete();
         return response()->json(['message' => 'Ticket deleted successfully']);
     }
-
     public function show($id)
     {
         $ticket = Ticket::with('user')->findOrFail($id);
@@ -118,5 +103,4 @@ class TicketController extends Controller
             'data' => $ticket
         ]);
     }
-
 }

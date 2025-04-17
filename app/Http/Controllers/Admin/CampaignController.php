@@ -46,10 +46,10 @@ class CampaignController extends Controller
                 })
 
                 ->addColumn('brand_id', function($row){
-                    return $row->brand->name;
+                    return (@$row->brand)?$row->brand->name:'N/A';
                 })
                 ->addColumn('target_url', function($row){
-                    return $row->brand->target_url.'&p1='.$row->unique_p1_id;
+                    return (@$row->brand)?$row->brand->target_url.'&p1='.$row->unique_p1_id:'N/A';
                 })
                 ->addColumn('campaign_id', function($row){
                     return $row->campaign_id;
