@@ -316,20 +316,25 @@ Route::group(['middleware' => 'language'], function () {
 				Route::get('/change-status', 	 [App\Http\Controllers\Admin\ReferralController::class, 'changeStatus'])->name('referral.change-status');
 
 			});
-			// Route::prefix('tickets')->group(function () {
-			// 	Route::get('/', 'Admin\TicketController@index')->name('tickets.index');
-			// 	Route::post('tickets/status-update', 'Admin\TicketController@statusUpdate')->name('admin.tickets.status.update');
-			// 	Route::delete('tickets/{id}', 'Admin\TicketController@destroy')->name('admin.tickets.destroy');
-			// });
-			 
+		
+			//ticket
 			Route::prefix('ticket')->group(function () {
 				Route::get('/index', [App\Http\Controllers\Admin\TicketController::class, 'index'])->name('ticket.index');
 				Route::post('/status-update', [App\Http\Controllers\Admin\TicketController::class, 'statusUpdate'])->name('ticket.status.update');
 				Route::delete('/{id}', [App\Http\Controllers\Admin\TicketController::class, 'destroy'])->name('ticket.destroy');
-				Route::delete('/show', [App\Http\Controllers\Admin\TicketController::class, 'show'])->name('ticket.show');
+				Route::get('/show/{id}', [App\Http\Controllers\Admin\TicketController::class, 'show'])->name('ticket.show');
 			});
 			 
-
+			//tutorial
+			Route::prefix('tutorial')->group(function () {
+				Route::get('/index', [App\Http\Controllers\Admin\TutorialController::class, 'index'])->name('tutorial.index');
+				Route::get('/create', [App\Http\Controllers\Admin\TutorialController::class, 'create'])->name('tutorial.create');
+				Route::post('/store', [App\Http\Controllers\Admin\TutorialController::class, 'store'])->name('tutorial.store');
+				Route::get('/edit/{tutorial}', [App\Http\Controllers\Admin\TutorialController::class, 'edit'])->name('tutorial.edit');
+				Route::post('/update/{tutorial}', [App\Http\Controllers\Admin\TutorialController::class, 'update'])->name('tutorial.update');
+				Route::delete('/{tutorial}', [App\Http\Controllers\Admin\TutorialController::class, 'destroy'])->name('tutorial.destroy');
+				Route::get('/show/{tutorial}', [App\Http\Controllers\Admin\TutorialController::class, 'show'])->name('tutorial.show');
+			});
 
 
 		});
@@ -342,6 +347,5 @@ Route::group(['middleware' => 'language'], function () {
 });
 Route::get('/affiliate-network',[App\Http\Controllers\Admin\ClockingUrlController::class, 'targetUrl']);
 Route::get('/quicks-webhook', [App\Http\Controllers\PostBackController::class, 'vCommissionpostBack']);
-
 // quicksapp://referral-download?code=GEFEKQHS
 

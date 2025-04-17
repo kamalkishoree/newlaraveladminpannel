@@ -387,11 +387,21 @@
            <!-- /Ticket management -->
                 <li class="{{ (request()->is('admin/tickets*')) ? '' : '' }}">
                      <a class="sidebar-link" href="{{ route('ticket.index') }}" aria-expanded="false">
-                                <i class="fa-solid fa-user-plus"></i>
+                     <i class="fa fa-ticket" aria-hidden="true"></i>
                                                     <span>
                         {{__('Ticket  ')}}
                     </span>
                    </a>
+                </li>
+
+                <!-- Tutorial management -->
+                <li class="{{ (request()->is('admin/tutorial*')) ? '' : '' }}">
+                    <a class="sidebar-link" href="{{ route('tutorial.index') }}" aria-expanded="false">
+                        <i class="fa fa-graduation-cap" aria-hidden="true"></i>
+                        <span>
+                            {{__('Tutorials')}}
+                        </span>
+                    </a>
                 </li>
 
                 <!-- Financial Redirection Management   -->

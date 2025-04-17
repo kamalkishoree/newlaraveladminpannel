@@ -157,7 +157,7 @@ class TicketController extends Controller
                 $image = $request->file('image');
                 $filename = Str::random(40) . '.' . $image->getClientOriginalExtension();
                 $path = 'tickets/' . date('Y/m');
-                $imageUrl = Storage::disk('s3')->putFileAs($path, $image, $filename,  'public' );
+                $imageUrl = Storage::disk('s3')->putFileAs($path, $image, $filename, 'public' );
                 // $file->storeAs('website/Categories/images', $fileName, [
                 //     'disk' => 's3',
                 //     'visibility' => 'public'
