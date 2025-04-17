@@ -3,14 +3,12 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
-use App\Models\Banner;
-use App\Models\Brand;
-use App\Models\Category;
+use App\Models\{Category,Brand,Banner,Tutorial};
 use Illuminate\Http\Request;
 
 class UserHomeController extends Controller
 {
-    public function Homepage2(Request $request)
+    public function HomepageToOLD(Request $request)
     {
         $data = [];
         $data['top_category'] = [];
@@ -34,7 +32,7 @@ class UserHomeController extends Controller
         ]);
     }
 
-    public function Homepage3(Request $request)
+    public function HomepageOLD(Request $request)
     {
        $categories = Category::with(['brands' => function ($query) {
                 // $query->inRandomOrder();        
@@ -88,6 +86,8 @@ class UserHomeController extends Controller
             'feature_category' => $categories->filter(function ($item) {
                 return $item->is_feature;
             })->values(),
+
+            'tutorials' => Tutorial::where('is_active',1)->get()
         ];
         return response()->json([
             'status' => 200,
