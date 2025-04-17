@@ -72,6 +72,16 @@ class SettingController extends Controller
             $input['website_favicon'] = $setting->website_favicon;
         }
 
+        if ($request->has('firebase_json_file') ) {
+            $file = $request->file('firebase_json_file');
+            $destinationPath = public_path('firebase');
+            if (!File::exists($destinationPath)) {
+                File::makeDirectory($destinationPath, 0755, true);
+            }
+            $file->move($destinationPath, 'firebase.json');
+            $input['firebase_json_file'] = 'firebase/firebase.json';
+            }
+
         try {
 			$setting->update($input);
             Toastr::success(__('setting.message.update.success'));

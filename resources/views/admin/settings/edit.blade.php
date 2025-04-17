@@ -83,6 +83,9 @@
 			<li class="nav-item">
 				<a class="nav-link" id="refferal-tab" data-toggle="tab" href="#refferal" role="tab" aria-controls="refferal" aria-selected="false">Refferal Setting</a>
 			</li>
+			<li class="nav-item">
+				<a class="nav-link" id="firebase-tab" data-toggle="tab" href="#firebase" role="tab" aria-controls="firebase" aria-selected="false">Firebase Setting</a>
+			</li>
 		</ul>
 		<!-- /Tab Menu -->
 
@@ -497,6 +500,7 @@
 								<div class="card-header">
 									<h5 class="card-title">Refferal Settings</h5>
 								</div>
+								<div class="card-body">
 								<div class="form-group">
 									<label for="refferal_amount">{{__('Refferal Amount')}}:</label>
 									<input type="text" name="refferal_amount" id="refferal_amount" class="form-control @error('refferal_amount') form-control-error @enderror" value="{{$setting->refferal_amount}}">
@@ -504,8 +508,27 @@
 									<span class="text-danger">{{ $message }}</span>
 									@enderror
 								</div>
+								</div>
 						 </div>
 				</div>
+				<!-- Firebase Setting -->
+					<div class="tab-pane fade" id="firebase" role="firebase" aria-labelledby="firebase-tab">
+							<div class="card">
+								<div class="card-header">
+									<h5 class="card-title">Firebase Settings</h5>
+								</div>
+							<div class="card-body">
+								<div class="form-group">
+									<label for="firebase_json_file">{{__('Firebase File')}}:   <a href="{{asset($setting->firebase_json_file)}}">Firebase.json</a></label>
+									<input type="file" name="firebase_json_file" id="firebase_json_file" class="form-control @error('firebase_json_file') form-control-error @enderror" value="{{$setting->firebase_json_file}}">
+									@error('firebase_json_file')
+									<span class="text-danger">{{ $message }}</span>
+									@enderror
+								</div>
+							</div>	
+		 				 </div>
+		        	</div>
+
 		</div><!-- /Tab Content -->
 	</section> <!-- /section -->
 

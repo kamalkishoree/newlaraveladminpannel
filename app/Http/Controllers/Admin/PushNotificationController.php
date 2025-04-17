@@ -11,11 +11,11 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Validation\Rule;
 use Yajra\DataTables\Facades\DataTables;
+use App\Jobs\PushNotificationJob;
+use Carbon\Carbon;
 
 class PushNotificationController extends Controller
 {
-   
-
     public function index(Request $request)
 	{
 		if ($request->ajax()) {
@@ -88,15 +88,15 @@ class PushNotificationController extends Controller
 
     public function create()
 	{
+        
          $users = User::whereNotNull('id')->orderBy('id', 'asc')->get();
          $selectedUsers = [];
-		return view('admin.pushNotification.create',compact('users','selectedUsers'));
+		 return view('admin.pushNotification.create',compact('users','selectedUsers'));
+
 	}
 
 	public function store(Request $request)
 	{
-        
-
         if($request->has('type'))
         {
             
@@ -157,8 +157,6 @@ class PushNotificationController extends Controller
 
             ];
         }
-      
-
          $this->validate($request, $rules, $messages);
          $file = $request->file('image_url');
          $url = '';
@@ -176,6 +174,25 @@ class PushNotificationController extends Controller
             $input['image_url'] = $url;
         try {
 			$pushNotification = PushNotification::create($input);
+            
+            // Check if schedule_datetime is set
+            if (!empty($pushNotification->schedule_datetime)) {
+                // Convert schedule_datetime to Carbon instance
+                $scheduleTime = Carbon::parse($pushNotification->schedule_datetime);
+                
+                // If schedule time is in the future, dispatch the job with delay
+                if ($scheduleTime->isFuture()) {
+                    PushNotificationJob::dispatch($pushNotification)
+                        ->delay($scheduleTime);
+                } else {
+                    // If schedule time is in the past, dispatch immediately
+                    PushNotificationJob::dispatch($pushNotification);
+                }
+            } else {
+                // If no schedule time, dispatch immediately
+                PushNotificationJob::dispatch($pushNotification);
+            }
+            
 			Toastr::success(__('Push Notification Created Successfully'));
 		    return redirect()->route('pushNotification.index');
 
@@ -195,11 +212,9 @@ class PushNotificationController extends Controller
 
 	public function update(Request $request, $id)
 	{
-
         $pushNotification = PushNotification::find($id);
         if($request->has('type'))
         {
-            
             if($request->type == "push")
             {
                 $rules = [
@@ -215,7 +230,6 @@ class PushNotificationController extends Controller
 
                 ];
             }
-          
             if($request->type == "email")
             {
                 $rules = [
@@ -229,7 +243,6 @@ class PushNotificationController extends Controller
                     'email_description' =>  'Decription is a required Field',
                 ];
             }
-          
             if($request->type == "sms")
             {
                 $rules = [
@@ -241,11 +254,7 @@ class PushNotificationController extends Controller
                     'message' =>  'Message is a required Field',
                 ];
             }
-            
-            
         }else{
-
-
             $rules = [
                 'title'=>'required',
                 'image_url' => 'nullable|image|mimes:jpeg,png,jpg,gif,webp',
@@ -259,8 +268,6 @@ class PushNotificationController extends Controller
 
             ];
         }
-      
-    
          $this->validate($request, $rules, $messages);
              $file = $request->file('image_url');
          $url = '';
@@ -273,7 +280,6 @@ class PushNotificationController extends Controller
 			]);      
                $url = Storage::disk('s3')->url($path);
           }
-   
            $input = request()->all();
            $input['image_url'] = !empty($url)?$url:$pushNotification->image_url;
 
@@ -286,7 +292,6 @@ class PushNotificationController extends Controller
 			Toastr::error($e->getMessage());
 		    return redirect()->route('pushNotification.index');
 		}
-	
 	}
 
 		
@@ -307,7 +312,6 @@ class PushNotificationController extends Controller
 	public function status_update(Request $request)
 	{
 		$pushNotification = PushNotification::find($request->id)->update(['is_active' => $request->status]);
-
 		if($request->is_status == 1)
         {
             return response()->json(['message' => 'Status activated successfully.']);
@@ -321,9 +325,7 @@ class PushNotificationController extends Controller
 
 	public function status_update_custom(Request $request)
 	{
-
 		$pushNotification = PushNotification::find($request->id)->update([$request->field => $request->value]);
-
         if($request->field == 'is_feature')
         {
           $field = 'Feature';
@@ -334,7 +336,6 @@ class PushNotificationController extends Controller
         }else{
             $field = 'Top';
         }
-
 		if($request->value == 1)
         {
             return response()->json(['value'=>$request->value,'message' => $field. ' activated successfully.']);
@@ -343,7 +344,5 @@ class PushNotificationController extends Controller
             return response()->json(['value'=>$request->value,'message' => $field .' deactivated successfully.']);
         }  
 	}
-
-
 
 }

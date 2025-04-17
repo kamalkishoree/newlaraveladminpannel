@@ -10,6 +10,61 @@
             height: 300px;
             width: 300px;
         }
+        .emoji-picker-container {
+            position: relative;
+            width: 100%;
+        }
+        .emoji-button {
+            position: absolute;
+            right: 10px;
+            top: 50%;
+            transform: translateY(-50%);
+            background: none;
+            border: none;
+            cursor: pointer;
+            font-size: 1.2em;
+            z-index: 1;
+        }
+        .emoji-picker {
+            position: absolute;
+            right: 0;
+            top: 100%;
+            margin-top: 5px;
+            z-index: 1000;
+            display: none;
+            background: white;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            padding: 10px;
+            max-height: 300px;
+            overflow-y: auto;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        .emoji-picker.show {
+            display: block;
+        }
+        .emoji-item {
+            display: inline-block;
+            padding: 5px;
+            cursor: pointer;
+            font-size: 1.5em;
+        }
+        .emoji-item:hover {
+            background: #f0f0f0;
+        }
+        emoji-picker {
+            --background: white;
+            --border-color: #ddd;
+            --button-active-background: #f0f0f0;
+            --button-hover-background: #f5f5f5;
+            --category-font-color: #666;
+            --indicator-color: #666;
+            --input-border-color: #ddd;
+            --input-font-color: #333;
+            --num-columns: 8;
+            --outline-color: #ddd;
+            --skintone-border-radius: 50%;
+        }
     </style>
 @endpush
 
@@ -69,12 +124,15 @@
                         <div class="card-body">
                             <div class="form-group">
                                 <label for="title" class="required">{{ __('Title') }}:</label>
-                                <input type="text" name="title" id="title" class="form-control @error('title') form-control-error @enderror" required="required" value="{{ $pushNotification->title }}">
-
+                                <div class="emoji-picker-container">
+                                    <input type="text" name="title" id="title" class="form-control @error('title') form-control-error @enderror" required="required" value="{{ $pushNotification->title }}">
+                                    <button type="button" class="emoji-button" data-target="title">😊</button>
+                                    <div class="emoji-picker" id="title-emoji-picker"></div>
+                                </div>
                                 @error('title')
                                     <span class="text-danger">{{ $message }}</span>
                                 @enderror
-                        </div>
+                            </div>
 
                             <div class="form-group">
                                 <!--- Used Blade Component--->
@@ -83,26 +141,38 @@
 
                             <div class="form-group">
                             <label for="schedule_datetime" class="control-label">{{__("Schedule Date")}}</label>
-                            <input type="datetime-local" value="{{$pushNotification->schedule_datetime}}" id="schedule_datetime" class="form-control" name="schedule_datetime" id="schedule_datetime" >
+                            <input type="datetime-local" value="{{$pushNotification->schedule_datetime}}" class="form-control" name="schedule_datetime">
                               @error('schedule_datetime')
                                     <span class="text-danger">{{ $message }}</span>
                                 @enderror
                             </div>
 
                             <div class="push_type">
-                                <div class="input-group mb-5">
+                             
+                            <div class="image_preview my-2">
+                               <img src="{{$pushNotification->image_url}}" width="100" height="100" alt="#">
+                            </div>
+                            
+                              <div class="input-group mb-5">
                                 <label for="image_url" class="control-label">{{__("Image")}}</label>
-                                    <img src="{{$pushNotification->image_url}}" alt="#">
+                                    
                                     <input type="file" id="image1" class="form-control" name="image_url">
                                 </div>
 
                                 <div class="form-group">
                                     <label for="description" class="required">{{ __('Description') }}:</label>
-                                    <textarea type="text" name="description" id="description" class="form-control @error('description') form-control-error @enderror"  required="required">{{$pushNotification->description }}</textarea>
+                                    <div class="emoji-picker-container">
+                                        <textarea type="text" name="description" id="description" class="form-control @error('description') form-control-error @enderror" required="required">{{ $pushNotification->description }}</textarea>
+                                        <button type="button" class="emoji-button" data-target="description">😊</button>
+                                        <div class="emoji-picker" id="description-emoji-picker"></div>
+                                    </div>
                                     @error('description')
                                         <span class="text-danger">{{ $message }}</span>
                                     @enderror
                                 </div>
+
+
+
                             </div>
                             <div class="email_type d-none">
                                 <div class="form-group">
@@ -142,6 +212,87 @@
 
 
 @push('scripts')
+<script type="module">
+    import { Picker, Database } from 'https://cdn.jsdelivr.net/npm/emoji-picker-element@^1/index.js';
+    
+    document.addEventListener('DOMContentLoaded', async function() {
+        const database = new Database();
+        await database.ready;
+        console.log('Initializing emoji picker...');
+
+        // Initialize title emoji picker
+        const titleButton = document.querySelector('.emoji-button[data-target="title"]');
+        const titlePicker = document.getElementById('title-emoji-picker');
+        const titleInput = document.getElementById('title');
+        
+        if (titleButton && titlePicker && titleInput) {
+            const titleEmojiPicker = new Picker({
+                dataSource: database
+            });
+            
+            titlePicker.appendChild(titleEmojiPicker);
+            
+            titleEmojiPicker.addEventListener('emoji-click', event => {
+                console.log('Title emoji selected:', event.detail);
+                titleInput.focus();
+                const emojiChar = event.detail.unicode;
+                const start = titleInput.selectionStart || 0;
+                const end = titleInput.selectionEnd || 0;
+                const value = titleInput.value;
+                titleInput.value = value.slice(0, start) + emojiChar + value.slice(end);
+                titleInput.setSelectionRange(start + emojiChar.length, start + emojiChar.length);
+                titlePicker.style.display = 'none';
+            });
+
+            titleButton.addEventListener('click', function(e) {
+                e.preventDefault();
+                e.stopPropagation();
+                titlePicker.style.display = titlePicker.style.display === 'none' ? 'block' : 'none';
+            });
+        }
+
+        // Initialize description emoji picker
+        const descriptionButton = document.querySelector('.emoji-button[data-target="description"]');
+        const descriptionPicker = document.getElementById('description-emoji-picker');
+        const descriptionInput = document.getElementById('description');
+        
+        if (descriptionButton && descriptionPicker && descriptionInput) {
+            const descriptionEmojiPicker = new Picker({
+                dataSource: database
+            });
+            
+            descriptionPicker.appendChild(descriptionEmojiPicker);
+            
+            descriptionEmojiPicker.addEventListener('emoji-click', event => {
+                console.log('Description emoji selected:', event.detail);
+                descriptionInput.focus();
+                const emojiChar = event.detail.unicode;
+                const start = descriptionInput.selectionStart || 0;
+                const end = descriptionInput.selectionEnd || 0;
+                const value = descriptionInput.value;
+                descriptionInput.value = value.slice(0, start) + emojiChar + value.slice(end);
+                descriptionInput.setSelectionRange(start + emojiChar.length, start + emojiChar.length);
+                descriptionPicker.style.display = 'none';
+            });
+
+            descriptionButton.addEventListener('click', function(e) {
+                e.preventDefault();
+                e.stopPropagation();
+                descriptionPicker.style.display = descriptionPicker.style.display === 'none' ? 'block' : 'none';
+            });
+        }
+
+        // Close pickers when clicking outside
+        document.addEventListener('click', function(e) {
+            if (!e.target.closest('.emoji-picker-container')) {
+                document.querySelectorAll('.emoji-picker').forEach(picker => {
+                    picker.style.display = 'none';
+                });
+            }
+        });
+    });
+</script>
+
 <script>
 	var loadFileImageFront = function(event) {
 		var output = document.getElementById('output');
@@ -150,27 +301,6 @@
 </script>
 
 <script>
-	// document.addEventListener("DOMContentLoaded", function() {
-	// 	document.getElementById('button-image').addEventListener('click', (event) => {
-
-	// 		event.preventDefault();
-	// 		inputId = 'image1';
-	// 		window.open('/file-manager/fm-button', 'fm', 'width=1400,height=800');
-
-	// 	});
-	// });
-
-	// input
-	// let inputId = '';
-	// let output = 'output';
-
-	// // set file link
-	// function fmSetLink($url) {
-	// 	document.getElementById(inputId).value = $url;
-	// 	document.getElementById(output).src = $url;
-	// }
-
-
     $('.email_type_select').click(function(e){
     if($(this).attr('id') == 'email')
     {
@@ -190,6 +320,5 @@
         $('.push_type').removeClass('d-none');
     }
     });
-    
 </script>
 @endpush

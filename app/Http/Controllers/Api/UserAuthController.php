@@ -72,10 +72,11 @@ class UserAuthController extends Controller
                 $user->access_token = $token;
                 if($request->has('device_token') && !empty($request->device_token))
                 {
-                    UserDevice::Create([
-                    'user_id' => $user->id,
-                    'device_token' => $user->device_token
-                    ]);
+                   \Log::info($request->all());
+                   UserDevice::updateOrCreate(
+                    ['device_token' => $request->device_token], // Unique condition
+                    ['user_id' => $user->id]                    // Values to update or insert
+                  );
                 }
                 $user->save();
                

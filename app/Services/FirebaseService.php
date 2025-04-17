@@ -11,6 +11,7 @@ class FirebaseService
 {
     //public $projectId;
     protected $client;
+    public $project_id;
     //protected $serviceAccount;
 
     public function __construct()
@@ -23,8 +24,8 @@ class FirebaseService
     public static function getAccessToken()
     {
         $client = new Client();
-        $serviceAccount = json_decode(file_get_contents(public_path("itfits-app-947c2-firebase.json")), true);
-        // dd($serviceAccount);
+        $serviceAccount = json_decode(file_get_contents(public_path("firebase/firebase.json")), true);
+        $project_id = $serviceAccount['project_id'];
         $now = time();
         $payload = [
             'iss' => $serviceAccount['client_id'],
@@ -66,7 +67,10 @@ class FirebaseService
     {
         $client = new Client();
         $accessToken = self::getAccessToken();
-        $projectId = 'itfits-app-947c2';
+        
+        // Get project ID from the service account file
+        $serviceAccount = json_decode(file_get_contents(public_path("firebase/firebase.json")), true);
+        $projectId = $serviceAccount['project_id'];
 
         $url = "https://fcm.googleapis.com/v1/projects/{$projectId}/messages:send";
 
@@ -88,9 +92,9 @@ class FirebaseService
                         'priority' => $data['priority'] ?? 'HIGH',
                         'notification' => [
                             'icon' => $data['notification']['icon'] ?? '',
-                            'sound' => $data['notification']['sound'] ?? '',
-                            'click_action' => $data['notification']['click_action'] ?? '', // Add click action for Android
-                            'channel_id' => $data['notification']['android_channel_id'] ?? '',
+                            'sound' => $data['notification']['sound'] ?? 'default',
+                            'click_action' => $data['notification']['click_action'] ?? '',
+                            'channel_id' => $data['notification']['android_channel_id'] ?? 'default-channel-id',
                         ],
                     ],
                     'apns' => [
@@ -110,7 +114,7 @@ class FirebaseService
                 ];
 
                 if (isset($data['data'])) {
-                    $message['data'] = $data['data']; // Include custom data
+                    $message['data'] = $data['data'];
                 }
 
                 try {
@@ -130,7 +134,7 @@ class FirebaseService
                         'body' => (string)$response->getBody(),
                     ];
                 } catch (RequestException $e) {
-                    \Log::info($e->getMessage());
+                    \Log::error('FCM Notification Error: ' . $e->getMessage());
                     $results[] = [
                         'status' => 'rejected',
                         'reason' => $e->getMessage(),
@@ -140,7 +144,7 @@ class FirebaseService
 
             return $results;
         } catch (RequestException $e) {
-            \Log::info($e->getMessage());
+            \Log::error('FCM Notification Error: ' . $e->getMessage());
             return ['error' => $e->getMessage()];
         }
     }
@@ -149,7 +153,6 @@ class FirebaseService
     {
         // Fetch the device tokens for the user
         $devices = DeviceToken::whereNotNull('device_token')
-            ->where('user_id', 11)  // Ensure to modify this to the correct user_id
             ->pluck('device_token')
             ->toArray();
         // dd($devices);
@@ -190,7 +193,9 @@ class FirebaseService
             $client = new Client();
             $accessToken = self::getAccessToken();  // Get Firebase access token
             //  dd($accessToken);
-            $projectId= 'social-ect';
+            $serviceAccount = json_decode(file_get_contents(public_path("firebase/firebase.json")), true);
+            $projectId = $serviceAccount['project_id'];
+
             $url = "https://fcm.googleapis.com/v1/projects/{$projectId}/messages:send";
             $response = $client->post('https://fcm.googleapis.com/v1/projects/social-ect/messages:send', [
                 'headers' => [
