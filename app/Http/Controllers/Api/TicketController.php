@@ -9,7 +9,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
-
+use Carbon\Carbon;
 class TicketController extends Controller
 {
     public function index(Request $request)
@@ -268,6 +268,15 @@ class TicketController extends Controller
                 ->when($request->filled('status'), function($query) use ($request) {
                     $status = strtolower($request->status);
                     return $query->whereRaw('LOWER(status) = ?', [$status]);
+                })
+                 // Flexible date filter: range or exact date
+                ->when($request->filled('start_date'), function ($query) use ($request) {
+                    $startDate = $request->input('start_date');
+                    $endDate = $request->input('end_date', $startDate); // default to start_date if end_date missing
+                    return $query->whereBetween('created_at', [
+                        Carbon::parse($startDate)->startOfDay(),
+                        Carbon::parse($endDate)->endOfDay()
+                    ]);
                 })
                 ->orderBy('created_at', 'desc')
                 ->paginate(10);
