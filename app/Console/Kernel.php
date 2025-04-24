@@ -17,14 +17,14 @@ class Kernel extends ConsoleKernel
     {
         // $schedule->command('inspire')->hourly();
        $schedule->command('inspire')->hourly();
-       $schedule->command('conversion:create-job')->everyFourHours()->withoutOverlapping();
-       $schedule->command('conversion:status-job')->everyFourHours()->withoutOverlapping();
+    //    $schedule->command('conversion:create-job')->everyFourHours()->withoutOverlapping();
+    //    $schedule->command('conversion:status-job')->everyFourHours()->withoutOverlapping();
     }
 
     protected $commands = [
         \App\Console\Commands\ModuleMigrateCommand::class,
-        \App\Console\Commands\CreateClickConversionsCommand::class, // Register command
-        \App\Console\Commands\ConversionStatusJob::class, // Register command
+        // \App\Console\Commands\CreateClickConversionsCommand::class, // Register command
+        // \App\Console\Commands\ConversionStatusJob::class, // Register command
     ];
 
     /**

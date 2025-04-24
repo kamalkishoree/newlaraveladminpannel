@@ -108,6 +108,7 @@
             <div class="modal-body">
                 <ul class="list-group">
                     <li class="list-group-item"><strong>ID:</strong> <span id="conversion-modal-id"></span></li>
+                    <li class="list-group-item"><strong>Order ID:</strong> <span id="conversion-modal-order-id"></span></li>
                     <li class="list-group-item"><strong>Unique Source ID:</strong> <span id="conversion-modal-unique-source-id"></span></li>
                     <li class="list-group-item"><strong>Sale Amount:</strong> <span id="conversion-modal-sale"></span></li>
                     <li class="list-group-item"><strong>Payout:</strong> <span id="conversion-modal-payout"></span></li>
@@ -222,6 +223,7 @@
     function clearConversionModal() {
         $("#conversion-modal-id").text('-');
         $("#conversion-modal-unique-source-id").text('-');
+        $("#conversion-modal-order-id").text('');
         $("#conversion-modal-sale").text('-');
         $("#conversion-modal-payout").text('-');
         $("#conversion-modal-brand").text('-');
@@ -249,8 +251,8 @@
             success: function(result) {
                 if (result.status == 'success' && result.conversion) {
                     var data = result.conversion;
-
                     $("#conversion-modal-id").text(data.id);
+                    $("#conversion-modal-order-id").text(data.order_id);
                     $("#conversion-modal-unique-source-id").text(data.unique_source_id);
                     $("#conversion-modal-sale").text(data.sale + ' ' + data.currency);
                     $("#conversion-modal-payout").text(data.payout + ' ' + data.currency);

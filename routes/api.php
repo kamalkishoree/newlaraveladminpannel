@@ -122,4 +122,9 @@ Route::middleware(['auth:api'])->group(function () {
         Route::post('/{id}/status', [TicketController::class, 'updateStatus']);
         Route::get('/user/tickets', [TicketController::class, 'userTickets']);
     });
+
+
+    Route::get('/user-conversion-report', [App\Http\Controllers\Api\ReportController::class, 'userConversionReport'])->middleware('auth:api');
+
 });
+
