@@ -70,3 +70,4 @@ package-lock.json
 .DS_Store
 /public/storage
 
+/public/firebase/firebase.json
