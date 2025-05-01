@@ -157,8 +157,8 @@
         <div class="stats-card">
             <div class="dash-widget-header">
                 <span class="dash-widget-icon text-primary">
-                    <i class="fe fe-users"></i>
-                </span>
+                <i class="fas fa-users"></i>
+                            </span>
                 <div class="dash-count">
                     <h3>{{$activeUserPercentage }}%</h3>
                     <h6 class="text-muted mb-0">User Retention Rate (%)</h6>
@@ -170,8 +170,8 @@
         <div class="stats-card">
             <div class="dash-widget-header">
                 <span class="dash-widget-icon text-success">
-                    <i class="fe fe-credit-card"></i>
-                </span>
+                <i class="fa-solid fa-computer-mouse"></i>
+                            </span>
                 <div class="dash-count">
                     <h3>{{$campaign_all->count()}}</h3>
                     <h6 class="text-muted mb-0">Clicks</h6>
@@ -183,7 +183,7 @@
         <div class="stats-card">
             <div class="dash-widget-header">
                 <span class="dash-widget-icon text-danger">
-                    <i class="fe fe-money"></i>
+                <i class="fa-solid fa-money-bill-transfer"></i>
                 </span>
                 <div class="dash-count">
                     <h3>{{$number_of_conversion}}</h3>
@@ -192,11 +192,27 @@
             </div>
         </div>
     </div>
+
+    <div class="col-xl-3 col-sm-6 mb-4">
+        <div class="stats-card">
+            <div class="dash-widget-header">
+                <span class="dash-widget-icon text-danger">
+                <i class="fa-solid fa-money-bill-transfer"></i>
+                </span>
+                <div class="dash-count">
+                <h3>{{ ($campaign_all->count()!= 0) ? round(($number_of_conversion/$campaign_all->count())*100,2): 0}} % </h3>
+                    <h6 class="text-muted mb-0">Conversions Rate %</h6>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
     <div class="col-xl-3 col-sm-6 mb-4">
         <div class="stats-card">
             <div class="dash-widget-header">
                 <span class="dash-widget-icon text-warning">
-                    <i class="fe fe-folder"></i>
+                <i class="fa-solid fa-sack-dollar"></i>
                 </span>
                 <div class="dash-count">
                     <h3>$6523</h3>
@@ -339,7 +355,7 @@
                                         {{-- Odd row --}}
                                         <tr class="even">
                                     @endif
-                                        <td>{{ $key  }}</td>
+                                        <td>{{ $key+1  }}</td>
                                         <td><img src="{{ $user->image }}" width="25" height="25" style="border-radius: 50%; object-fit: cover;" alt="User Image"></td>
                                         <td>{{ $user->name.$user->last_name }}</td>
                                         <td>{{ $user->email }}</td>
