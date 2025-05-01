@@ -99,12 +99,14 @@ class PushNotificationController extends Controller
 	{
         if($request->has('type'))
         {
-            
+           
             if($request->type == "push")
             {
+
+                die('sss');
                 $rules = [
                     'title'=>'required',
-                    'image_url' => 'required|image|mimes:jpeg,png,jpg,gif,webp',
+                    //'image_url' => 'image|mimes:jpeg,png,jpg,gif,webp',
                     'description' =>  'required',
                 ];
                 $messages = [
@@ -144,9 +146,10 @@ class PushNotificationController extends Controller
             
             
         }else{
+     
             $rules = [
                 'title'=>'required',
-                'image_url' => 'required|image|mimes:jpeg,png,jpg,gif,webp',
+                'image_url' => 'image|mimes:jpeg,png,jpg,gif,webp',
                 'description' =>  'required',
             ];
             $messages = [

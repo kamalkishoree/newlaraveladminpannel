@@ -21,7 +21,7 @@ class PushNotification extends Model
         'push_url_option',
         'push_url_option_value',
         'schedule_datetime',
-        'status',
+        'status'
     ];
 
 }

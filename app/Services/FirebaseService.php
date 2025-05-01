@@ -55,10 +55,10 @@ class FirebaseService
             ]);
 
             $data = json_decode($response->getBody(), true);
-            // dd($data);
+            \Log::warning($data);
             return $data['access_token'];
         } catch (RequestException $e) {
-            // Handle the error appropriately
+            \Log::warning($e->getMessage().$e->getLine());
             return null;
         }
     }
