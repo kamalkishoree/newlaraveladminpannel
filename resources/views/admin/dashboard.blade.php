@@ -25,7 +25,7 @@
     .stats-card {
         background: #fff;
         border-radius: 8px;
-        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        box-shadow: 0 0 10px 0px rgba(0, 0, 0, 0.1);
         transition: all 0.3s ease;
     }
 
@@ -106,7 +106,7 @@
 
             <div class="date-filter-section">
                 <div class="dropdown">
-                    <button type="button" class="btn btn-primary btn_days dropdown-toggle" data-toggle="dropdown">
+                    <button type="button" class="btn btn-quicks btn_days dropdown-toggle" data-toggle="dropdown">
                         <i class="fa-solid fa-calendar-days mr-1"></i>
                         @if(request('date_range'))
                         {{ ucfirst(str_replace('_', ' ', request('date_range'))) }}
@@ -135,7 +135,7 @@
                             value="{{ request('end_date', date('Y-m-d')) }}"
                             max="{{ date('Y-m-d') }}"
                             placeholder="End Date">
-                        <button type="submit" class="btn btn-primary ml-2">Apply</button>
+                        <button type="submit" class="btn btn-quicks ml-2">Apply</button>
                     </div>
                 </form>
             </div>
@@ -143,12 +143,16 @@
     </div>
 </div>
 
-<div class="row">
+<div class="user_matrics">
+    <div class="row">
+    <div class="col-md-12">
+        <h3>User Metrics</h3>
+    </div>
     <div class="col-xl-3 col-sm-6 mb-4">
         <a href="{{route('users.index')}}">
             <div class="stats-card">
                 <div class="dash-widget-header">
-                    <span class="dash-widget-icon text-primary">
+                    <span class="dash-widget-icon text-info">
                         <i class="fe fe-users"></i>
                     </span>
                     <div class="dash-count">
@@ -164,7 +168,7 @@
         <a href="{{route('users.index')}}">
             <div class="stats-card">
                 <div class="dash-widget-header">
-                    <span class="dash-widget-icon text-primary">
+                    <span class="dash-widget-icon text-success">
                         <i class="fas fa-users"></i>
                     </span>
                     <div class="dash-count">
@@ -191,33 +195,23 @@
             </div>
         </a>
     </div>
+</div>
 
-    <div class="col-xl-3 col-sm-6 mb-4">
-        <a href="{{route('campaign.index')}}">
-            <div class="stats-card">
-                <div class="dash-widget-header">
-                    <span class="dash-widget-icon text-success">
-                        <i class="fa-solid fa-computer-mouse"></i>
-                    </span>
-                    <div class="dash-count">
-                        <h3>{{$campaign_all->count()}}</h3>
-                        <h6 class="text-muted mb-0">Clicks</h6>
-                    </div>
-                </div>
-            </div>
-        </a>
+<div class="user_matrics">
+    <div class="row">
+    <div class="col-md-12">
+        <h3>Conversion Metrics</h3>
     </div>
-
     <div class="col-xl-3 col-sm-6 mb-4">
         <a href="{{route('campaign.index')}}">
             <div class="stats-card">
                 <div class="dash-widget-header">
-                    <span class="dash-widget-icon text-danger">
+                    <span class="dash-widget-icon text-info">
                         <i class="fa-solid fa-money-bill-transfer"></i>
                     </span>
                     <div class="dash-count">
                         <h3>{{$number_of_conversion}}</h3>
-                        <h6 class="text-muted mb-0">Conversions</h6>
+                        <h6 class="text-muted mb-0">Total Conversions</h6>
                     </div>
                 </div>
             </div>
@@ -228,7 +222,7 @@
         <a href="{{route('conversion.view')}}">
             <div class="stats-card">
                 <div class="dash-widget-header">
-                    <span class="dash-widget-icon text-danger">
+                    <span class="dash-widget-icon text-success">
                         <i class="fa-solid fa-money-bill-transfer"></i>
                     </span>
                     <div class="dash-count">
@@ -244,7 +238,7 @@
         <a href="{{route('conversion.view')}}">
             <div class="stats-card">
                 <div class="dash-widget-header">
-                    <span class="dash-widget-icon text-danger">
+                    <span class="dash-widget-icon text-warning">
                         <i class="fa-solid fa-money-bill-transfer"></i>
                     </span>
                     <div class="dash-count">
@@ -271,12 +265,11 @@
             </div>
         </a>
     </div>
-
     <div class="col-xl-3 col-sm-6 mb-4">
         <a href="{{route('conversion.view')}}">
             <div class="stats-card">
                 <div class="dash-widget-header">
-                    <span class="dash-widget-icon text-danger">
+                    <span class="dash-widget-icon text-success">
                         <i class="fa-solid fa-money-bill-transfer"></i>
                     </span>
                     <div class="dash-count">
@@ -292,7 +285,7 @@
         <a href="{{route('wallet.index')}}">
             <div class="stats-card">
                 <div class="dash-widget-header">
-                    <span class="dash-widget-icon text-warning">
+                    <span class="dash-widget-icon text-success">
                         <i class="fa-solid fa-sack-dollar"></i>
                     </span>
                     <div class="dash-count">
@@ -303,7 +296,98 @@
             </div>
         </a>
     </div>
+    <div class="col-xl-3 col-sm-6 mb-4">
+        <a href="{{route('campaign.index')}}">
+            <div class="stats-card">
+                <div class="dash-widget-header">
+                    <span class="dash-widget-icon text-info">
+                        <i class="fa-solid fa-computer-mouse"></i>
+                    </span>
+                    <div class="dash-count">
+                        <h3>{{$campaign_all->count()}}</h3>
+                        <h6 class="text-muted mb-0">Clicks</h6>
+                    </div>
+                </div>
+            </div>
+        </a>
+    </div>
+</div>
 
+<div class="user_matrics">
+    <div class="row">
+    <div class="col-md-12">
+        <h3>Ticket Metrics</h3>
+    </div>
+    <div class="col-xl-3 col-sm-6 mb-4">
+        <a href="{{route('ticket.index')}}">
+            <div class="stats-card">
+                <div class="dash-widget-header">
+                    <span class="dash-widget-icon text-info">
+                        <i class="fa-solid fa-ticket"></i>
+                    </span>
+                    <div class="dash-count">
+                        <h3>{{$ticket_total}}</h3>
+                        <h6 class="text-muted mb-0">Total Ticket</h6>
+                    </div>
+                </div>
+            </div>
+        </a>
+    </div>
+
+    <div class="col-xl-3 col-sm-6 mb-4">
+        <a href="{{route('ticket.index')}}">
+            <div class="stats-card">
+                <div class="dash-widget-header">
+                    <span class="dash-widget-icon text-success">
+                        <i class="fa-solid fa-ticket"></i>
+                    </span>
+                    <div class="dash-count">
+                        <h3>{{$ticket_approved}}</h3>
+                        <h6 class="text-muted mb-0">Resolved Ticket</h6>
+                    </div>
+                </div>
+            </div>
+        </a>
+    </div>
+
+    <div class="col-xl-3 col-sm-6 mb-4">
+        <a href="{{route('ticket.index')}}">
+            <div class="stats-card">
+                <div class="dash-widget-header">
+                    <span class="dash-widget-icon text-warning">
+                        <i class="fa-solid fa-ticket"></i>
+                    </span>
+                    <div class="dash-count">
+                        <h3>{{$ticket_pending}}</h3>
+                        <h6 class="text-muted mb-0">Pending Ticket</h6>
+                    </div>
+                </div>
+            </div>
+        </a>
+    </div>
+
+    <div class="col-xl-3 col-sm-6 mb-4">
+        <a href="{{route('ticket.index')}}">
+            <div class="stats-card">
+                <div class="dash-widget-header">
+                    <span class="dash-widget-icon text-danger">
+                        <i class="fa-solid fa-ticket"></i>
+                    </span>
+                    <div class="dash-count">
+                        <h3>{{$ticket_rejected}}</h3>
+                        <h6 class="text-muted mb-0">Rejected Ticket</h6>
+                    </div>
+                </div>
+            </div>
+        </a>
+    </div>
+</div>
+
+<div class="user_matrics">
+    <div class="row">
+    <div class="col-md-12">
+        <h3>Withdrawal & Payment</h3>
+    </div>
     <div class="col-xl-3 col-sm-6 mb-4">
         <a href="{{route('withdrawal.index')}}">
             <div class="stats-card">
@@ -313,7 +397,7 @@
                     </span>
                     <div class="dash-count">
                         <h3>{{$withdrawal_total}}</h3>
-                        <h6 class="text-muted mb-0">Withdrawal Total Request</h6>
+                        <h6 class="text-muted mb-0">Total Withdrawal Request</h6>
                     </div>
                 </div>
             </div>
@@ -383,73 +467,9 @@
             </div>
         </a>
     </div>
-
-    <div class="col-xl-3 col-sm-6 mb-4">
-        <a href="{{route('ticket.index')}}">
-            <div class="stats-card">
-                <div class="dash-widget-header">
-                    <span class="dash-widget-icon text-success">
-                        <i class="fa-solid fa-ticket"></i>
-                    </span>
-                    <div class="dash-count">
-                        <h3>{{$ticket_total}}</h3>
-                        <h6 class="text-muted mb-0">Total Ticket</h6>
-                    </div>
-                </div>
-            </div>
-        </a>
-    </div>
-
-    <div class="col-xl-3 col-sm-6 mb-4">
-        <a href="{{route('ticket.index')}}">
-            <div class="stats-card">
-                <div class="dash-widget-header">
-                    <span class="dash-widget-icon text-success">
-                        <i class="fa-solid fa-ticket"></i>
-                    </span>
-                    <div class="dash-count">
-                        <h3>{{$ticket_approved}}</h3>
-                        <h6 class="text-muted mb-0">Resolved Ticket</h6>
-                    </div>
-                </div>
-            </div>
-        </a>
-    </div>
-
-    <div class="col-xl-3 col-sm-6 mb-4">
-        <a href="{{route('ticket.index')}}">
-            <div class="stats-card">
-                <div class="dash-widget-header">
-                    <span class="dash-widget-icon text-success">
-                        <i class="fa-solid fa-ticket"></i>
-                    </span>
-                    <div class="dash-count">
-                        <h3>{{$ticket_pending}}</h3>
-                        <h6 class="text-muted mb-0">Pending Ticket</h6>
-                    </div>
-                </div>
-            </div>
-        </a>
-    </div>
-
-    <div class="col-xl-3 col-sm-6 mb-4">
-        <a href="{{route('ticket.index')}}">
-            <div class="stats-card">
-                <div class="dash-widget-header">
-                    <span class="dash-widget-icon text-success">
-                        <i class="fa-solid fa-ticket"></i>
-                    </span>
-                    <div class="dash-count">
-                        <h3>{{$ticket_rejected}}</h3>
-                        <h6 class="text-muted mb-0">Rejected Ticket</h6>
-                    </div>
-                </div>
-            </div>
-        </a>
-    </div>
-
 </div>
 
+</div>
 <div class="row">
     <div class="col-lg-6">
         <div class="chart-container">

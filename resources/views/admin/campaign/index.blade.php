@@ -39,13 +39,13 @@
 
     <div class="row">
         <div class="col-md-12">
-            <div class="card">
+            <div class="card p-5">
 
 
 
             <form  action="{{ route('campaign.index') }}" method="GET" enctype="multipart/form-data" >
                      
-                     <div class="row">
+                     <div class="row align-items-end">
                          <div class="form-group col-md-2">
                              <label for="start_date" class="required">{{ __('START DATE') }}:</label>
                              <input type="date" name="start_date" id="start_date" class="form-control @error('start_date') form-control-error @enderror" value="{{ @$request->start_date }}"/>
@@ -63,12 +63,12 @@
                          </div>
      
                          <div class="form-group col-md-2 pt-4">
-                                 <button type="submit"  class="btn custom-create-btn">{{ __('SUBMIT') }}</button>
+                                 <button type="submit"  class="btn btn-quicks">{{ __('SUBMIT') }}</button>
                          </div>
                      </div>
                      <form >  
 
-                <div class="card-body">
+                <div class="card-body p-0">
                     <table class="table table-hover table-center mb-0" id="table">
                         <thead>
                             <tr>
