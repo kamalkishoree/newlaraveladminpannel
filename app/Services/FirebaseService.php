@@ -4,27 +4,29 @@ namespace App\Services;
 
 use GuzzleHttp\Client;
 use GuzzleHttp\Exception\RequestException;
-use App\Models\{ClientPreference, DeviceToken, Order};
+use App\Models\{ClientPreference, DeviceToken, Order, Setting};
 use Illuminate\Support\Arr;
 
 class FirebaseService
 {
     //public $projectId;
     protected $client;
-    public $project_id;
+    public $project_id,$firebase_json_file;
     //protected $serviceAccount;
 
     public function __construct()
     {
         //$this->projectId = config('services.firebase.project_id');
         $this->client = new Client();
+   
         //$this->serviceAccount = json_decode(file_get_contents(public_path("firebase/fcm.json")), true);
     }
 
     public static function getAccessToken()
     {
         $client = new Client();
-        $serviceAccount = json_decode(file_get_contents(public_path("firebase/firebase.json")), true);
+        $setting = Setting::first();
+        $serviceAccount = json_decode(file_get_contents($setting->firebase_json_file), true);
         $project_id = $serviceAccount['project_id'];
         $now = time();
         $payload = [
@@ -67,9 +69,9 @@ class FirebaseService
     {
         $client = new Client();
         $accessToken = self::getAccessToken();
-        
+        $setting = Setting::first();
         // Get project ID from the service account file
-        $serviceAccount = json_decode(file_get_contents(public_path("firebase/firebase.json")), true);
+        $serviceAccount = json_decode(file_get_contents($setting->firebase_json_file), true);
         $projectId = $serviceAccount['project_id'];
 
         $url = "https://fcm.googleapis.com/v1/projects/{$projectId}/messages:send";
@@ -193,7 +195,8 @@ class FirebaseService
             $client = new Client();
             $accessToken = self::getAccessToken();  // Get Firebase access token
             //  dd($accessToken);
-            $serviceAccount = json_decode(file_get_contents(public_path("firebase/firebase.json")), true);
+            $setting = Setting::first();
+            $serviceAccount = json_decode(file_get_contents($setting->firebase_json_file), true);
             $projectId = $serviceAccount['project_id'];
 
             $url = "https://fcm.googleapis.com/v1/projects/{$projectId}/messages:send";

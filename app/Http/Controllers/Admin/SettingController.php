@@ -12,6 +12,7 @@ use App\Models\Setting;
 use App\Models\Currency;
 use DataTables;
 use Brian2694\Toastr\Facades\Toastr;
+use Illuminate\Support\Facades\Storage;
 
 class SettingController extends Controller
 {
@@ -72,15 +73,27 @@ class SettingController extends Controller
             $input['website_favicon'] = $setting->website_favicon;
         }
 
-        if ($request->has('firebase_json_file') ) {
+        // if ($request->has('firebase_json_file') ) {
+        //     $file = $request->file('firebase_json_file');
+        //     $destinationPath = public_path('firebase');
+        //     if (!File::exists($destinationPath)) {
+        //         File::makeDirectory($destinationPath, 0755, true);
+        //     }
+        //     $file->move($destinationPath, 'firebase.json');
+        //     $input['firebase_json_file'] = 'firebase/firebase.json';
+        //     }
+
+
+         if ($request->has('firebase_json_file') ) {
             $file = $request->file('firebase_json_file');
-            $destinationPath = public_path('firebase');
-            if (!File::exists($destinationPath)) {
-                File::makeDirectory($destinationPath, 0755, true);
-            }
-            $file->move($destinationPath, 'firebase.json');
-            $input['firebase_json_file'] = 'firebase/firebase.json';
-            }
+            $fileName = time() . '_firebase.json';
+            $path = $file->storeAs('firebase', $fileName, [
+                'disk' => 's3',
+                'visibility' => 'public', 
+            ]);
+            $url = Storage::disk('s3')->url($path);
+            $input['firebase_json_file'] = $url;
+        }
 
         try {
 			$setting->update($input);

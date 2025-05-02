@@ -7,7 +7,8 @@ use App\Http\Controllers\Controller;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
-use App\Models\{Campaign,Conversion,User,Withdrawal};
+use App\Models\{Campaign, Conversion, User, Withdrawal};
+
 class DashboardController extends Controller
 {
     public function __construct()
@@ -54,14 +55,13 @@ class DashboardController extends Controller
         // Query builder for users
         $userQuery = User::query();
         $recent_signup_user = (clone $userQuery)
-        ->where('created_at', '>=', Carbon::now()->subDays(3))
-        ->get();
-         if ($startDate && $endDate) {
+            ->where('created_at', '>=', Carbon::now()->subDays(3))
+            ->get();
+        if ($startDate && $endDate) {
             $userQuery->whereBetween('created_at', [$startDate, $endDate]);
         }
         $user = $userQuery->get();
         $totalUsers = $userQuery->count(); // Use count() instead of get()
-
         $activeUsersQuery = User::query();
         if ($startDate && $endDate) {
             $activeUsersQuery->whereBetween('updated_at', [$startDate, $endDate]);
@@ -69,7 +69,6 @@ class DashboardController extends Controller
             $activeUsersQuery->whereBetween('updated_at', [Carbon::now()->subDay(), Carbon::now()]);
         }
         $activeUsers = $activeUsersQuery->count();
-
         // Get inactive users
         $inactiveUsersQuery = User::query();
         if ($startDate && $endDate) {
@@ -80,22 +79,26 @@ class DashboardController extends Controller
         $inactiveUsers = $inactiveUsersQuery->count();
 
         $activeUserPercentage = $totalUsers > 0 ? round(($activeUsers / $totalUsers) * 100, 2) : 0;
+        $recent_signup_user_count = (clone $userQuery)->count();
 
-    // Query builder for conversion
+        // Query builder for conversion
         $conversionQuery = Conversion::query();
         if ($startDate && $endDate) {
             $conversionQuery->whereBetween('created_at', [$startDate, $endDate]);
         }
-        $number_of_conversion = $conversionQuery->count();
-        $all_over_conversion = $conversionQuery->sum('payout');
-
+        $number_of_conversion = (clone $conversionQuery)->count();
+        $all_over_conversion = (clone $conversionQuery)->sum('payout');
+        $reject_conversion = (clone $conversionQuery)->where('status','rejected')->count();
+        $pending_conversion = (clone $conversionQuery)->where('status','pending')->count();
+        $approved_conversion = (clone $conversionQuery)->where('status','approved')->count();
         // Cashback builder for conversion
+        
         //withdrawal builder for conversion
         $withdrawalQuery = Withdrawal::query();
         if ($startDate && $endDate) {
             $withdrawalQuery->whereBetween('created_at', [$startDate, $endDate]);
         }
-        $withdrawal_total= (clone $withdrawalQuery)->count();
+        $withdrawal_total = (clone $withdrawalQuery)->count();
         $withdrawal_pending = (clone $withdrawalQuery)->where('status', 'pending')->count();
         $withdrawal_approved = (clone $withdrawalQuery)->where('status', 'approved')->count();
         $withdrawal_rejected = (clone $withdrawalQuery)->where('status', 'rejected')->count();
@@ -123,7 +126,7 @@ class DashboardController extends Controller
 
         // Monthly clicks query
         $monthlyClicksQuery = Campaign::query();
-        
+
         if ($startDate && $endDate) {
             $monthlyClicksQuery->whereBetween('created_at', [$startDate, $endDate]);
         }
@@ -145,12 +148,12 @@ class DashboardController extends Controller
         $campaign = $this->showCampaignChart($startDate, $endDate);
 
         return view('admin.dashboard', compact(
-            'user', 
-            'series', 
-            'campaign', 
-            'campaign_all', 
-            'dateRange', 
-            'startDate', 
+            'user',
+            'series',
+            'campaign',
+            'campaign_all',
+            'dateRange',
+            'startDate',
             'endDate',
             'number_of_conversion',
             'withdrawal_approved',
@@ -159,7 +162,8 @@ class DashboardController extends Controller
             'withdrawal_total',
             'total_payout',
             'activeUserPercentage',
-            'recent_signup_user'
+            'recent_signup_user',
+            'recent_signup_user_count'
         ));
     }
     public function showCampaignChart($startDate = null, $endDate = null)

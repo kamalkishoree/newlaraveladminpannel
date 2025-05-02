@@ -166,6 +166,22 @@
             </div>
         </div>
     </div>
+
+    <div class="col-xl-3 col-sm-6 mb-4">
+        <div class="stats-card">
+            <div class="dash-widget-header">
+                <span class="dash-widget-icon text-primary">
+                <i class="fas fa-users"></i>
+                            </span>
+                <div class="dash-count">
+                    <h3>{{$recent_signup_user_count }}</h3>
+                    <h6 class="text-muted mb-0">New Users</h6>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    
     <div class="col-xl-3 col-sm-6 mb-4">
         <div class="stats-card">
             <div class="dash-widget-header">
