@@ -12,7 +12,11 @@ class Highchart extends Component
     public $categories;
     public $series;
     public $chartType;
-    public function __construct($chartId, $title, $subtitle, $categories, $series,$chartType)
+    public $seriesName;
+    public $pendingSeries;
+    public $approvedSeries;
+    public $rejectedSeries;
+    public function __construct($chartId, $title, $subtitle, $categories, $series,$chartType,$seriesName='',$rejectedSeries=[],$approvedSeries=[],$pendingSeries=[])
     {
         $this->chartId = $chartId;
         $this->title = $title;
@@ -20,6 +24,10 @@ class Highchart extends Component
         $this->categories = $categories;
         $this->series = $series;
         $this->chartType = $chartType;
+        $this->seriesName = $seriesName;  
+        $this->pendingSeries = $pendingSeries;
+        $this->approvedSeries = $approvedSeries;
+        $this->rejectedSeries = $rejectedSeries;
     }
 
     public function render()
