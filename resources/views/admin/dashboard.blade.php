@@ -111,10 +111,11 @@
                         @if(request('date_range'))
                         {{ ucfirst(str_replace('_', ' ', request('date_range'))) }}
                         @else
-                        Last 7 Days
+                          Select ....
                         @endif
                     </button>
                     <div class="dropdown-menu">
+                        <a class="dropdown-item" href="{{ route('dashboard') }}">Select...</a>
                         <a class="dropdown-item" href="{{ route('dashboard', ['date_range' => 'today']) }}">Today</a>
                         <a class="dropdown-item" href="{{ route('dashboard', ['date_range' => 'last_7_days']) }}">Last 7 Days</a>
                         <a class="dropdown-item" href="{{ route('dashboard', ['date_range' => 'last_30_days']) }}">Last 30 Days</a>

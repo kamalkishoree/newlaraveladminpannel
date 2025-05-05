@@ -184,6 +184,15 @@
                 }
             });
         });
+
+        function copyToClipboard(text) {
+        navigator.clipboard.writeText(text).then(function() {
+            alert('Copied to clipboard!');
+        }, function(err) {
+            alert('Failed to copy: ' + err);
+        });
+    }
+        
     </script>
 
 

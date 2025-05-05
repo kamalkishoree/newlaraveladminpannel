@@ -133,12 +133,16 @@ class DashboardController extends Controller
             $campaignQuery->whereBetween('created_at', [$startDate, $endDate]);
         }
         $campaign_all = $campaignQuery->get();
-        $most_clicked_brand = (clone $campaignQuery)
+        $most_clicked_brand = NULL;
+        $most_clicked = (clone $campaignQuery)
             ->select('brand_id', DB::raw('COUNT(*) as total_clicks'))
             ->groupBy('brand_id')
             ->orderByDesc('total_clicks')
-            ->first()->brand;
-
+            ->first();
+        if($most_clicked)
+        {
+                $most_clicked_brand =  $most_clicked->brand;
+        }
         $series = [
             [
                 'name' => 'Active Users',

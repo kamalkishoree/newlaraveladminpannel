@@ -9,7 +9,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\File;
 use Yajra\DataTables\Facades\DataTables;
-
+use Illuminate\Support\Str;
 class BannersController extends Controller
 {
     function __construct()
@@ -58,9 +58,18 @@ class BannersController extends Controller
                     return $row->description;
                 })
 
-                ->addColumn('redirect_url', function($row){
-                    return $row->redirect_url;
-                })
+				->addColumn('redirect_url', function($row){
+					$fullUrl = $row->redirect_url;
+					$shortUrl = Str::limit($fullUrl, 15); // limits to 15 characters
+				
+					return $fullUrl
+					? "<span title='{$fullUrl}'>{$shortUrl}</span>
+					   <button onclick=\"copyToClipboard('{$fullUrl}')\" title='Copy' style='border:none; background:none; cursor:pointer; margin-left:5px;'>
+						   📋
+					   </button>"
+					: 'N/A';
+			
+				})
 
                 ->addColumn('platform', function($row){
                     return $row->platform;
