@@ -165,21 +165,7 @@
         </a>
     </div>
 
-    <div class="col-xl-3 col-sm-6 mb-4">
-        <a href="{{route('users.index')}}">
-            <div class="stats-card">
-                <div class="dash-widget-header">
-                    <span class="dash-widget-icon text-success">
-                        <i class="fas fa-users"></i>
-                    </span>
-                    <div class="dash-count">
-                        <h3>{{$activeUserPercentage }}%</h3>
-                        <h6 class="text-muted mb-0">User Retention Rate (%)</h6>
-                    </div>
-                </div>
-            </div>
-        </a>
-    </div>
+   
 
     <div class="col-xl-3 col-sm-6 mb-4">
         <a href="{{route('users.index')}}">
@@ -196,7 +182,39 @@
             </div>
         </a>
     </div>
+    <div class="col-xl-3 col-sm-6 mb-4">
+        <a href="{{route('users.index')}}">
+            <div class="stats-card">
+                <div class="dash-widget-header">
+                    <span class="dash-widget-icon text-danger">
+                        <i class="fas fa-users"></i>
+                    </span>
+                    <div class="dash-count">
+                        <h3>{{$inactiveUsers}}</h3>
+                        <h6 class="text-muted mb-0">Inactive Users</h6>
+                    </div>
+                </div>
+            </div>
+        </a>
+    </div>
+
+    <div class="col-xl-3 col-sm-6 mb-4">
+        <a href="{{route('users.index')}}">
+            <div class="stats-card">
+                <div class="dash-widget-header">
+                    <span class="dash-widget-icon text-success">
+                        <i class="fas fa-users"></i>
+                    </span>
+                    <div class="dash-count">
+                        <h3>{{$activeUserPercentage }}%</h3>
+                        <h6 class="text-muted mb-0">User Retention Rate (%)</h6>
+                    </div>
+                </div>
+            </div>
+        </a>
+    </div>
 </div>
+
 
 <div class="user_matrics">
     <div class="row">

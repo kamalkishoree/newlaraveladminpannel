@@ -212,6 +212,7 @@ class DashboardController extends Controller
             'withdrawal_total',
             'total_payout',
             'activeUserPercentage',
+            'inactiveUsers',
             'recent_signup_user',
             'recent_signup_user_count',
             'reject_conversion',

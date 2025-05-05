@@ -63,8 +63,33 @@ class User extends Authenticatable
         return $roles = Role::where('name',$user->getRoleNames())->get();
     }
 
+    public function referrer()
+    {
+        return $this->hasMany(Referral::class,'referred_id');
+    }
+    public function clicks()
+    {
+        return $this->hasMany(Campaign::class,'user_id');
+    }
+
     public function bankAccounts()
     {
         return $this->hasMany(BankAccount::class);
     }
+    public function approvedConversions()
+    {
+        return $this->hasMany(Conversion::class,'user_id')->where('conversion_status','approved');
+    }
+
+    public function tickets()
+    {
+        return $this->hasMany(Ticket::class,'user_id');
+    }
+
+    public function withdrawls($status)
+    {
+        return $this->hasMany(Withdrawal::class,'user_id')->where('status',$status);
+    }
+
+    
 }

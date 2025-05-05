@@ -60,7 +60,7 @@
                                         <label class="text-dark" for="remember">{{__('auth.form.remember')}}</label>
                                     </div>
                                     <div class="form-group">
-                                        <button class="btn btn-primary btn-block" type="submit">Login</button>
+                                        <button class="btn btn-quicks btn-block" type="submit">Login</button>
                                     </div>
                                 </form>
                                 <!-- /Form -->

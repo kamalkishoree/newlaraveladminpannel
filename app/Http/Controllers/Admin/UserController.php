@@ -8,6 +8,7 @@ use App\Http\Controllers\Controller;
 use Spatie\Permission\Models\Role;
 use Spatie\Permission\Models\Permission;
 use App\Models\User;
+use App\Models\Withdrawal;
 use Illuminate\Support\Facades\DB;
 use Brian2694\Toastr\Facades\Toastr;
 use Illuminate\Support\Facades\Hash;
@@ -182,8 +183,17 @@ class UserController extends Controller
 	public function edit($id)
 	{
 		$user = User::find($id);
+		$myreferral = $user->referrer;
+		$user_clicks = $user->clicks;
+		$user_conversion = $user->approvedConversions;
+		$user_ticket  = $user->tickets;
+		$user_withdrawls_pending = $user->withdrawls('pending')->sum('amount');
+		$user_withdrawls_approved = $user->withdrawls('approved')->sum('amount');
+		$user_withdrawls_rejected = $user->withdrawls('rejected')->sum('amount');
+		$user_withdrawls_rejected = $user->withdrawls('rejected')->sum('amount');
+		$recent_withdrawl = Withdrawal::where('user_id',$user->id)->latest()->first();
 		$roles = Role::all();
-		return view('admin.users.edit',compact('user','roles'));
+		return view('admin.users.edit',compact('user','roles','recent_withdrawl','user_withdrawls_rejected','user_withdrawls_approved','user_withdrawls_pending','user_ticket','user_conversion','user_clicks','myreferral'));
 	}
 
 	public function update(Request $request, $id)
