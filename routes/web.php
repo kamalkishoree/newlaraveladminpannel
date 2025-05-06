@@ -306,8 +306,10 @@ Route::group(['middleware' => 'language'], function () {
 			});
 
 			Route::prefix('conversion')->group(function () {
-				Route::get('/view',[App\Http\Controllers\Admin\ConversionController::class, 'view'])->name('conversion.view');
-
+				Route::get('/view',[App\Http\Controllers\Admin\ConversionController::class, 'viewMain'])->name('conversion.view');
+				Route::get('/index', [App\Http\Controllers\Admin\ConversionController::class, 'index'])->name('conversions.index');
+				Route::get('viewConversion/{id}', [App\Http\Controllers\Admin\ConversionController::class, 'show'])->name('conversions.show');
+				Route::delete('conversion-delete/{id}', [App\Http\Controllers\Admin\ConversionController::class, 'destroy'])->name('conversions.destroy');
 			});
 
 			Route::prefix('referral')->group(function () {

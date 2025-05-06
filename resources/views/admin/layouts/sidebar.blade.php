@@ -133,6 +133,15 @@
              </span>
                   </a>
             </li>
+            <li class="{{ (request()->is('admin/conversion*')) ? '' : '' }}">
+                       <a class="sidebar-link" href="{{ route('conversions.index') }}" aria-expanded="false">
+                       <i class="fa-solid fa-arrow-right-from-bracket"></i>
+             <span>
+                         {{__('All Conversions')}}
+             </span>
+                  </a>
+            </li>
+
 
 
             <li class="{{ (request()->is('admin/push-notification*')) ? '' : '' }}">

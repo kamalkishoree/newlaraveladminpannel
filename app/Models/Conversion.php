@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class Conversion extends Model
 {    
 
+    use HasFactory;
 
     protected $fillable =[
         'user_id','user_campaign_id','unique_source_id', 'campaign_id', 'campaign_name', 'publisher_id', 'aff_name', 'aff_id', 
@@ -17,11 +18,21 @@ class Conversion extends Model
      ];
     
 
-use HasFactory;
 
     public function campaign()
     {
         return $this->belongsTo(Campaign::class, 'unique_source_id', 'unique_source_id');
     }
+    // public function campaign()
+    // {
+    //     return $this->belongsTo(Campaign::class);
+    // }
+    
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
+
+
 
 }
