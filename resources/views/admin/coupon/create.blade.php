@@ -95,9 +95,9 @@
 
 
 
-                            <div class="form-group">
-                                <label for="clocking_url" class="required">{{ __('CLOCKING URL') }}:</label>
-                                <input type="text" name="clocking_url" id="clocking_url" class="form-control @error('clocking_url') form-control-error @enderror"  required="required" value="{{ old('clocking_url') }}">
+                            <div class="form-group d-none">
+                                <label for="clocking_url" class="">{{ __('CLOCKING URL') }}:</label>
+                                <input type="text" name="clocking_url" id="clocking_url" class="form-control @error('clocking_url') form-control-error @enderror"   value="{{ old('clocking_url') }}">
                                 @error('clocking_url')
                                     <span class="text-danger">{{ $message }}</span>
                                 @enderror

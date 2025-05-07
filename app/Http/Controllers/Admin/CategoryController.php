@@ -206,6 +206,12 @@ class CategoryController extends Controller
 
         }
 
+        if($request->has('top_home'))
+        {
+            $input['top_home'] =  $request->home_top  == 'on'  ? 1:0;
+
+        }
+
 		try {
 			$Category->update($input);
             Toastr::success(__('Category updated Successfully'));
@@ -252,6 +258,7 @@ class CategoryController extends Controller
 	public function status_update_custom(Request $request)
 	{
 
+
 		$Category = Category::find($request->id)->update([$request->field => $request->value]);
 
         if($request->field == 'is_feature')
@@ -261,10 +268,14 @@ class CategoryController extends Controller
         elseif($request->field == 'is_new')
         {
             $field = 'New';
-        }else{
-            $field = 'Top';
         }
-
+        elseif($request->field == 'New')
+        {
+            $field = 'New';
+        }
+        else{
+            $field = 'Top Home';
+        }
 		if($request->value == 1)
         {
             return response()->json(['value'=>$request->value,'message' => $field. ' activated successfully.']);

@@ -20,7 +20,8 @@ class Category extends Model
         'is_new',
         'is_top',
         'is_feature',
-        'status'
+        'status',
+        'top_home'
     ];
 
     public function brands()

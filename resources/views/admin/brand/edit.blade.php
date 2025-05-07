@@ -71,7 +71,7 @@ $keymain = 0;
 
                             <div class="form-group">
                                 <label for="slug" class="required">{{ __('Slug') }}:</label>
-                                <input type="text" name="slug" id="slug" class="form-control @error('slug') form-control-error @enderror"  required="required" value="{{ $brand->slug  }}">
+                                <input disable type="text" name="slug" id="slug" class="form-control @error('slug') form-control-error @enderror"  required="required" value="{{ $brand->slug  }}">
 
                                 @error('slug')
                                     <span class="text-danger">{{ $message }}</span>
@@ -89,7 +89,7 @@ $keymain = 0;
                         {{-- Cloaking URL Domain --}}
                             <div class="form-group">
                             <label for="clocking_url" class="required">{{ __('Clocking URL') }}:</label>
-                                    <input type="text" name="clocking_url" id="clocking_url" class="form-control @error('clocking_url') form-control-error @enderror"  required="required" value="{{ $brand->clocking_url }}">
+                                    <input disabled type="text" name="clocking_url" id="clocking_url" class="form-control @error('clocking_url') form-control-error @enderror"  required="required" value="{{ $brand->clocking_url }}">
                                     @error('clocking_url')
                                         <span class="text-danger">{{ $message }}</span>
                                     @enderror
@@ -342,9 +342,15 @@ $(document).ready(function() {
     });
 
 
-// Delete row on trash icon click
-$(document).on('click', '.remove-cashback-rate', function () {
-    $(this).closest('.cashback-rate-row').remove();
-});
+    // Delete row on trash icon click
+    $(document).on('click', '.remove-cashback-rate', function () {
+        $(this).closest('.cashback-rate-row').remove();
+    });
+
+   $('#name').keyup(function(){
+       let slug = genrateSlug($(this).val());
+       $('#slug').val(slug);
+    });
+
 </script>
 @endpush

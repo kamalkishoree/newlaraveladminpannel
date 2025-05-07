@@ -142,6 +142,30 @@
     </script>
 
 
+
+    <script>
+       
+       function genrateSlug(str) {
+       // Convert to lowercase, remove non-alphanumeric characters, trim
+            let cleanStr = str.toLowerCase().replace(/[^a-z0-9]/g, '').trim();
+
+            // Get short form (first 3 letters)
+            let short = cleanStr.substring(0, 5);
+
+            // Generate timestamp (e.g., 20250507123045)
+            let now = new Date();
+            let timestamp = now.getFullYear().toString() +
+                            String(now.getMonth() + 1).padStart(2, '0') +
+                            String(now.getDate()).padStart(2, '0') +
+                            String(now.getHours()).padStart(2, '0') +
+                            String(now.getMinutes()).padStart(2, '0') +
+                            String(now.getSeconds()).padStart(2, '0');
+
+            return short + '-' + timestamp;
+        }
+
+    </script>
+
     @stack('scripts')
     
 </body>

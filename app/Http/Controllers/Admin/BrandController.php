@@ -99,7 +99,7 @@ class BrandController extends Controller
 
 		$rules = [
             'name' => 'required|string|max:255',
-            'slug' => 'required|string|unique:brands,slug|max:255',
+           // 'slug' => 'required|string|unique:brands,slug|max:255',
             'description' => 'nullable|string',
             'image_url' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',  // Logo should be an image file
             'category_id' => 'required|exists:categories,id', // Ensure category exists in the categories 

@@ -66,7 +66,7 @@
 
                             <div class="form-group">
                                 <label for="slug" class="required">{{ __('Slug') }}:</label>
-                                <input type="text" name="slug" id="slug" class="form-control @error('slug') form-control-error @enderror"  required="required" value="{{ old('slug') }}">
+                                <input readonly type="text" name="slug" id="slug" class="form-control @error('slug') form-control-error @enderror"  required="required" value="{{ old('slug') }}">
 
                                 @error('slug')
                                     <span class="text-danger">{{ $message }}</span>
@@ -82,9 +82,9 @@
                             </div>
 
                             {{-- Cloaking URL Domain --}}
-                            <div class="form-group">
+                            <div class="form-group d-none">
                             <label for="clocking_url" class="required">{{ __('Clocking URL') }}:</label>
-                                    <input type="text" name="clocking_url" id="clocking_url" class="form-control @error('clocking_url') form-control-error @enderror"  required="required" value="{{ old('clocking_url') }}">
+                                    <input  disabled  type="text" name="clocking_url" id="clocking_url" class="form-control @error('clocking_url') form-control-error @enderror"  required="required" value="{{ old('clocking_url') }}">
                                     @error('clocking_url')
                                         <span class="text-danger">{{ $message }}</span>
                                     @enderror
@@ -246,6 +246,12 @@
 $(document).on('click', '.remove-cashback-rate', function () {
     $(this).closest('.cashback-rate-row').remove();
 });
+
+
+$('#name').keyup(function(){
+       let slug = genrateSlug($(this).val());
+       $('#slug').val(slug);
+    });
 </script>
 
 @endpush

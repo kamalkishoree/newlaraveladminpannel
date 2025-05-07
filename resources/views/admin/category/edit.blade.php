@@ -70,7 +70,7 @@
 
                             <div class="form-group">
                                 <label for="slug" class="required">{{ __('Slug') }}:</label>
-                                <input type="text" name="slug" id="slug" class="form-control @error('slug') form-control-error @enderror"  required="required" value="{{ $category->name  }}">
+                                <input readonly type="text" name="slug" id="slug" class="form-control @error('slug') form-control-error @enderror"  required="required" value="{{ $category->slug  }}">
 
                                 @error('slug')
                                     <span class="text-danger">{{ $message }}</span>
@@ -112,6 +112,17 @@
                         <div class="custom-control custom-switch">
                             <input type="checkbox" name="is_top" id="is_top" data-id="{{$category->id}}" class="update_category custom-control-input" {{ $category->is_top ? 'checked' : '' }}>
                             <label class="custom-control-label" for="is_top">
+                            </label>
+                        </div>
+                    </div>
+
+
+                    <!-- Toggle for 'top_home' -->
+                    <div class="form-group">
+                        <label for="top_home">{{ __('Top Home Category') }}:</label>
+                        <div class="custom-control custom-switch">
+                            <input type="checkbox" name="top_home" id="top_home" data-id="{{$category->id}}" class="update_category custom-control-input" {{ $category->top_home ? 'checked' : '' }}>
+                            <label class="custom-control-label" for="top_home">
                             </label>
                         </div>
                     </div>
@@ -171,6 +182,16 @@ $(document).ready(function() {
 
         });
 
+        $('#top_home').change(function() {
+            id = $(this).attr('data-id');
+            var top_home = $(this).prop('checked')  ? 1 : 0;
+            console.log("Is Top Home: " + top_home);
+            field = $(this).attr('name');
+            value = top_home;
+            changeCategoryDetails(id,field,value)
+
+        });
+
  });
        
 
@@ -200,6 +221,12 @@ $(document).ready(function() {
                 }
             });
         }
+         
+
+   $('#name').keyup(function(){
+       let slug = genrateSlug($(this).val());
+       $('#slug').val(slug);
+    });
 
 
 </script>

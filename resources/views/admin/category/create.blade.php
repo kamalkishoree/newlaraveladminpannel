@@ -66,7 +66,7 @@
 
                             <div class="form-group">
                                 <label for="slug" class="required">{{ __('Slug') }}:</label>
-                                <input type="text" name="slug" id="slug" class="form-control @error('slug') form-control-error @enderror"  required="required" value="{{ old('slug') }}">
+                                <input readonly  type="text" name="slug" id="slug" class="form-control @error('slug')  form-control-error @enderror"  required="required"  value="{{ old('slug') }}">
 
                                 @error('slug')
                                     <span class="text-danger">{{ $message }}</span>
@@ -119,5 +119,15 @@
 	// 	document.getElementById(inputId).value = $url;
 	// 	document.getElementById(output).src = $url;
 	// }
+
+
+    $('#name').keyup(function(){
+       let slug = genrateSlug($(this).val());
+       $('#slug').val(slug);
+    });
+
+
+
+
 </script>
 @endpush
