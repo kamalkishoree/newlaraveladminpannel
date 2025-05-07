@@ -106,7 +106,7 @@
 
                 <!-- API Inigration -->
 
-                <li class="submenu">
+                {{--<li class="submenu">
                     <a class="" href="javascript:void(0)" aria-expanded="false">
                         <i data-feather="users"></i>
                         <span class="hide-menu">{{__('Affiliate Integration')}} </span>
@@ -120,7 +120,7 @@
                             </a>
                         </li>
                     </ul> 
-                </li>
+                </li>--}}
                 
                 <!---->
 
@@ -250,42 +250,42 @@
                 <!-- end -->
 
                 <!-- add static new Campaigns -->
-                <li class="submenu">
-                    <a class="" href="javascript:void(0)" aria-expanded="false">
-                    <i class="fa-regular fa-credit-card"></i>
-                        <span class="hide-menu">Campaigns Reports </span>
-                        <span class="menu-arrow"></span>
-                    </a>
+               {{-- <li class="submenu">
+                        <a class="" href="javascript:void(0)" aria-expanded="false">
+                        <i class="fa-regular fa-credit-card"></i>
+                            <span class="hide-menu">Campaigns Reports </span>
+                            <span class="menu-arrow"></span>
+                        </a>
 
-                    <ul style="display: none;">
-                        <li>
-                            <a href="{{ route('affiliate.index') }}" title="{{__('sidebar.user')}}" class="sidebar-link {{ (request()->is('admin/affiliate*')) ? 'active' : '' }}">
-                                <span class="hide-menu">Cashback</span>
-                            </a>
-                        </li>
-                        <li>
-                            <a href="{{ route('affiliate.index') }}" title="{{__('sidebar.user')}}" class="sidebar-link {{ (request()->is('admin/affiliate*')) ? 'active' : '' }}">
-                                <span class="hide-menu">Coupons</span>
-                            </a>
-                        </li>
-                        <li>
-                            <a href="{{ route('affiliate.index') }}" title="{{__('sidebar.user')}}" class="sidebar-link {{ (request()->is('admin/affiliate*')) ? 'active' : '' }}">
-                                <span class="hide-menu">Deals</span>
-                            </a>
-                        </li>
-                        <li>
-                            <a href="{{ route('affiliate.index') }}" title="{{__('sidebar.user')}}" class="sidebar-link {{ (request()->is('admin/affiliate*')) ? 'active' : '' }}">
-                                <span class="hide-menu">Financial</span>
-                            </a>
-                        </li>
-                    </ul> 
-                </li>
-
+                        <ul style="display: none;">
+                            <li>
+                                <a href="{{ route('affiliate.index') }}" title="{{__('sidebar.user')}}" class="sidebar-link {{ (request()->is('admin/affiliate*')) ? 'active' : '' }}">
+                                    <span class="hide-menu">Cashback</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="{{ route('affiliate.index') }}" title="{{__('sidebar.user')}}" class="sidebar-link {{ (request()->is('admin/affiliate*')) ? 'active' : '' }}">
+                                    <span class="hide-menu">Coupons</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="{{ route('affiliate.index') }}" title="{{__('sidebar.user')}}" class="sidebar-link {{ (request()->is('admin/affiliate*')) ? 'active' : '' }}">
+                                    <span class="hide-menu">Deals</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="{{ route('affiliate.index') }}" title="{{__('sidebar.user')}}" class="sidebar-link {{ (request()->is('admin/affiliate*')) ? 'active' : '' }}">
+                                    <span class="hide-menu">Financial</span>
+                                </a>
+                            </li>
+                        </ul> 
+                    </li>
+                --}}
                 <!-- end -->
 
 
                     <!-- add static new Financial offers -->
-                    <li class="submenu">
+                 {{--   <li class="submenu">
                     <a class="" href="javascript:void(0)" aria-expanded="false">
                     <i class="fa-regular fa-credit-card"></i>
                         <span class="hide-menu">Financial Offers </span>
@@ -311,7 +311,7 @@
                        
                     </ul> 
                 </li>
-
+                --}}
                 <!-- end -->
 
 
@@ -326,11 +326,12 @@
 
                     <ul style="display: none;">
                         @can('cmscategory-list')
-                        <li>
+                      {{--  <li>
                             <a href="{{ route('cmscategories.index') }}" title="{{__('sidebar.category')}}" class="sidebar-link {{ (request()->is('admin/cmscategories*')) ? 'active' : '' }}">
                                 <span class="hide-menu">{{__('Withdrawal Type Mgmt')}}</span>
                             </a>
                         </li>
+                        --}}
                         @endcan
 
                         @can('cmspage-list')
@@ -341,16 +342,16 @@
                         </li>
                         @endcan
                         @can('cmspage-list')
-                        <li>
+                        {{-- <li>
                             <a href="{{ route('cmspages.index') }}" title="{{__('sidebar.cms-pages')}}" class="sidebar-link {{ (request()->is('admin/cmspage*')) ? 'active' : '' }}">
                                 <span class="hide-menu">{{__('Offer Mgmt')}}</span>
                             </a>
-                        </li>
+                        </li>--}}
                         @endcan
 
                         <!-- new added -->
                         @can('cmspage-list')
-                        <li>
+                      <li>
                             <a href="{{ route('withdrawal.index',['status' => 'pending']) }}" title="{{__('withdrawal Request')}}" class="sidebar-link {{ (request()->is('admin/withdrawal*')) ? 'active' : '' }}">
                                 <span class="hide-menu">{{__('Pending Withdrawals')}}</span>
                             </a>
@@ -358,26 +359,26 @@
                         @endcan
 
                         @can('cmspage-list')
-                        <li>
+                        {{--  <li>
                             <a href="{{ route('cmspages.index') }}" title="{{__('sidebar.cms-pages')}}" class="sidebar-link {{ (request()->is('admin/cmspage*')) ? 'active' : '' }}">
                                 <span class="hide-menu">Terms</span>
                             </a>
-                        </li>
+                        </li>--}}
                         @endcan
 
                         @can('cmspage-list')
-                        <li>
+                        {{--  <li>
                             <a href="{{ route('cmspages.index') }}" title="{{__('sidebar.cms-pages')}}" class="sidebar-link {{ (request()->is('admin/cmspage*')) ? 'active' : '' }}">
                                 <span class="hide-menu">Auto Withdrawals</span>
                             </a>
-                        </li>
+                        </li>--}}
                         @endcan
                         @can('cmspage-list')
-                        <li>
+                        {{-- <li>
                             <a href="{{ route('cmspages.index') }}" title="{{__('sidebar.cms-pages')}}" class="sidebar-link {{ (request()->is('admin/cmspage*')) ? 'active' : '' }}">
                                 <span class="hide-menu">Withdrawal permission</span>
                             </a>
-                        </li>
+                        </li>--}}
                         @endcan
                     </ul>
                 </li>
@@ -414,31 +415,30 @@
                 </li>
 
                 <!-- Financial Redirection Management   -->
-                <li class="{{ (request()->is('admin/dashboard*')) ? '' : '' }}">
+               {{-- <li class="{{ (request()->is('admin/dashboard*')) ? '' : '' }}">
                                 <a class="sidebar-link" href="{{ route('dashboard') }}" aria-expanded="false">
                                 <i class="fa-solid fa-indian-rupee-sign"></i>
                     <span>
                         {{__('Financial Redirection Mgmt   ')}}
                     </span>
                 </a>
-                </li>
+                </li> --}}
                 <!-- /Financial Redirection Management   -->
 
                  <!--Reports   -->
-                {{-- <li class="{{ (request()->is('admin/report*')) ? '' : '' }}">
+                 <li class="{{ (request()->is('admin/report*')) ? '' : '' }}">
                                 <a class="sidebar-link" href="{{ route('report.index') }}" aria-expanded="false">
                                 <i data-feather="file-text"></i>
                                 <!-- <i class="fa-regular fa-file-lines"></i> -->
                     <span>
                         {{__('Reports ')}}
                     </span>
-                --}}
-                </a>
+                    </a>
                 </li>
                 <!-- /Reports    -->
                  
                 <!-- add static new Reports -->
-                <li class="submenu">
+             {{--   <li class="submenu">
                     <a class="" href="javascript:void(0)" aria-expanded="false">
                     <i data-feather="file-text"></i>
                         <span class="hide-menu">Reports </span>
@@ -463,7 +463,7 @@
                         </li>
                     </ul> 
                 </li>
-
+                --}}
                 <!-- end -->
 
 
