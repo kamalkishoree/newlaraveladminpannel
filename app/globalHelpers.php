@@ -1,5 +1,7 @@
 <?php
 use Nwidart\Modules\Facades\Module;
+use Illuminate\Support\Str;
+
 if (!function_exists('isModuleEnabled')) {
     /**
      * Checks if given module is enabled
@@ -37,4 +39,14 @@ if (!function_exists('isModuleEnabled')) {
         parse_str($query, $params);
         return $params;
     }
+
+
+    function generateQuickId(): string
+    {
+        $letters1 = Str::upper(Str::random(3));   // 3 random letters
+        $numbers  = mt_rand(1000, 9999);           // 4 random digits
+        $letters2 = Str::upper(Str::random(3));   // 3 more random letters
+        return $letters1 . $numbers . $letters2;
+    }
+
 }

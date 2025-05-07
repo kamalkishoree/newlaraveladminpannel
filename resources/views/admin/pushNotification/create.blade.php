@@ -151,6 +151,19 @@
                                 <div class="input-group mb-5">
                                     <input type="file" id="image1" class="form-control" name="image_url">
                                 </div>
+                        
+
+                            <div class="form-group">
+                                <label for="title" class="required">{{ __('Redirect URL') }}:</label>
+                                <div class="input-group mb-5">
+                                    <input type="text" name="push_url_option_value" id="push_url_option_value" class="form-control @error('push_url_option_value') form-control-error @enderror" required="required" value="{{ old('push_url_option_value') }}">
+                                </div>
+                                @error('push_url_option_value')
+                                    <span class="text-danger">{{ $message }}</span>
+                                @enderror
+                            </div>
+
+                                
 
                                 <div class="form-group">
                                     <label for="description" class="required">{{ __('Description') }}:</label>

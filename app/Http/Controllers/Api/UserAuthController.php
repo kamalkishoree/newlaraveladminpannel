@@ -40,6 +40,8 @@ class UserAuthController extends Controller
             $user->mobile = $request->phone_number;
             $user->password = Hash::make($request->password??($request->first_name.$request->phone_number));
             $user->joining_referal = $request->joining_referal;
+            $user->quick_id  = generateQuickId();
+            
             if($user->save())
             {
                 $sendotp = $this->sendOtp($user);

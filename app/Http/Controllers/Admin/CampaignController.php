@@ -41,6 +41,9 @@ class CampaignController extends Controller
                 ->addColumn('user', function($row){
                     return $row->user->name;
                 })
+                ->addColumn('quick_id', function($row) {
+                    return $row->user ? "<span style='color:#f4aa00'>".$row->user->quick_id."</span>" : 'N/A';
+                })
                 ->addColumn('unique_p1_id', function($row){
                     return $row->unique_p1_id;
                 })

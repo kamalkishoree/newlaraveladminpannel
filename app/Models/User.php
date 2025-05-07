@@ -34,7 +34,8 @@ class User extends Authenticatable
         'image',
         'otp_request_id',
         'referral_code',
-        'referral_balance'
+        'referral_balance',
+        'quick_id'
     ];
 
     /**

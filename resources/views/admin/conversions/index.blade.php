@@ -37,6 +37,7 @@
                             <thead>
                                 <tr>
                                     <th>{{ __('ID') }}</th>
+                                    <th>{{ __('Quick ID') }}</th>
                                     <th>{{ __('Campaign') }}</th>
                                     <th>{{ __('User') }}</th>
                                     <th>{{ __('Status') }}</th>
@@ -86,6 +87,7 @@ $(document).ready(function() {
         },
         columns: [
             {data: 'DT_RowIndex', name: 'DT_RowIndex', orderable: false, searchable: false},
+            {data: 'quick_id', name: 'quick_id'},
             {data: 'campaign', name: 'campaign'},
             {data: 'user', name: 'user'},
             {data: 'status', name: 'status'},

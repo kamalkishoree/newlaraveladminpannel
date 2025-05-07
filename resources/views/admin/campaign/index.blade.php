@@ -73,6 +73,7 @@
                         <thead>
                             <tr>
                                 <th class="">{{ __('default.table.sl') }}</th>
+                                <th class="">{{ __('Quick ID') }}</th>
                                 <th class="">{{ __('User Name') }}</th>
                                 <th class="">{{ __('P1 ID') }}</th>
                                 <th class="">{{ __('Campaign ID') }}</th>
@@ -149,6 +150,7 @@
 
                 columns: [
 					{  data: 'DT_RowIndex', name: 'DT_RowIndex' },
+                    {  data: 'quick_id', name: 'quick_id' },
                     {  data: 'user', name: 'user' },
                     {  data: 'unique_p1_id', name: 'unique_p1_id' },
                     {  data: 'campaign_id', name: 'campaign_id' },

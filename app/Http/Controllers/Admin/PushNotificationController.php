@@ -103,7 +103,7 @@ class PushNotificationController extends Controller
             if($request->type == "push")
             {
 
-                die('sss');
+         
                 $rules = [
                     'title'=>'required',
                     //'image_url' => 'image|mimes:jpeg,png,jpg,gif,webp',
@@ -157,7 +157,6 @@ class PushNotificationController extends Controller
                 'image_url.image' => 'The uploaded file must be an image.',
                 'image_url.mimes' => 'The image must be a file of type: jpeg, png, jpg, gif.',
                 'description' =>  'Decription is a required Field',
-
             ];
         }
          $this->validate($request, $rules, $messages);
@@ -287,7 +286,7 @@ class PushNotificationController extends Controller
            $input['image_url'] = !empty($url)?$url:$pushNotification->image_url;
 
         try {
-			$pushNotification = PushNotification::create($input);
+			$pushNotification = $pushNotification->update($input);
 			Toastr::success(__('Push Notification Updated Successfully'));
 		    return redirect()->route('pushNotification.index');
 
