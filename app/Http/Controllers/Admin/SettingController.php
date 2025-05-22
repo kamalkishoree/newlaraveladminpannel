@@ -62,6 +62,8 @@ class SettingController extends Controller
         $this->validate($request, $rules, $messages);
 		$input = $request->all();
 
+
+    
 		$setting = Setting::find($id);
         if (empty($input['website_logo'])) {
             $input['website_logo'] = $setting->website_logo;

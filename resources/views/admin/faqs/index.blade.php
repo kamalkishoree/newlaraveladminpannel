@@ -147,6 +147,52 @@ $(document).ready(function() {
             {data: 'status', name: 'status'},
             {data: 'created_at', name: 'created_at'},
             {data: 'action', name: 'action', orderable: false, searchable: false}
+        ],
+        dom: '<"top"Bfr>t<"bottom"lp>',
+        buttons: [
+            {
+                extend: 'copy',
+                text: 'Copy',
+                className: 'btn btn-secondary',
+                exportOptions: {
+                    columns: [0, 1, 2, 3, 4]
+                }
+            },
+            {
+                extend: 'csv',
+                text: 'CSV',
+                className: 'btn btn-primary',
+                exportOptions: {
+                    columns: [0, 1, 2, 3, 4]
+                },
+                filename: 'FAQs_List_' + moment().format('YYYY-MM-DD')
+            },
+            {
+                extend: 'excel',
+                text: 'Excel',
+                className: 'btn btn-success',
+                exportOptions: {
+                    columns: [0, 1, 2, 3, 4]
+                },
+                filename: 'FAQs_List_' + moment().format('YYYY-MM-DD')
+            },
+            {
+                extend: 'pdf',
+                text: 'PDF',
+                className: 'btn btn-danger',
+                exportOptions: {
+                    columns: [0, 1, 2, 3, 4]
+                },
+                filename: 'FAQs_List_' + moment().format('YYYY-MM-DD')
+            },
+            {
+                extend: 'print',
+                text: 'Print',
+                className: 'btn btn-info',
+                exportOptions: {
+                    columns: [0, 1, 2, 3, 4]
+                }
+            }
         ]
     });
 

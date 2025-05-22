@@ -34,7 +34,9 @@ class ConversionController extends Controller
                 })
                 ->addColumn('quick_id', function($row) {
                   return $row->user ? "<span style='color:#f4aa00'>".$row->user->quick_id."</span>" : 'N/A';
-              })
+                })->addColumn('order_id', function($row) {
+                    return $row->user ? "<b><span style='color:#fffff'>".$row->order_id."</span></b>" : 'N/A';
+                })
                 ->addColumn('status', function($row) {
                     $statusClass = [
                         'pending' => 'badge-warning',
@@ -62,7 +64,7 @@ class ConversionController extends Controller
                 })
                 ->editColumn('created_at', '{{date("jS M Y", strtotime($created_at))}}')
                 ->editColumn('updated_at', '{{date("jS M Y", strtotime($updated_at))}}')
-                ->rawColumns(['status', 'action','quick_id'])
+                ->rawColumns(['status', 'action','quick_id','order_id'])
                 ->make(true);
         }
         

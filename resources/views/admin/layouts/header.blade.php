@@ -1,6 +1,5 @@
 <!-- Header -->
 <div class="header">
-
     <!-- Logo -->
     <div class="header-left">
         @if($setting->website_logo_dark != null || !empty($setting->website_logo_dark))
@@ -19,7 +18,7 @@
             </a>
         @else
             <a href="{{ route('dashboard') }}" class="logo logo-small">
-                <img src="/assets/admin/img/fev_def.svg" alt="Logo" width="30" height="30">
+                <img src="{{$setting->website_favicon}}" alt="Logo" width="30" height="30">
             </a>
         @endif
     </div>

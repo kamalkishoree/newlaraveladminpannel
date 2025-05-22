@@ -38,6 +38,7 @@
                                 <tr>
                                     <th>{{ __('ID') }}</th>
                                     <th>{{ __('Quick ID') }}</th>
+                                    <th>{{ __('Order ID') }}</th>
                                     <th>{{ __('Campaign') }}</th>
                                     <th>{{ __('User') }}</th>
                                     <th>{{ __('Status') }}</th>
@@ -88,6 +89,7 @@ $(document).ready(function() {
         columns: [
             {data: 'DT_RowIndex', name: 'DT_RowIndex', orderable: false, searchable: false},
             {data: 'quick_id', name: 'quick_id'},
+            {data: 'order_id', name: 'order_id'},
             {data: 'campaign', name: 'campaign'},
             {data: 'user', name: 'user'},
             {data: 'status', name: 'status'},
@@ -95,6 +97,38 @@ $(document).ready(function() {
             {data: 'created_at', name: 'created_at'},
             {data: 'action', name: 'action', orderable: false, searchable: false}
         ]
+        ,dom: '<"top"Bfr>t<"bottom"lp>', 
+            buttons: [
+                {
+                    extend: 'copy',
+                    text: 'Copy',
+                    className: 'btn btn-secondary'
+                },
+                {
+                    extend: 'csv',
+                    text: 'CSV',
+                    className: 'btn btn-primary',
+                    filename: 'conversions_data'
+                },
+                {
+                    extend: 'excel',
+                    text: 'Excel',
+                    className: 'btn btn-success',
+                    filename: 'conversions_data'
+                },
+                {
+                    extend: 'pdf',
+                    text: 'PDF',
+                    className: 'btn btn-danger',
+                    filename: 'conversions_data'
+                },
+                {
+                    extend: 'print',
+                    text: 'Print',
+                    className: 'btn btn-info',
+                    filename: 'conversions_data'
+                }
+            ],
     });
 
     $('#filter-btn').click(function() {
@@ -121,6 +155,10 @@ $(document).ready(function() {
                             <tr>
                                 <th>{{ __('Status') }}</th>
                                 <td>${data.status}</td>
+                            </tr>
+                             <tr>
+                                <th>{{ __('Order ID') }}</th>
+                                <td>${data.order_id}</td>
                             </tr>
                             <tr>
                                 <th>{{ __('Payout') }}</th>
