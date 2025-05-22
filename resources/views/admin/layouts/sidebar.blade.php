@@ -403,6 +403,14 @@
                     </span>
                    </a>
                 </li>
+                <li class="{{ (request()->is('admin/faq*')) ? 'active' : '' }}">
+                    <a class="sidebar-link" href="{{ route('faq.index') }}" aria-expanded="false">
+                        <i class="fa fa-question-circle" aria-hidden="true"></i>
+                        <span>
+                            {{__('FAQs')}}
+                        </span>
+                    </a>
+                </li>
 
                 <!-- Tutorial management -->
                 <li class="{{ (request()->is('admin/tutorial*')) ? '' : '' }}">

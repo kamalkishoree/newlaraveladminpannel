@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
-use App\Models\{Category,Brand,Banner,Tutorial};
+use App\Models\{Category,Brand,Banner, CmsPage, Faq, Tutorial};
 use Illuminate\Http\Request;
 
 class UserHomeController extends Controller
@@ -70,7 +70,10 @@ class UserHomeController extends Controller
             $c->setRelation('brands', $brands->get($c->id));
             return $c;
         });
-         
+
+        $faqs = Faq::where('status',1)->get();
+        $cms = CmsPage::where('status',1)->get();
+
         $data = [
             'banner' =>  Banner::whereNotNull('id')->get(),
             'brand' => Brand::whereNotNull('id')->paginate(15),
@@ -87,7 +90,9 @@ class UserHomeController extends Controller
                 return $item->is_feature;
             })->values(),
 
-            'tutorials' => Tutorial::where('is_active',1)->get()
+            'tutorials' => Tutorial::where('is_active',1)->get(),
+            'faqs' => $faqs,
+            'cms' => $cms
         ];
         return response()->json([
             'status' => 200,

@@ -94,9 +94,7 @@
 									</div>
 
 									<div class="form-group">
-										<label for="description" class="required">{{__("default.form.description")}}:</label>
-										<textarea name="description" id="description" rows="20" class="form-control @error('description') form-control-error @enderror"></textarea>
-
+										<x-ckeditor name="description" id="description" label='{{__("default.form.description")}} :'  />
 										@error('description')
 											<span class="text-danger">{{ $message }}</span>
 										@enderror					
@@ -173,7 +171,7 @@
 
 
 @push('scripts')
-<script> 
+<!-- <script> 
 	tinymce.init({
 		selector: '#description',
 		browser_spellcheck : true,
@@ -206,7 +204,7 @@
 		})
 		}
 	});
-</script>
+</script> -->
 
 <script type="text/javascript">
 	$("#title").keyup(function(){

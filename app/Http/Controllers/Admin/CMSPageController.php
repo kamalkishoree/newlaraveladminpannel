@@ -117,6 +117,7 @@ class CMSPageController extends Controller
 
 	public function store(Request $request)
 	{
+
         $rules = [
             'title' 		    => 'required|string',
 			'slug' 		        => 'required|string|unique:cms_pages,slug',

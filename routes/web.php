@@ -338,6 +338,15 @@ Route::group(['middleware' => 'language'], function () {
 				Route::get('/show/{tutorial}', [App\Http\Controllers\Admin\TutorialController::class, 'show'])->name('tutorial.show');
 			});
 
+			// FAQ Routes
+			Route::prefix('faq')->group(function () {
+				Route::get('/index', [App\Http\Controllers\Admin\FaqController::class, 'index'])->name('faq.index');
+				Route::post('/store', [App\Http\Controllers\Admin\FaqController::class, 'store'])->name('faq.store');
+				Route::get('/edit/{id}', [App\Http\Controllers\Admin\FaqController::class, 'edit'])->name('faq.edit');
+				Route::post('/update/{id}', [App\Http\Controllers\Admin\FaqController::class, 'update'])->name('faq.update');
+			    Route::delete('/destroy/{id}', [App\Http\Controllers\Admin\FaqController::class, 'destroy'])->name('faq.destroy');
+				Route::post('/status_update', [App\Http\Controllers\Admin\FaqController::class, 'statusUpdate'])->name('faq.status.update');
+			});
 
 		});
 	});
