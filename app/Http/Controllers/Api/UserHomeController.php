@@ -62,6 +62,7 @@ class UserHomeController extends Controller
 
     public function Homepage(Request $request)
     {
+        
        $categories = Category::get();
         $brands = Brand::hydrate(\DB::select(\DB::raw("select * from(select *, (row_number() over (partition by brands.category_id)) as row_ident from `brands`) as internal HAVING row_ident <= 5;")))
             ->groupBy('category_id');

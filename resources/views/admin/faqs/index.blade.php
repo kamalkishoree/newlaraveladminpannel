@@ -189,9 +189,7 @@ $(document).ready(function() {
                 extend: 'print',
                 text: 'Print',
                 className: 'btn btn-info',
-                exportOptions: {
-                    columns: [0, 1, 2, 3, 4]
-                }
+             
             }
         ]
     });

@@ -142,9 +142,18 @@ class UserAuthController extends Controller
         {
             if($request->has('phone_number') && $request->has('dial_code') )
             {
-               $user = User::where('mobile',$request->phone_number)->where('dial_code',$request->dial_code)->first();
+               $user = User::where('mobile',$request->phone_number)->where('dial_code',$request->dial_code)->withTrashed()->first();
+              
                if($user)
                {
+
+                if($user->deleted_at)
+                {
+                    return response()->json([
+                        'error' => 'Your account is deleted. Please contact support.',
+                        'is_new' => false,
+                    ], 403);
+                }
                  $sendOtp = $this->sendOtp($user);
 
                  return response()->json([
@@ -188,6 +197,11 @@ class UserAuthController extends Controller
 
         //auth()->logout();
         $request->user()->token()->revoke(); //pasport
+        $userDevice = UserDevice::where('device_token', $request->device_token)->first();
+        if($userDevice)
+        {
+            $userDevice->delete();
+        }
         return response()->json(['message' => 'Successfully logged out']);
     }
   
@@ -316,6 +330,19 @@ class UserAuthController extends Controller
                 return $verify_otp;
             }
 
+            
+        }
+        public function deleteAccount(Request $request)
+        {
+            $user = Auth::user();
+            if($user)   
+            {
+                $user->delete();
+                return response()->json(['message' => 'Account deleted successfully']);
+            }
+            else{
+                return response()->json(['message' => 'Invalid user']);
+            }
         }
  }
 

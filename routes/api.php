@@ -2,7 +2,9 @@
 
 use App\Http\Controllers\Api\BrandController;
 use App\Http\Controllers\Api\CampaignController;
+use App\Http\Controllers\Api\CmsPageController;
 use App\Http\Controllers\Api\ConversionController;
+use App\Http\Controllers\Api\FaqController;
 use App\Http\Controllers\Api\UserAuthController;
 use App\Http\Controllers\Api\UserHomeController;
 use App\Http\Controllers\Api\WalletController;
@@ -49,6 +51,8 @@ Route::group(['prefix' => 'user', 'middleware' => ['auth:api']], function () {
     Route::post('/editProfile', [UserAuthController::class, 'editProfile'])->name('editProfile');
     Route::post('/me', [UserAuthController::class, 'me'])->name('me');
     Route::post('/logout', [UserAuthController::class, 'logout'])->name('logout');
+    Route::delete('/delete-account', [UserAuthController::class, 'deleteAccount'])->name('deleteAccount');
+
     //CampaignController
     Route::post('/create-campaign', [CampaignController::class, 'createUserCampaign'])->name('create.campaign');
     //WalletController
@@ -83,6 +87,9 @@ Route::group(['prefix' => 'campaign', 'middleware' => ['auth:api']], function ()
 Route::get('/homepage', [UserHomeController::class, 'homepage'])->name('homepage');
 Route::get('/homepage3', [UserHomeController::class, 'homepage3'])->name('homepage3');
 
+
+Route::get('/cms-page', [CmsPageController::class, 'getCmsPage'])->name('cmsPage');
+Route::get('/faq', [FaqController::class, 'getFaq'])->name('faq');
 //BrandController
 Route::get('/brand-list/{category?}', [BrandController::class, 'brandList'])->name('brandList');
 Route::get('/brand-details/{id}', [BrandController::class, 'brandDetails'])->name('brand-details');
