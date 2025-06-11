@@ -44,10 +44,26 @@ class UserAuthController extends Controller
             
             if($user->save())
             {
-                $sendotp = $this->sendOtp($user);
+               
+               $Setting = Setting::where('id','!=',NULL)->first();
+               $static_otp = $Setting->static_otp ? $Setting->static_otp:0;
+               if($static_otp != 1)
+               {
+                  $sendotp = $this->sendOtp($user);
+                  if($sendotp->getStatusCode() == 401)
+                  {
+                    $sendotp = NULL;
+                  }
+                  else{
+                    $sendotp = 1;
+                  }
+               }
+                else{
+                    $sendotp = 1;
+                }
                 if(!$sendotp)
                 {
-                    return response()->json(['error'=>'unabe to send otp', 401]);
+                    return response()->json(['error'=>'unable to send otp', 401]);
 
                 }
                 return response()->json($user, 201);
@@ -154,7 +170,20 @@ class UserAuthController extends Controller
                         'is_new' => false,
                     ], 403);
                 }
-                 $sendOtp = $this->sendOtp($user);
+                $Setting = Setting::where('id','!=',NULL)->first();
+                $static_otp = $Setting->static_otp ? $Setting->static_otp:0;
+                if($static_otp != 1)
+                {
+                  $sendOtp = $this->sendOtp($user);
+                }
+                else{
+                    $sendOtp = 1;
+                }
+                 if($sendOtp != 0 && $sendOtp != 1){
+                    return response()->json([
+                        'error' => 'Invalid response from OTP service contact support'],
+                        403);
+                 }
 
                  return response()->json([
                     'success' => 'OTP sent on registered mobile number',

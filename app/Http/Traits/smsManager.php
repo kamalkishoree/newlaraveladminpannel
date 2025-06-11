@@ -31,7 +31,7 @@ trait smsManager{
             ],
         ]);
         if ($response->failed()) {
-            echo "Error: " . $response->body();
+            return $response;
         } else {
             return $response;
             $data = $response->body();
